@@ -1,7 +1,14 @@
 @charset "UTF-8";
+*{
+	margin: 0 auto;
+}
 #m_principal{
 	width: 800px;
 }
 h1 {
 	font-size: 200px;
+}
+.infos{
+	color: green;
+	font-size: 30px;
 }

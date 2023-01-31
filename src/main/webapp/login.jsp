@@ -1,12 +1,46 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Login</title>
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
+	<header id="h_principal">
+		<div id="entete">
+			<p id="nom_site">TROCENCHERE</p>
+		</div>
+		<div id="titre_page">
+			<h1>Espace de connexion</h1>
+		</div>
+	</header>
+	<main id="m_principal">
+		<div id="conteneur_connexion_form">
+			<form action="#" method="post">
+				<div id="h_form">
+					<label id="id">Identifiant: </label><input id="id"
+						name="identifiant" type="text" maxlength="30"><label
+						id="mdp">Mot de Passe: </label><input id="mdp" name="mot_de_passe"
+						type="password" min="8">
+				</div>
+				<div id="connexion_form">
+					<div class="connexion_form_left">
+						<input type="submit" name="connexion" value="Connexion">
+					</div>
+					<div class="connexion_form_right">
+						<input type="checkbox" id="souvenir" name="souvenir"><label
+							id="souvenir">Se souvenir de moi</label><a href="#">Mot de
+							passe oublié</a>
+					</div>
+				</div>
+			</form>
+			<form action="#" method="get">
+				<input type="submit" name="creer_compte" value="Créer un compte">
+			</form>
+		</div>
+	</main>
+	<footer id="f_principal"></footer>
 </body>
 </html>
