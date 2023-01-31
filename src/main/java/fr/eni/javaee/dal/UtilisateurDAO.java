@@ -18,5 +18,7 @@ public interface UtilisateurDAO {
 	public List<Utilisateur> selectAll();
 
 	Utilisateur selectByPseudo(String pseudo) throws BusinessException;
+	 
+	
 
 }

@@ -13,15 +13,18 @@
 		<p id="nom_site">TROCENCHERE</p>
 		<nav id="menu_nav_utilisateur">
 			<ul>
+				<li><a href="ServletConnecter">S'inscrire - Se connecter</a></li>
+			</ul>
+<!-- 			<ul>
 				<li><a href="#">Enchères</a></li>
 				<li><a href="#">Vendre un article</a></li>
 				<li><a href="#">Mon profil</a></li>
-				<li><a href="#">Deconexion</a></li>
-			</ul>
+				<li><a href="#">Déconnexion</a></li>
+			</ul> -->
 		</nav>
 		</div>
 		<div id="titre_page">
-		<h1>Espace de connexion</h1>
+		<h1>Liste des enchères</h1>
 		</div>
 		<div id="filtres">
 			<form action="#" method="get" id="form_rechercher_filtres">
@@ -34,7 +37,7 @@
 				</div>
 				<div class="main_filtres">
 					<h3>Catégorie:</h3>
-					<select><option>Par défault pour l'instant</option></select>
+					<select><option>Toutes</option><option class="infos">LISTE DES CATEGORIES EN BASE DE DONNEES</option></select>
 				</div>
 				<div class="footer_filtres">
 					<div class="liste_options"><p class="infos">LISTE A METTRE !!!</p> </div>

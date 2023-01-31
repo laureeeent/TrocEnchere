@@ -1,8 +1,13 @@
 package fr.eni.javaee.servlets;
 
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.List;
+
+
+
+import javax.servlet.RequestDispatcher;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,7 +28,8 @@ public class AjoutCompte extends HttpServlet {
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
+		RequestDispatcher rs = request.getRequestDispatcher("/creationCompte.jsp");
+		rs.forward(request, response);
 	}
 
 	
