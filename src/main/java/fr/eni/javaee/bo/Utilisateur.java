@@ -16,6 +16,8 @@ public class Utilisateur {
 	private String motDePasse;
 	private int credit;
 	private boolean administrateur;
+	private ArticleVendu vente;
+	private Enchere enchere;
 
 	// - - - - - - - - - - - - - - - - - - constructeurs - - - - - - - - - - - - - -
 	
@@ -24,7 +26,7 @@ public class Utilisateur {
 	}
 
 	public Utilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
-			String rue, String codePostal, String ville, String motDePasse, int credit, boolean administrateur) {
+			String rue, String codePostal, String ville, String motDePasse, int credit, boolean administrateur,ArticleVendu vente,Enchere enchere) {
 		super();
 		this.noUtilisateur = noUtilisateur;
 		this.pseudo = pseudo;
@@ -41,7 +43,7 @@ public class Utilisateur {
 	}
 
 	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue,
-			String codePostal, String ville, String motDePasse, int credit, boolean administrateur) {
+			String codePostal, String ville, String motDePasse, int credit, boolean administrateur,ArticleVendu vente,Enchere enchere) {
 		super();
 		this.pseudo = pseudo;
 		this.nom = nom;
@@ -153,6 +155,22 @@ public class Utilisateur {
 
 	public void setAdministrateur(boolean administrateur) {
 		this.administrateur = administrateur;
+	}
+
+	public ArticleVendu getVente() {
+		return vente;
+	}
+
+	public void setVente(ArticleVendu vente) {
+		this.vente = vente;
+	}
+
+	public Enchere getEnchere() {
+		return enchere;
+	}
+
+	public void setEnchere(Enchere enchere) {
+		this.enchere = enchere;
 	}
 
 	@Override
