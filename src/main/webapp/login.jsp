@@ -8,6 +8,8 @@
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+	<% String message = (String) request.getAttribute("messageErreur"); %>
+
 	<header id="h_principal">
 		<div id="entete">
 			<p id="nom_site">TROCENCHERE</p>
@@ -21,9 +23,9 @@
 			<form action="ServletConnecter" method="post">
 				<div id="h_form">
 					<label id="id">Identifiant: </label><input id="id"
-						name="identifiant" type="text" maxlength="30"><label
+						name="identifiant" type="text" maxlength="30" required="required"><label
 						id="mdp">Mot de Passe: </label><input id="mdp" name="mot_de_passe"
-						type="password" min="8">
+						type="password" min="8" required="required">
 				</div>
 				<div id="connexion_form">
 					<div class="connexion_form_left">
@@ -34,6 +36,12 @@
 							id="souvenir">Se souvenir de moi</label><a href="#">Mot de
 							passe oublié</a>
 					</div>
+					<% 
+						if (message != null) {
+							%><p style="color: red"><%=message%></p><%
+						}
+							
+					%>
 				</div>
 			</form>
 			<form action="AjoutCompte" method="get">

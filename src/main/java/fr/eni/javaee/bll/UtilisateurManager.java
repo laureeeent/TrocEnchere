@@ -33,7 +33,30 @@ public class UtilisateurManager {
 		return false;
 	}
 
+	public boolean isPseudoInBase(String pseudo) {
+		boolean resultat = false;
+		try {
+			return utilisateurDAO.isPseudoInBase(pseudo);
+		} catch (BusinessException e) {
+			e.printStackTrace();
+		}
+		
+		return resultat;
+	}
+	
+	public boolean isEmailInBase(String email) {
+		boolean resultat = false;
+		try {
+			resultat =  utilisateurDAO.isEmailInBase(email);
+		} catch (BusinessException e) {
+			e.printStackTrace();
+		}
+		
+		return resultat;
+	}
+	
 	public void ajouterUtilisateur(Utilisateur user) {
+		
 		try {
 			utilisateurDAO.insert(user);
 		}
@@ -41,4 +64,6 @@ public class UtilisateurManager {
 			be.printStackTrace();
 		}
 	}
+	
+	
 }

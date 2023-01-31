@@ -18,6 +18,10 @@ public interface UtilisateurDAO {
 	public List<Utilisateur> selectAll();
 
 	Utilisateur selectByPseudo(String pseudo) throws BusinessException;
+	
+	boolean isPseudoInBase(String pseudo) throws BusinessException;
+
+	boolean isEmailInBase(String email) throws BusinessException;
 	 
 	
 
