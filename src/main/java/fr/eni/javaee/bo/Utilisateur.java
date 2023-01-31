@@ -43,6 +43,8 @@ public class Utilisateur {
 		this.motDePasse = motDePasse;
 		this.credit = credit;
 		this.administrateur = administrateur;
+		this.ventes = ventes;
+		this.encheres = encheres;
 	}
 
 	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue,
@@ -60,10 +62,11 @@ public class Utilisateur {
 		this.motDePasse = motDePasse;
 		this.credit = credit;
 		this.administrateur = administrateur;
+		this.ventes = ventes;
+		this.encheres = encheres;
 	}
 
 	// - - - - - - - - - - - - - - - - - - getters & setters - - - - - - - - - - - -
-	// - -
 
 	public int getNoUtilisateur() {
 		return noUtilisateur;
@@ -176,6 +179,8 @@ public class Utilisateur {
 	public void setEncheres(List<Enchere> encheres) {
 		this.encheres = encheres;
 	}
+
+	// - - - - - - - - - - - - - - - - - - toString - - - - - - - - - - - -
 
 	@Override
 	public String toString() {
