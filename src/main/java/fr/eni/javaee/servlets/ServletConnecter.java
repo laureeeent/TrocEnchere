@@ -43,14 +43,17 @@ public class ServletConnecter extends HttpServlet {
 		}
 		
 		else if(utilisateurManager.isPwdCorrect(user, rep_Mdp) ) {
-			rs = request.getRequestDispatcher("./affichageEnchere.jsp");
+			rs = request.getRequestDispatcher("./login.jsp");
 			request.setAttribute("utilisateur", user);
+			request.setAttribute("messageErreur", "Vous êtes connecté");
 		}
 		
 		else {
 			rs = request.getRequestDispatcher("./login.jsp");
 			request.setAttribute("messageErreur", "mot de passe incorrect.");
 		}
+		
+		rs.forward(request, response);
 	}
 
 }

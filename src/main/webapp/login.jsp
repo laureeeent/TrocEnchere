@@ -8,6 +8,8 @@
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+	<% String message = (String) request.getAttribute("messageErreur"); %>
+
 	<header id="h_principal">
 		<div id="entete">
 			<p id="nom_site">TROCENCHERE</p>
@@ -34,6 +36,12 @@
 							id="souvenir">Se souvenir de moi</label><a href="#">Mot de
 							passe oublié</a>
 					</div>
+					<% 
+						if (message != null) {
+							%><p style="color: red"><%=message%></p><%
+						}
+							
+					%>
 				</div>
 			</form>
 			<form action="AjoutCompte" method="get">
