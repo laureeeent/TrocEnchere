@@ -1,4 +1,4 @@
-package fr.eni.tpprisedenotes.exception;
+package fr.eni.javaee.exceptions;
 
 import java.util.ArrayList;
 import java.util.List;

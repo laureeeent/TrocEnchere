@@ -18,8 +18,13 @@ public abstract class CodeResultatDAL {
 	public static final int UPDATE_OBJET_NULL=10002;
 	
 	/**
-	 * Echec général quand tentative de récuperer la note où id <= 0.
+	 * Echec général quand tentative de récuperer l'utilisateur où id <= 0.
 	 */
 	public static final int SELECT_ID_INCORRECT=10003;
+	
+	/**
+	 * Echec général quand tentative de récuperer l'utilisateur où pseudo est nul.
+	 */
+	public static final int SELECT_BY_PSEUDO_INCORRECT=10004;
 
 }
