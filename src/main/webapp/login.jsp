@@ -18,7 +18,7 @@
 	</header>
 	<main id="m_principal">
 		<div id="conteneur_connexion_form">
-			<form action="#" method="post">
+			<form action="ServletConnecter" method="post">
 				<div id="h_form">
 					<label id="id">Identifiant: </label><input id="id"
 						name="identifiant" type="text" maxlength="30"><label
@@ -36,7 +36,7 @@
 					</div>
 				</div>
 			</form>
-			<form action="#" method="get">
+			<form action="AjoutCompte" method="get">
 				<input type="submit" name="creer_compte" value="Créer un compte">
 			</form>
 		</div>
