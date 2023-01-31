@@ -1,5 +1,6 @@
 package fr.eni.javaee.dal;
 
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,7 +17,7 @@ import fr.eni.javaee.exceptions.BusinessException;
 public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 
 	private static final String INSERT = "INSERT INTO UTILISATEURS"
-			+ "(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administateur)"
+			+ "(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur)"
 			+ "VALUES(?,?,?,?,?,?,?,?,?,?,?);";
 	
 	private static final String UPDATE = "UPDATE UTILISATEURS "
@@ -150,7 +151,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			ResultSet rs = pst.executeQuery();
 			if (rs.next()) {
 				boolean admin;
-				if (rs.getInt("administateur") == 1) {
+				if (rs.getInt("administrateur") == 1) {
 					admin = true;
 				}
 				else { admin = false; }
@@ -203,7 +204,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			ResultSet rs = pst.executeQuery();
 			if (rs.next()) {
 				boolean admin;
-				if (rs.getInt("administateur") == 1) {
+				if (rs.getInt("administrateur") == 1) {
 					admin = true;
 				}
 				else { admin = false; }
@@ -322,7 +323,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			
 			while (rs.next()) {
 				boolean admin;
-				if (rs.getInt("administateur") == 1) {
+				if (rs.getInt("administrateur") == 1) {
 					admin = true;
 				}
 				else { admin = false; }
