@@ -20,7 +20,6 @@
 				for(String codeErreur:listeCodesErreur)
 				{
 		%>
-					<p><%=LecteurMessage.getMessageErreur(codeErreur)%></p>
 		<%	
 				}
 			}
