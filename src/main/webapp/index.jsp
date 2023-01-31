@@ -9,6 +9,8 @@
 </head>
 <body>
 	<header id="h_principal">
+	<div id="entete">
+		<p id="nom_site">TROCENCHERE</p>
 		<nav id="menu_nav_utilisateur">
 			<ul>
 				<li><a href="#">Enchères</a></li>
@@ -17,22 +19,34 @@
 				<li><a href="#">Deconexion</a></li>
 			</ul>
 		</nav>
+		</div>
+		<div id="titre_page">
 		<h1>Espace de connexion</h1>
+		</div>
 		<div id="filtres">
-		<form action="#" method="get" id="form_rechercher_filtres">
-			<div class="header_filtres"></div>
-			<div class="main_filtres"></div>
-			<div class="footer_filtres">
-				
-					<div class="liste_options"></div>
-				</form>
+			<form action="#" method="get" id="form_rechercher_filtres">
+			<div id="filtres_left">
+				<div class="header_filtres">
+					<h2>Filtres:</h2>
+					<div class="rechercher">
+						<input type="text" placeholder="Le nom de l'article contient">
+					</div>
+				</div>
+				<div class="main_filtres">
+					<h3>Catégorie:</h3>
+					<select><option>Par défault pour l'instant</option></select>
+				</div>
+				<div class="footer_filtres">
+					<div class="liste_options"><p class="infos">LISTE A METTRE !!!</p> </div>
+				</div>
 			</div>
-
+			<div id="filtres_right">
+				<div id="btn_valide_filtres">
+					<input type="submit" name="rechercher" value="Rechercher">
+				</div>
+			</div>
+			</form>
 		</div>
-		<div id="btn_valide_filtres">
-			<input type="submit" name="rechercher" value="Rechercher">
-		</div>
-		
 	</header>
 	<main id="m_principal">
 		<div id="conteneur_articles">
