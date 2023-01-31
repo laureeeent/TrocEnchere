@@ -1,5 +1,7 @@
 package fr.eni.javaee.bo;
 
+import java.util.List;
+
 public class Utilisateur {
 
 	// - - - - - - - - - - - - - - attributs - - - - - - - - - - - - - -
@@ -16,17 +18,18 @@ public class Utilisateur {
 	private String motDePasse;
 	private int credit;
 	private boolean administrateur;
-	private ArticleVendu vente;
-	private Enchere enchere;
+	private List<ArticleVendu> ventes;
+	private List<Enchere> encheres;
 
 	// - - - - - - - - - - - - - - - - - - constructeurs - - - - - - - - - - - - - -
-	
+
 	public Utilisateur() {
 		super();
 	}
 
 	public Utilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
-			String rue, String codePostal, String ville, String motDePasse, int credit, boolean administrateur,ArticleVendu vente,Enchere enchere) {
+			String rue, String codePostal, String ville, String motDePasse, int credit, boolean administrateur,
+			List<ArticleVendu> ventes, List<Enchere> encheres) {
 		super();
 		this.noUtilisateur = noUtilisateur;
 		this.pseudo = pseudo;
@@ -43,7 +46,8 @@ public class Utilisateur {
 	}
 
 	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue,
-			String codePostal, String ville, String motDePasse, int credit, boolean administrateur,ArticleVendu vente,Enchere enchere) {
+			String codePostal, String ville, String motDePasse, int credit, boolean administrateur,
+			List<ArticleVendu> ventes, List<Enchere> encheres) {
 		super();
 		this.pseudo = pseudo;
 		this.nom = nom;
@@ -58,8 +62,8 @@ public class Utilisateur {
 		this.administrateur = administrateur;
 	}
 
-	// - - - - - - - - - - - - - - - - - - getters & setters - - - - - - - - - - - - - -
-	
+	// - - - - - - - - - - - - - - - - - - getters & setters - - - - - - - - - - - -
+	// - -
 
 	public int getNoUtilisateur() {
 		return noUtilisateur;
@@ -157,20 +161,20 @@ public class Utilisateur {
 		this.administrateur = administrateur;
 	}
 
-	public ArticleVendu getVente() {
-		return vente;
+	public List<ArticleVendu> getVente() {
+		return ventes;
 	}
 
-	public void setVente(ArticleVendu vente) {
-		this.vente = vente;
+	public void setVentes(List<ArticleVendu> ventes) {
+		this.ventes = ventes;
 	}
 
-	public Enchere getEnchere() {
-		return enchere;
+	public List<Enchere> getEncheres() {
+		return encheres;
 	}
 
-	public void setEnchere(Enchere enchere) {
-		this.enchere = enchere;
+	public void setEncheres(List<Enchere> encheres) {
+		this.encheres = encheres;
 	}
 
 	@Override
@@ -180,7 +184,5 @@ public class Utilisateur {
 				+ codePostal + ", ville=" + ville + ", motDePasse=" + motDePasse + ", credit=" + credit
 				+ ", administrateur=" + administrateur + "]";
 	}
-	
-	
 
 }
