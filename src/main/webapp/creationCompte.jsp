@@ -1,3 +1,4 @@
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -8,6 +9,22 @@
 <title>Création d'un compte sur TrocEnchère</title>
 </head>
 <body>
+
+<%
+			List<String> listeCodesErreur = (List<String>)request.getAttribute("listeCodesErreur");
+			if(listeCodesErreur!=null)
+			{
+		%>
+				<p style="color:red;">Erreur, le compte n'a pas pu être crée :</p>
+		<%
+				for(String codeErreur:listeCodesErreur)
+				{
+		%>
+					<p><%=LecteurMessage.getMessageErreur(codeErreur)%></p>
+		<%	
+				}
+			}
+		%>
 
 	<div class="retourAccueil">
 		<a href="<%=request.getContextPath()%>/index.jsp"><input

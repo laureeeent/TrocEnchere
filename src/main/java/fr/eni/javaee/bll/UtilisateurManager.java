@@ -32,7 +32,7 @@ public class UtilisateurManager {
 		}
 		return false;
 	}
-	
+
 	public void ajouterUtilisateur(Utilisateur user) {
 		try {
 			utilisateurDAO.insert(user);
