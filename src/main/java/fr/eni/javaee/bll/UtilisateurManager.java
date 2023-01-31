@@ -32,7 +32,7 @@ public class UtilisateurManager {
 		}
 		return false;
 	}
-	
+
 	public boolean isPseudoInBase(String pseudo) {
 		boolean resultat = false;
 		try {
