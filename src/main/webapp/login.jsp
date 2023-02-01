@@ -23,9 +23,9 @@
 			<form action="ServletConnecter" method="post">
 				<div id="h_form">
 					<label id="id">Identifiant: </label><input id="id"
-						name="identifiant" type="text" maxlength="30" required="required"><label
+						name="identifiant" type="text" required="required"  pattern="[A-Za-z0-9-_@.]{3,30}" title="Votre Pseudo ou votre E-mail entre 8 et 30 caractères"><label
 						id="mdp">Mot de Passe: </label><input id="mdp" name="mot_de_passe"
-						type="password" min="8" required="required">
+						type="password" required="required" pattern="[A-Za-z0-9]{8,30}">
 				</div>
 				<div id="connexion_form">
 					<div class="connexion_form_left">
