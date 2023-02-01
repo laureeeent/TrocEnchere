@@ -13,7 +13,7 @@ public interface ArticleVenduDAO {
 	
 	public void update(ArticleVendu data) throws BusinessException;
 	
-	public ArticleVendu selectById(ArticleVendu data) throws BusinessException;
+	public ArticleVendu selectById(int id) throws BusinessException;
 	
 	public List<ArticleVendu> selectAll();
 

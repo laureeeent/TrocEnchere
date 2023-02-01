@@ -12,8 +12,8 @@ public class ArticleVendu {
 	private String description;
 	private LocalDateTime dateDebutEncheres;
 	private LocalDateTime dateFinEncheres;
-	private float miseAPrix;
-	private float prixVente;
+	private int miseAPrix;
+	private int prixVente;
 	private String etatVente;
 	private Utilisateur vendeur;
 	private List<Enchere> encheres;
@@ -28,7 +28,7 @@ public class ArticleVendu {
 	}
 
 	public ArticleVendu(int noArticle, String nomArticle, String description, LocalDateTime dateDebutEncheres,
-			LocalDateTime dateFinEncheres, float miseAPrix, float prixVente, String etatVente, Utilisateur vendeur,
+			LocalDateTime dateFinEncheres, int miseAPrix, int prixVente, String etatVente, Utilisateur vendeur,
 			List<Enchere> encheres, Categorie categorieArticle, Retrait lieuRetrait) {
 		super();
 		this.noArticle = noArticle;
@@ -46,7 +46,7 @@ public class ArticleVendu {
 	}
 
 	public ArticleVendu(String nomArticle, String description, LocalDateTime dateDebutEncheres,
-			LocalDateTime dateFinEncheres, float miseAPrix, float prixVente, String etatVente, Utilisateur vendeur,
+			LocalDateTime dateFinEncheres, int miseAPrix, int prixVente, String etatVente, Utilisateur vendeur,
 			List<Enchere> encheres, Categorie categorieArticle, Retrait lieuRetrait) {
 		super();
 		this.nomArticle = nomArticle;
@@ -104,19 +104,19 @@ public class ArticleVendu {
 		this.dateFinEncheres = dateFinEncheres;
 	}
 
-	public float getMiseAPrix() {
+	public int getMiseAPrix() {
 		return miseAPrix;
 	}
 
-	public void setMiseAPrix(float miseAPrix) {
+	public void setMiseAPrix(int miseAPrix) {
 		this.miseAPrix = miseAPrix;
 	}
 
-	public float getPrixVente() {
+	public int getPrixVente() {
 		return prixVente;
 	}
 
-	public void setPrixVente(float prixVente) {
+	public void setPrixVente(int prixVente) {
 		this.prixVente = prixVente;
 	}
 

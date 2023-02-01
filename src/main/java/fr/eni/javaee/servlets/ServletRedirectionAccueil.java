@@ -1,6 +1,7 @@
 package fr.eni.javaee.servlets;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.Servlet;
@@ -34,11 +35,10 @@ public class ServletRedirectionAccueil extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		CategorieManager listeCategories = new CategorieManager();
-		request.setAttribute("listeCategories", listeCategories.selectionnerToutesLesCategories());
-		if (listeCategories.selectionnerToutesLesCategories().isEmpty()) {
-			System.out.println("c'est la merde");
-		}
+		CategorieManager categorieManager = new CategorieManager();
+		List<Categorie> listeCategories = categorieManager.selectionnerToutesLesCategories();
+		request.setAttribute("listeCategories", listeCategories);
+
 		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
 		rd.forward(request, response);
 	}
