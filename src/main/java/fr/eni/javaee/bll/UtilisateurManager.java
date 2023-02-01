@@ -1,5 +1,8 @@
 package fr.eni.javaee.bll;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import fr.eni.javaee.bo.Utilisateur;
 import fr.eni.javaee.dal.DAOFactory;
 import fr.eni.javaee.dal.UtilisateurDAO;
@@ -13,17 +16,35 @@ public class UtilisateurManager {
 		utilisateurDAO = DAOFactory.getUtilisateurDAO();
 	}
 	
-	public Utilisateur getUtilisateur(String pseudo) {
+	public Utilisateur getUtilisateurByPseudo(String entree) {
 		Utilisateur res = null;
-		
-		try {
-			res = utilisateurDAO.selectByPseudo(pseudo);
-		}
-		catch (BusinessException be) {
-			be.printStackTrace();
+		if ( isPseudo(entree) ) {
+			try {
+				res = utilisateurDAO.selectByPseudo(entree);
+			} catch (BusinessException be) {
+				be.printStackTrace();
+			}
+			
+		} else if ( isEmail(entree) ) {
+			try {
+				res = utilisateurDAO.selectByEmail(entree);
+			} catch (BusinessException be) {
+				be.printStackTrace();
+			}
 		}
 		
 		return res;
+	}
+	
+	public boolean isPseudo(String entree) {
+		Pattern pattern = Pattern.compile("[abc]+");
+		Matcher matcher = pattern.matcher(entree);
+		
+		return false;
+	}
+	
+	public boolean isEmail(String entree) {
+		return false;
 	}
 	
 	public boolean isPwdCorrect(Utilisateur user, String password) {
@@ -42,6 +63,10 @@ public class UtilisateurManager {
 		}
 		
 		return resultat;
+	}
+	
+	public boolean isPseudoValid(String pseudo) {
+		return false;
 	}
 	
 	public boolean isEmailInBase(String email) {

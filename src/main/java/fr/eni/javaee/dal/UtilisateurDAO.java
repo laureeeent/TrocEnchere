@@ -22,6 +22,8 @@ public interface UtilisateurDAO {
 	boolean isPseudoInBase(String pseudo) throws BusinessException;
 
 	boolean isEmailInBase(String email) throws BusinessException;
+
+	Utilisateur selectByEmail(String pseudo) throws BusinessException;
 	 
 	
 

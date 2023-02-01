@@ -58,12 +58,14 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			else { pst.setInt(11, 0);}
 			
 			pst.executeUpdate();
+			
 			ResultSet rs = pst.getGeneratedKeys();
+			
 			if (rs.next()) {
 				data.setNoUtilisateur(rs.getInt("no_utilisateur"));
-				
 			}
 			
+			conx.commit();
 			rs.close();
 			pst.close();
 		} catch (SQLException e) {
@@ -103,6 +105,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			pst.executeUpdate();
 			
 			pst.close();
+			conx.commit();
 		} catch (SQLException e) {
 			System.out.println("Echec de la mise a jour de l'utitilisateur "+data.toString()+"");
 			e.printStackTrace();
@@ -126,6 +129,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			pst.executeUpdate();
 			
 			pst.close();
+			conx.commit();
 		} catch (SQLException e) {
 			System.out.println("Echec de la suppresion de l'utilisateur "+data.toString()+" en base.");
 			e.printStackTrace();
@@ -176,6 +180,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			
 			rs.close();
 			pst.close();
+			conx.commit();
 			
 		} catch (SQLException e) {
 			System.out.println("La requête de sélection en base où id = "+id+" a échoué.");
@@ -229,6 +234,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			
 			rs.close();
 			pst.close();
+			conx.commit();
 			
 		} catch (SQLException e) {
 			System.out.println("La requête de sélection en base où pseudo = "+pseudo+" a échoué.");
@@ -238,69 +244,52 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		return resultat;
 	}
 	
-	@Override
-	public boolean isPseudoInBase(String pseudo) throws BusinessException {
-		if (pseudo.isEmpty()) {
-			BusinessException be = new BusinessException();
-			be.ajouterCodeErreur(CodeResultatDAL.SELECT_BY_PSEUDO_INCORRECT);
-		}
-		
-		boolean resultat = false;
-		
-		try ( Connection conx = ConnectionProvider.getConnection() ) {
-			conx.setAutoCommit(false);
-			PreparedStatement pst = conx.prepareStatement(SELECT_BY_PSEUDO);
-			
-			pst.setString(1, pseudo);
-			
-			ResultSet rs = pst.executeQuery();
-			if (rs.next()) {
-				if (rs.getString("pseudo").equals(pseudo)) {
-					resultat = true;
-				}
-				else {
-					resultat = false;
-				}
-			}
-			
-			rs.close();
-			pst.close();
-			
-		} catch (SQLException e) {
-			System.out.println("La requête de sélection en base où pseudo = "+pseudo+" a échoué.");
-			e.printStackTrace();
-		}
-		
-		return resultat;
-	}
 	
 	@Override
-	public boolean isEmailInBase(String email) throws BusinessException {
+	public Utilisateur selectByEmail(String email) throws BusinessException {
 		if (email.isEmpty()) {
 			BusinessException be = new BusinessException();
 			be.ajouterCodeErreur(CodeResultatDAL.SELECT_BY_EMAIL_INCORRECT);
 		}
 		
-		boolean resultat = false;
-		
+		Utilisateur resultat = null;
+		System.out.println("vous êtes passé ici");
 		try ( Connection conx = ConnectionProvider.getConnection() ) {
 			conx.setAutoCommit(false);
 			PreparedStatement pst = conx.prepareStatement(SELECT_BY_EMAIL);
+
 			
 			pst.setString(1, email);
 			
 			ResultSet rs = pst.executeQuery();
 			if (rs.next()) {
-				if (rs.getString("email").equals(email)) {
-					resultat = true;
+				boolean admin;
+				if (rs.getInt("administrateur") == 1) {
+					admin = true;
 				}
-				else {
-					resultat = false;
-				}
+				else { admin = false; }
+				resultat = new Utilisateur(
+								rs.getInt("no_utilisateur"),
+								rs.getString("pseudo"),
+								rs.getString("nom"),
+								rs.getString("prenom"),
+								rs.getString("email"),
+								rs.getString("telephone"),
+								rs.getString("rue"),
+								rs.getString("code_postal"),
+								rs.getString("ville"),
+								rs.getString("mot_de_passe"),
+								rs.getInt("credit"),
+								admin,
+								new ArrayList<ArticleVendu>(),
+								new ArrayList<Enchere>()
+							);
+						
 			}
 			
 			rs.close();
 			pst.close();
+			conx.commit();
 			
 		} catch (SQLException e) {
 			System.out.println("La requête de sélection en base où email = "+email+" a échoué.");
@@ -309,7 +298,8 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		
 		return resultat;
 	}
-
+	
+	
 	@Override
 	public List<Utilisateur> selectAll() {
 		
@@ -348,6 +338,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			
 			rs.close();
 			pst.close();
+			conx.commit();
 			
 		} catch (SQLException e) {
 			System.out.println("La requête en base de selection de tout les utilisateur a échoué.");
@@ -356,5 +347,83 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		
 		return listeResultat;
 	}
+	
+	@Override
+	public boolean isPseudoInBase(String pseudo) throws BusinessException {
+		if (pseudo.isEmpty()) {
+			BusinessException be = new BusinessException();
+			be.ajouterCodeErreur(CodeResultatDAL.SELECT_BY_PSEUDO_INCORRECT);
+		}
+		
+		boolean resultat = false;
+		
+		try ( Connection conx = ConnectionProvider.getConnection() ) {
+			conx.setAutoCommit(false);
+			PreparedStatement pst = conx.prepareStatement(SELECT_BY_PSEUDO);
+			
+			pst.setString(1, pseudo);
+			
+			ResultSet rs = pst.executeQuery();
+			if (rs.next()) {
+				if (rs.getString("pseudo").equals(pseudo)) {
+					resultat = true;
+				}
+				else {
+					resultat = false;
+				}
+			}
+			
+			rs.close();
+			pst.close();
+			conx.commit();
+			
+		} catch (SQLException e) {
+			System.out.println("La requête de sélection en base où pseudo = "+pseudo+" a échoué.");
+			e.printStackTrace();
+		}
+		
+		return resultat;
+	}
+	
+	
+	
+	@Override
+	public boolean isEmailInBase(String email) throws BusinessException {
+		if (email.isEmpty()) {
+			BusinessException be = new BusinessException();
+			be.ajouterCodeErreur(CodeResultatDAL.SELECT_BY_EMAIL_INCORRECT);
+		}
+		
+		boolean resultat = false;
+		
+		try ( Connection conx = ConnectionProvider.getConnection() ) {
+			conx.setAutoCommit(false);
+			PreparedStatement pst = conx.prepareStatement(SELECT_BY_EMAIL);
+			
+			pst.setString(1, email);
+			
+			ResultSet rs = pst.executeQuery();
+			if (rs.next()) {
+				if (rs.getString("email").equals(email)) {
+					resultat = true;
+				}
+				else {
+					resultat = false;
+				}
+			}
+			
+			rs.close();
+			pst.close();
+			conx.commit();
+			
+		} catch (SQLException e) {
+			System.out.println("La requête de sélection en base où email = "+email+" a échoué.");
+			e.printStackTrace();
+		}
+		
+		return resultat;
+	}
+
+
 
 }
