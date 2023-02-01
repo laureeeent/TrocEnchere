@@ -78,19 +78,22 @@ public class AjoutCompte extends HttpServlet {
 		
 		Utilisateur user = new Utilisateur(pseudo,nom,prenom,email,telephone,rue,codePostal,ville,mdp,100,false);
 		UtilisateurManager utilisateurManager = new UtilisateurManager();
-		try {
-			utilisateurManager.ajouterUtilisateur(user);
-			RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
-			rd.forward(request, response);
-			
-		} catch (BusinessException e) {
-			//Sinon je retourne à la page d'ajout pour indiquer les problèmes:
-			e.printStackTrace();
-			request.setAttribute("listeCodesErreur",e.getCodeErreurs());
-			RequestDispatcher rd = request.getRequestDispatcher("/creationCompte.jsp");
-			rd.forward(request, response);
-			
-		}
+		
+		utilisateurManager.ajouterUtilisateur(user);
+		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+		rd.forward(request, response);
+		
+//		try {
+//
+//			
+//		} catch (BusinessException e) {
+//			//Sinon je retourne à la page d'ajout pour indiquer les problèmes:
+//			e.printStackTrace();
+//			request.setAttribute("listeCodesErreur",e.getCodeErreurs());
+//			RequestDispatcher rd = request.getRequestDispatcher("/creationCompte.jsp");
+//			rd.forward(request, response);
+//			
+//		}
 		
 		
 	}
