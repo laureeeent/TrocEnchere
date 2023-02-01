@@ -23,7 +23,7 @@
 	<header id="h_principal">
 		<div id="entete">
 			<p id="nom_site">TROCENCHERE</p>
-<<<<<<< HEAD
+
 
 			<nav id="menu_nav_utilisateur">
 				<%if (user == null) {%>
@@ -41,18 +41,6 @@
 				
 				<%}%>
 
-=======
-			<nav id="menu_nav_utilisateur">
-				<ul>
-					<li><a href="ServletConnecter">S'inscrire - Se connecter</a></li>
-				</ul>
-				<!-- 			<ul>
-				<li><a href="#">Enchères</a></li>
-				<li><a href="#">Vendre un article</a></li>
-				<li><a href="#">Mon profil</a></li>
-				<li><a href="#">Déconnexion</a></li>
-			</ul> -->
->>>>>>> branch 'main' of https://github.com/laureeeent/TrocEnchere.git
 			</nav>
 		</div>
 		<div id="titre_page">
@@ -69,21 +57,6 @@
 					</div>
 					<div class="main_filtres">
 						<h3>Catégorie:</h3>
-<<<<<<< HEAD
-						<select><option>Toutes</option>
-							<option class="infos">LISTE DES CATEGORIES EN BASE DE
-								DONNEES</option></select>
-					</div>
-					<div class="footer_filtres">
-						<div class="liste_options">
-<%-- 					<% if (user != null){%>
-							<ul>
-								<% for( Enchere enchere : encheres) { %>
-								<li> <%= user.getEncheres() %></li>
-								<%}}%>
-							
-							 </ul>  --%>
-=======
 						<select>
 							<%
 							List<Categorie> listeCategories = (ArrayList<Categorie>)request.getAttribute("listeCategories");
@@ -99,8 +72,13 @@
 					</div>
 					<div class="footer_filtres">
 						<div class="liste_options">
-							<p class="infos">LISTE A METTRE !!!</p>
->>>>>>> branch 'main' of https://github.com/laureeeent/TrocEnchere.git
+						<%-- 					<% if (user != null){%>
+							<ul>
+								<% for( Enchere enchere : encheres) { %>
+								<li> <%= user.getEncheres() %></li>
+								<%}}%>
+							
+							 </ul>  --%>
 						</div>
 					</div>
 				</div>
@@ -113,7 +91,7 @@
 		</div>
 	</header>
 	<main id="m_principal">
-		<div id="conteneur_articles">
+<%-- 		<div id="conteneur_articles">
 		<% if (liste_EnchereEC != null){
 			for (ArticleVendu article : liste_EnchereEC){%>
 			<div id="conteneur_article">
@@ -129,7 +107,7 @@
 			</div>
 			
 		<% }}%>
-		</div>
+		</div> --%>
 	</main>
 	<footer id="f_principal"></footer>
 </body>
