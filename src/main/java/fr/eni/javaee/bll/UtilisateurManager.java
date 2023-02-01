@@ -56,7 +56,21 @@ public class UtilisateurManager {
 	}
 	
 	public boolean isEmail(String entree) {
-		return false;
+		boolean res = false;
+		
+		Pattern aro = Pattern.compile("[a-z0-9.-]+[@]{1}[a-z]+[.]{1}[a-z]+");
+		Matcher alphaNumericMatcher = aro.matcher(entree);
+		
+		if (alphaNumericMatcher.find()) {
+			res = true;
+			System.out.println("condition vérifiée");
+		}
+		else {
+			
+			res = false;
+		}
+		
+		return res;
 	}
 	
 	public boolean isPwdCorrect(Utilisateur user, String password) {
