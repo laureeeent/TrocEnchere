@@ -55,7 +55,7 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 	@Override
 	public List<Categorie> selectAll() {
 		
-		ArrayList<Categorie>listeResultat=new ArrayList<Categorie>() ;
+		List<Categorie>listeResultat=new ArrayList<Categorie>() ;
 		
 
 		try ( Connection conx = ConnectionProvider.getConnection() ) {
