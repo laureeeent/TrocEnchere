@@ -3,6 +3,8 @@ package fr.eni.javaee.dal;
 public abstract class DAOFactory {
 	
 	private static UtilisateurDAO utilisateurDAO = null;
+	private static CategorieDAO categorieDAO = null;
+	
 	
 	public static UtilisateurDAO getUtilisateurDAO() {
 		if (utilisateurDAO == null) {
@@ -10,5 +12,14 @@ public abstract class DAOFactory {
 		}
 		return utilisateurDAO;
 	}
+	
+	public static CategorieDAO getCategorieDAO() {
+		if(categorieDAO == null) {
+			categorieDAO = new CategorieDAOJdbcImpl();
+		}
+		return categorieDAO;
+		
+	}
+	
 
 }

@@ -335,7 +335,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			conx.commit();
 			
 		} catch (SQLException e) {
-			System.out.println("La requête en base de selection de tout les utilisateur a échoué.");
+			System.out.println("La requête en base de selection de tout les utilisateurs a échoué.");
 			e.printStackTrace();
 		}
 		

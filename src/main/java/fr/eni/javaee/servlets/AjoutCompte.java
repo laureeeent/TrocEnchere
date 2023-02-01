@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.javaee.bll.UtilisateurManager;
 import fr.eni.javaee.bo.Utilisateur;
-import fr.eni.javaee.exceptions.BusinessException;
 
 @WebServlet("/AjoutCompte")
 public class AjoutCompte extends HttpServlet {

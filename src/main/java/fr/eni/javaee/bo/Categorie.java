@@ -22,7 +22,14 @@ public class Categorie {
 		this.articlesVendusParCategorie = articlesVendusParCategorie;
 	}
 
+		public Categorie(int noCategorie, String libelle) {
+		super();
+		this.noCategorie = noCategorie;
+		this.libelle = libelle;
+	}
 	// - - - - - - - - - - - - - - - - - - getters & setters - - - - - - - - - - - -
+
+
 
 	public int getNoCategorie() {
 		return noCategorie;
