@@ -58,13 +58,12 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			else { pst.setInt(11, 0);}
 			
 			pst.executeUpdate();
-			
 			ResultSet rs = pst.getGeneratedKeys();
-			
 			if (rs.next()) {
-				data.setNoUtilisateur(rs.getInt("no_utilisateur"));
+				data.setNoUtilisateur(rs.getInt(1));
+				System.out.println(data.getNoUtilisateur());
+
 			}
-			
 			conx.commit();
 			rs.close();
 			pst.close();
@@ -105,7 +104,6 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			pst.executeUpdate();
 			
 			pst.close();
-			conx.commit();
 		} catch (SQLException e) {
 			System.out.println("Echec de la mise a jour de l'utitilisateur "+data.toString()+"");
 			e.printStackTrace();
@@ -129,7 +127,6 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			pst.executeUpdate();
 			
 			pst.close();
-			conx.commit();
 		} catch (SQLException e) {
 			System.out.println("Echec de la suppresion de l'utilisateur "+data.toString()+" en base.");
 			e.printStackTrace();
@@ -180,7 +177,6 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			
 			rs.close();
 			pst.close();
-			conx.commit();
 			
 		} catch (SQLException e) {
 			System.out.println("La requête de sélection en base où id = "+id+" a échoué.");
@@ -234,7 +230,6 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			
 			rs.close();
 			pst.close();
-			conx.commit();
 			
 		} catch (SQLException e) {
 			System.out.println("La requête de sélection en base où pseudo = "+pseudo+" a échoué.");
@@ -298,8 +293,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		
 		return resultat;
 	}
-	
-	
+
 	@Override
 	public List<Utilisateur> selectAll() {
 		
@@ -384,9 +378,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		
 		return resultat;
 	}
-	
-	
-	
+
 	@Override
 	public boolean isEmailInBase(String email) throws BusinessException {
 		if (email.isEmpty()) {
@@ -423,6 +415,9 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		
 		return resultat;
 	}
+	
+	
+
 
 
 

@@ -16,7 +16,7 @@ public class UtilisateurManager {
 		utilisateurDAO = DAOFactory.getUtilisateurDAO();
 	}
 	
-	public Utilisateur getUtilisateurByPseudo(String entree) {
+	public Utilisateur getUtilisateur(String entree) {
 		Utilisateur res = null;
 		if ( isPseudo(entree) ) {
 			try {
@@ -37,8 +37,11 @@ public class UtilisateurManager {
 	}
 	
 	public boolean isPseudo(String entree) {
-		Pattern pattern = Pattern.compile("[abc]+");
+		Pattern pattern = Pattern.compile("[a-zA-Z09]{3,}");
 		Matcher matcher = pattern.matcher(entree);
+		if (matcher.find()) {
+			return true;
+		}
 		
 		return false;
 	}

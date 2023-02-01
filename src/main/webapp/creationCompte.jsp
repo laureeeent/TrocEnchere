@@ -1,3 +1,4 @@
+<%@page import="java.io.PrintWriter"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -11,16 +12,16 @@
 <body>
 
 <%
-			List<String> listeCodesErreur = (List<String>)request.getAttribute("listeCodesErreur");
-			if(listeCodesErreur!=null)
+			List<String> listeMessagesErreur = (List<String>)request.getAttribute("listeMessagesErreur");
+			if(listeMessagesErreur!=null)
 			{
 		%>
 				<p style="color:red;">Erreur, le compte n'a pas pu être crée :</p>
 		<%
-				for(String codeErreur:listeCodesErreur)
+				for(String messageErreur:listeMessagesErreur)
 				{
-		%>
-		<%	
+		%>		<p>><%out.println(messageErreur);%></p>
+		<%		
 				}
 			}
 		%>
@@ -35,11 +36,11 @@
 	<form action="<%=request.getContextPath()%>/AjoutCompte" method="post">
 		<div class="saisie">
 			<label for="pseudo">Pseudo : </label>
-			<textarea rows="1" cols="30" id="pseudo" name="pseudo"><%=request.getParameter("pseudo") != null ? request.getParameter("pseudo") : ""%></textarea>
+			<textarea rows="1" cols="30" id="pseudo" pattern="[a-zA-Z0-9]+" name="pseudo"><%=request.getParameter("pseudo") != null ? request.getParameter("pseudo") : ""%></textarea>
 		</div>
 
 		<div class="saisie">
-			<label for="email">Email : </label> <input type="email" id="email"
+			<label for="email">Email : </label> <input type="email" id="email" name="email"
 				 size="30" required>
 		</div>
 		<div class="saisie">
