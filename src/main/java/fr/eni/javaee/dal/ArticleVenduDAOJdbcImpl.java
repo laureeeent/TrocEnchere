@@ -28,6 +28,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			
 			pst.setString(1, data.getNomArticle());
 			pst.setString(2, data.getDescription());
+			pst.setString(3, INSERT);
 			
 			
 			
