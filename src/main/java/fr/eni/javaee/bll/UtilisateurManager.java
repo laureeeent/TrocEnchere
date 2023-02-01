@@ -37,13 +37,22 @@ public class UtilisateurManager {
 	}
 	
 	public boolean isPseudo(String entree) {
-		Pattern pattern = Pattern.compile("[a-zA-Z09]{3,}");
-		Matcher matcher = pattern.matcher(entree);
-		if (matcher.find()) {
-			return true;
+		boolean res = false;
+		
+		Pattern alphaNumeric = Pattern.compile("[a-zA-Z0-9]{3,30}");
+		Matcher alphaNumericMatcher = alphaNumeric.matcher(entree);
+		
+		Pattern hasCaractere = Pattern.compile("[^a-zA-Z0-9]{1,}+");
+		Matcher hasCaractereMatcher = hasCaractere.matcher(entree);
+		if (alphaNumericMatcher.find()) {
+			res = true;
+		}
+		if (hasCaractereMatcher.find()) {
+			System.out.println("condition vérifiée");
+			res = false;
 		}
 		
-		return false;
+		return res;
 	}
 	
 	public boolean isEmail(String entree) {
