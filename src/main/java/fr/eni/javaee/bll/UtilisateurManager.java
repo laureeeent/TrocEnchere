@@ -48,7 +48,6 @@ public class UtilisateurManager {
 			res = true;
 		}
 		if (hasCaractereMatcher.find()) {
-			System.out.println("condition vérifiée");
 			res = false;
 		}
 		
@@ -58,7 +57,7 @@ public class UtilisateurManager {
 	public boolean isEmail(String entree) {
 		boolean res = false;
 		
-		Pattern aro = Pattern.compile("[a-z0-9.-]+[@]{1}[a-z]+[.]{1}[a-z]+");
+		Pattern aro = Pattern.compile("[a-z0-9.-]+@[a-z-]+.[a-z]+$");
 		Matcher alphaNumericMatcher = aro.matcher(entree);
 		
 		if (alphaNumericMatcher.find()) {
@@ -69,7 +68,6 @@ public class UtilisateurManager {
 			
 			res = false;
 		}
-		
 		return res;
 	}
 	

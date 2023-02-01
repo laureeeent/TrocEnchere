@@ -14,7 +14,7 @@ public abstract class DAOFactory {
 	}
 	
 	public static CategorieDAO getCategorieDAO() {
-		if(categorieDAO == null) {
+		if (categorieDAO == null) {
 			categorieDAO = new CategorieDAOJdbcImpl();
 		}
 		return categorieDAO;

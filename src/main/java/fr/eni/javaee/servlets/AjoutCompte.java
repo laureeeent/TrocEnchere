@@ -62,7 +62,7 @@ public class AjoutCompte extends HttpServlet {
 		}
 		;
 		// checker si le mot de passe matche la confirmation
-		if (mdp.equals(confirmationMdp)) {
+		if (!mdp.equals(confirmationMdp)) {
 			listeMessagesErreur.add(MessagesErreurServlets.ERREUR_MDP);
 		}
 		// checker si pour le mail utilisé à la création il n'existe pas déjà un compte
