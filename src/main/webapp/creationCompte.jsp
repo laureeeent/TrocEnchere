@@ -36,44 +36,44 @@
 	<form action="<%=request.getContextPath()%>/AjoutCompte" method="post">
 		<div class="saisie">
 			<label for="pseudo">Pseudo : </label>
-			<textarea rows="1" cols="30" id="pseudo" pattern="[a-zA-Z0-9]+" name="pseudo"><%=request.getParameter("pseudo") != null ? request.getParameter("pseudo") : ""%></textarea>
+			<input type="text" id="pseudo" pattern="[a-zA-Z0-9]{3,30}" name="pseudo" required="required" value="<%=request.getParameter("pseudo") != null ? request.getParameter("pseudo") : ""%>">
 		</div>
 
 		<div class="saisie">
 			<label for="email">Email : </label> <input type="email" id="email" name="email"
-				 size="30" required>
+				 size="40" required pattern="[a-z0-9-@.]{8,40}" >
 		</div>
 		<div class="saisie">
 			<label for="prenom">Prénom : </label>
-			<textarea rows="1" cols="30" id="prenom" name="prenom"><%=request.getParameter("prenom") != null ? request.getParameter("prenom") : ""%></textarea>
+			<input type="text" id="prenom" name="prenom" pattern="[a-zA-Z- ]{3,30}" required="required" value="<%=request.getParameter("prenom") != null ? request.getParameter("prenom") : ""%>">
 		</div>
 		<div class="saisie">
 			<label for="nom">Nom : </label>
-			<textarea rows="1" cols="30" id="nom" name="nom"><%=request.getParameter("nom") != null ? request.getParameter("nom") : ""%></textarea>
+			<input type="text" id="nom" name="nom" pattern="[a-zA-Z- ']{3,30}" required="required" value="<%=request.getParameter("nom") != null ? request.getParameter("nom") : ""%>">
 		</div>
 		<div class="saisie">
 			<label for="telephone">Téléphone : </label>
-			<textarea rows="1" cols="30" id="telephone" name="telephone"><%=request.getParameter("telephone") != null ? request.getParameter("telephone") : ""%></textarea>
+			<input type="tel" id="telephone" name="telephone" pattern="[0-9]{10}" value="<%=request.getParameter("telephone") != null ? request.getParameter("telephone") : ""%>" >
 		</div>
 		<div class="saisie">
 			<label for="rue">Rue : </label>
-			<textarea rows="1" cols="30" id="rue" name="rue"><%=request.getParameter("rue") != null ? request.getParameter("rue") : ""%></textarea>
+			<input type="text" id="rue" name="rue" pattern="[a-zA-Z0-9 ]{5,30}" required="required" value="<%=request.getParameter("rue") != null ? request.getParameter("rue") : ""%>" >
 		</div>
 		<div class="saisie">
 			<label for="ville">Ville : </label>
-			<textarea rows="1" cols="30" id="ville" name="ville"><%=request.getParameter("ville") != null ? request.getParameter("ville") : ""%></textarea>
+			<input type="text" id="ville" name="ville" pattern="[a-zA-Z -]{3,30}" required="required" value="<%=request.getParameter("ville") != null ? request.getParameter("ville") : ""%>" >
 		</div>
 		<div class="saisie">
 			<label for="codePostal">Code postal : </label>
-			<textarea rows="1" cols="30" id="codePostal" name="codePostal"><%=request.getParameter("codePostal") != null ? request.getParameter("codePostal") : ""%></textarea>
+			<input id="codePostal" name="codePostal" pattern="[0-9]{5}" required="required" value="<%=request.getParameter("codePostal") != null ? request.getParameter("codePostal") : ""%>">
 		</div>
 		<div class="saisie">
 			<label for="mdp">Mot de passe : </label> <input type="password"
-				id="mdp" name="mdp" required>
+				id="mdp" name="mdp" required pattern="[A-Za-z0-9]{8,30}">
 		</div>
 		<div class="saisie">
 			<label for="mdp">Confirmation mot de passe : </label> <input
-				type="password" id="mdp" name="mdp" required>
+				type="password" id="mdp" name="mdp" required pattern="[A-Za-z0-9]{8,30}">
 		</div>
 		<div>
 			<input type="submit" value="Créer" />

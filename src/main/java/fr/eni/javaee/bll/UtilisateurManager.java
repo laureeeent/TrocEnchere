@@ -37,17 +37,38 @@ public class UtilisateurManager {
 	}
 	
 	public boolean isPseudo(String entree) {
-		Pattern pattern = Pattern.compile("[a-zA-Z09]{3,}");
-		Matcher matcher = pattern.matcher(entree);
-		if (matcher.find()) {
-			return true;
+		boolean res = false;
+		
+		Pattern alphaNumeric = Pattern.compile("[a-zA-Z0-9]{3,30}");
+		Matcher alphaNumericMatcher = alphaNumeric.matcher(entree);
+		
+		Pattern hasCaractere = Pattern.compile("[^a-zA-Z0-9]{1,}+");
+		Matcher hasCaractereMatcher = hasCaractere.matcher(entree);
+		if (alphaNumericMatcher.find()) {
+			res = true;
+		}
+		if (hasCaractereMatcher.find()) {
+			res = false;
 		}
 		
-		return false;
+		return res;
 	}
 	
 	public boolean isEmail(String entree) {
-		return false;
+		boolean res = false;
+		
+		Pattern aro = Pattern.compile("[a-z0-9.-]+@[a-z-]+.[a-z]+$");
+		Matcher alphaNumericMatcher = aro.matcher(entree);
+		
+		if (alphaNumericMatcher.find()) {
+			res = true;
+			System.out.println("condition vérifiée");
+		}
+		else {
+			
+			res = false;
+		}
+		return res;
 	}
 	
 	public boolean isPwdCorrect(Utilisateur user, String password) {

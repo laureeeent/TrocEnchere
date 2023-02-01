@@ -34,7 +34,8 @@ public class ServletConnecter extends HttpServlet {
 		String rep_Identifiant = request.getParameter("identifiant");
 		String rep_Mdp = request.getParameter("mot_de_passe");
 		UtilisateurManager utilisateurManager = new UtilisateurManager();
-		System.out.println(utilisateurManager.isPseudo(rep_Mdp));
+
+		System.out.println(utilisateurManager.isEmail(rep_Identifiant)+" identifiant = "+rep_Identifiant);
 		RequestDispatcher rs;
 		
 		Utilisateur user = utilisateurManager.getUtilisateur(rep_Identifiant);

@@ -1,6 +1,7 @@
 package fr.eni.javaee.dal;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
@@ -11,7 +12,8 @@ import fr.eni.javaee.exceptions.BusinessException;
 public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 	
 	private static final String INSERT = "INSERT INTO ARTICLES_VENDUS"
-						+ "(nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial) ;";
+						+ "(nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial, prix_vente, no_utilisateur, no_categorie, image)"
+						+ " VALUES(?,?,?,?,?,?,?,?,?) ";
 
 	@Override
 	public void insert(ArticleVendu data) throws BusinessException {
@@ -23,6 +25,11 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 		try ( Connection conx = ConnectionProvider.getConnection() ) {
 			conx.setAutoCommit(false);
 			PreparedStatement pst = conx.prepareStatement(INSERT);
+			
+			pst.setString(1, data.getNomArticle());
+			pst.setString(2, data.getDescription());
+			pst.setString(3, INSERT);
+			
 			
 			
 		} catch (SQLException se) {

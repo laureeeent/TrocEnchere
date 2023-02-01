@@ -104,6 +104,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			pst.executeUpdate();
 			
 			pst.close();
+			conx.commit();
 		} catch (SQLException e) {
 			System.out.println("Echec de la mise a jour de l'utitilisateur "+data.toString()+"");
 			e.printStackTrace();
@@ -126,6 +127,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			
 			pst.executeUpdate();
 			
+			conx.commit();
 			pst.close();
 		} catch (SQLException e) {
 			System.out.println("Echec de la suppresion de l'utilisateur "+data.toString()+" en base.");
@@ -177,6 +179,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			
 			rs.close();
 			pst.close();
+			conx.commit();
 			
 		} catch (SQLException e) {
 			System.out.println("La requête de sélection en base où id = "+id+" a échoué.");
@@ -230,6 +233,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			
 			rs.close();
 			pst.close();
+			conx.commit();
 			
 		} catch (SQLException e) {
 			System.out.println("La requête de sélection en base où pseudo = "+pseudo+" a échoué.");
