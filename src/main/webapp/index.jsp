@@ -1,3 +1,7 @@
+<%@page import="fr.eni.javaee.bo.ArticleVendu"%>
+<%@page import="fr.eni.javaee.bll.UtilisateurManager"%>
+<%@page import="fr.eni.javaee.bo.Utilisateur"%>
+<%@page import="fr.eni.javaee.bo.Enchere"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -8,62 +12,86 @@
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+	<%
+	Utilisateur user = (Utilisateur) request.getAttribute("utilisateur");
+	%>
 	<header id="h_principal">
-	<div id="entete">
-		<p id="nom_site">TROCENCHERE</p>
-		<nav id="menu_nav_utilisateur">
-			<ul>
-				<li><a href="ServletConnecter">S'inscrire - Se connecter</a></li>
-			</ul>
-<!-- 			<ul>
-				<li><a href="#">Enchères</a></li>
-				<li><a href="#">Vendre un article</a></li>
-				<li><a href="#">Mon profil</a></li>
-				<li><a href="#">Déconnexion</a></li>
-			</ul> -->
-		</nav>
+		<div id="entete">
+			<p id="nom_site">TROCENCHERE</p>
+
+			<nav id="menu_nav_utilisateur">
+				<%if (user == null) {%>
+					<ul>
+						<li><a href="ServletConnecter">S'inscrire - Se connecter</a></li>
+					</ul>
+				<%}%>
+				<% if (user != null) { %>
+					<ul>
+						<li><a href="#">Enchères</a></li>
+						<li><a href="#">Vendre un article</a></li>
+						<li><a href="#">Mon profil ( <%= user.getPseudo() %> )</a></li>
+						<li><a href="#">Déconnexion</a></li>
+					</ul>
+				
+				<%}%>
+
+			</nav>
 		</div>
 		<div id="titre_page">
-		<h1>Liste des enchères</h1>
+			<h1>Liste des enchères</h1>
 		</div>
 		<div id="filtres">
 			<form action="#" method="get" id="form_rechercher_filtres">
-			<div id="filtres_left">
-				<div class="header_filtres">
-					<h2>Filtres:</h2>
-					<div class="rechercher">
-						<input type="text" placeholder="Le nom de l'article contient">
+				<div id="filtres_left">
+					<div class="header_filtres">
+						<h2>Filtres:</h2>
+						<div class="rechercher">
+							<input type="text" placeholder="Le nom de l'article contient">
+						</div>
+					</div>
+					<div class="main_filtres">
+						<h3>Catégorie:</h3>
+						<select><option>Toutes</option>
+							<option class="infos">LISTE DES CATEGORIES EN BASE DE
+								DONNEES</option></select>
+					</div>
+					<div class="footer_filtres">
+						<div class="liste_options">
+<%-- 					<% if (user != null){%>
+							<ul>
+								<% for( Enchere enchere : encheres) { %>
+								<li> <%= user.getEncheres() %></li>
+								<%}}%>
+							
+							 </ul>  --%>
+						</div>
 					</div>
 				</div>
-				<div class="main_filtres">
-					<h3>Catégorie:</h3>
-					<select><option>Toutes</option><option class="infos">LISTE DES CATEGORIES EN BASE DE DONNEES</option></select>
+				<div id="filtres_right">
+					<div id="btn_valide_filtres">
+						<input type="submit" name="rechercher" value="Rechercher">
+					</div>
 				</div>
-				<div class="footer_filtres">
-					<div class="liste_options"><p class="infos">LISTE A METTRE !!!</p> </div>
-				</div>
-			</div>
-			<div id="filtres_right">
-				<div id="btn_valide_filtres">
-					<input type="submit" name="rechercher" value="Rechercher">
-				</div>
-			</div>
 			</form>
 		</div>
 	</header>
 	<main id="m_principal">
 		<div id="conteneur_articles">
+		<% if (liste_EnchereEC != null){
+			for (ArticleVendu article : liste_EnchereEC){%>
 			<div id="conteneur_article">
 				<div class="img_conteneur_article">
 					<img alt="#" src="#">
 				</div>
 				<div class="texte_conteneur_article">
-					<p class="designation_article"></p>
-					<p class="prix_article">Prix:</p>
-					<p class="date_fin_enchere_article">Fin de l'enchère :</p>
-					<p class="vendeur_enchere_article">Vendeur:</p>
+					<p class="designation_article"><%= article.getNomArticle() %></p>
+					<p class="prix_article">Prix: <%= article.getPrixVente() %> </p>
+					<p class="date_fin_enchere_article">Fin de l'enchère : <%= article.getDateFinEncheres() %></p>
+					<p class="vendeur_enchere_article">Vendeur: <%=article.getVendeur() %></p>
 				</div>
 			</div>
+			
+		<% }}%>
 		</div>
 	</main>
 	<footer id="f_principal"></footer>

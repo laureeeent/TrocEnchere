@@ -56,4 +56,10 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 		return null;
 	}
 
+	public ArticleVendu selectByEtat(ArticleVendu data) throws BusinessException {
+		ArticleVendu ec = data;
+		return ec;
+	}
+	
+
 }

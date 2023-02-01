@@ -45,7 +45,7 @@
 		</div>
 		<div class="saisie">
 			<label for="prenom">Prénom : </label>
-			<input type="text" id="prenom" name="prenom" pattern="[a-zA-Z]{3,30}" required="required"><%=request.getParameter("prenom") != null ? request.getParameter("prenom") : ""%>
+			<input type="text" id="prenom" name="prenom" pattern="[a-zA-Z]{3,30}" required="required" <%=request.getParameter("prenom") != null ? request.getParameter("prenom") : ""%>>
 		</div>
 		<div class="saisie">
 			<label for="nom">Nom : </label>
