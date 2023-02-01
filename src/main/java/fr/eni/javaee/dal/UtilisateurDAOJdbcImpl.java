@@ -60,10 +60,11 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			pst.executeUpdate();
 			ResultSet rs = pst.getGeneratedKeys();
 			if (rs.next()) {
-				data.setNoUtilisateur(rs.getInt("no_utilisateur"));
-				
+				data.setNoUtilisateur(rs.getInt(1));
+				System.out.println(data.getNoUtilisateur());
+
 			}
-			
+			conx.commit();
 			rs.close();
 			pst.close();
 		} catch (SQLException e) {
