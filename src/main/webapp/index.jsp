@@ -42,7 +42,7 @@
 					</div>
 					<div class="main_filtres">
 						<h3>Catégorie:</h3>
-						<select>
+						<select name="categorie">
 							<%
 							List<Categorie> listeCategories = (ArrayList<Categorie>)request.getAttribute("listeCategories");
 							if (listeCategories!=null){
