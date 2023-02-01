@@ -48,7 +48,6 @@ public class UtilisateurManager {
 			res = true;
 		}
 		if (hasCaractereMatcher.find()) {
-			System.out.println("condition vérifiée");
 			res = false;
 		}
 		
@@ -56,7 +55,15 @@ public class UtilisateurManager {
 	}
 	
 	public boolean isEmail(String entree) {
-		return false;
+		boolean res = false;
+		
+		Pattern hasAt = Pattern.compile("@[a-z0-9]{1,}.[a-z]{1,}$");
+		Matcher hasAtMatcher = hasAt.matcher(entree);
+		if (hasAtMatcher.find()) {
+			res = true;
+			System.out.println("C'est comme tu veux");
+		}
+		return res;
 	}
 	
 	public boolean isPwdCorrect(Utilisateur user, String password) {
