@@ -1,3 +1,7 @@
+<%@page import="fr.eni.javaee.bo.ArticleVendu"%>
+<%@page import="fr.eni.javaee.bll.UtilisateurManager"%>
+<%@page import="fr.eni.javaee.bo.Utilisateur"%>
+<%@page import="fr.eni.javaee.bo.Enchere"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="java.io.PrintWriter"%>
@@ -13,19 +17,30 @@
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+	<%
+	Utilisateur user = (Utilisateur) request.getAttribute("utilisateur");
+	%>
 	<header id="h_principal">
 		<div id="entete">
 			<p id="nom_site">TROCENCHERE</p>
+
+
 			<nav id="menu_nav_utilisateur">
-				<ul>
-					<li><a href="ServletConnecter">S'inscrire - Se connecter</a></li>
-				</ul>
-				<!-- 			<ul>
-				<li><a href="#">Enchères</a></li>
-				<li><a href="#">Vendre un article</a></li>
-				<li><a href="#">Mon profil</a></li>
-				<li><a href="#">Déconnexion</a></li>
-			</ul> -->
+				<%if (user == null) {%>
+					<ul>
+						<li><a href="ServletConnecter">S'inscrire - Se connecter</a></li>
+					</ul>
+				<%}%>
+				<% if (user != null) { %>
+					<ul>
+						<li><a href="#">Enchères</a></li>
+						<li><a href="#">Vendre un article</a></li>
+						<li><a href="#">Mon profil ( <%= user.getPseudo() %> )</a></li>
+						<li><a href="#">Déconnexion</a></li>
+					</ul>
+				
+				<%}%>
+
 			</nav>
 		</div>
 		<div id="titre_page">
@@ -57,7 +72,13 @@
 					</div>
 					<div class="footer_filtres">
 						<div class="liste_options">
-							<p class="infos">LISTE A METTRE !!!</p>
+						<%-- 					<% if (user != null){%>
+							<ul>
+								<% for( Enchere enchere : encheres) { %>
+								<li> <%= user.getEncheres() %></li>
+								<%}}%>
+							
+							 </ul>  --%>
 						</div>
 					</div>
 				</div>
@@ -70,19 +91,23 @@
 		</div>
 	</header>
 	<main id="m_principal">
-		<div id="conteneur_articles">
+<%-- 		<div id="conteneur_articles">
+		<% if (liste_EnchereEC != null){
+			for (ArticleVendu article : liste_EnchereEC){%>
 			<div id="conteneur_article">
 				<div class="img_conteneur_article">
 					<img alt="#" src="#">
 				</div>
 				<div class="texte_conteneur_article">
-					<p class="designation_article"></p>
-					<p class="prix_article">Prix:</p>
-					<p class="date_fin_enchere_article">Fin de l'enchère :</p>
-					<p class="vendeur_enchere_article">Vendeur:</p>
+					<p class="designation_article"><%= article.getNomArticle() %></p>
+					<p class="prix_article">Prix: <%= article.getPrixVente() %> </p>
+					<p class="date_fin_enchere_article">Fin de l'enchère : <%= article.getDateFinEncheres() %></p>
+					<p class="vendeur_enchere_article">Vendeur: <%=article.getVendeur() %></p>
 				</div>
 			</div>
-		</div>
+			
+		<% }}%>
+		</div> --%>
 	</main>
 	<footer id="f_principal"></footer>
 </body>

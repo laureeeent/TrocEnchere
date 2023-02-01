@@ -35,7 +35,8 @@ public class ServletConnecter extends HttpServlet {
 		String rep_Mdp = request.getParameter("mot_de_passe");
 		UtilisateurManager utilisateurManager = new UtilisateurManager();
 
-		System.out.println(utilisateurManager.isEmail(rep_Identifiant)+" identifiant = "+rep_Identifiant);
+
+
 		RequestDispatcher rs;
 		
 		Utilisateur user = utilisateurManager.getUtilisateur(rep_Identifiant);
@@ -45,7 +46,7 @@ public class ServletConnecter extends HttpServlet {
 		}
 		
 		else if(utilisateurManager.isPwdCorrect(user, rep_Mdp) ) {
-			rs = request.getRequestDispatcher("./login.jsp");
+			rs = request.getRequestDispatcher("./index.jsp");
 			request.setAttribute("utilisateur", user);
 			request.setAttribute("messageErreur", "Vous êtes connecté");
 		}
