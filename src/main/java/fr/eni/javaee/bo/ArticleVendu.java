@@ -17,8 +17,10 @@ public class ArticleVendu {
 	private String etatVente;
 	private Utilisateur vendeur;
 	private List<Enchere> encheres;
+	private Enchere enchere;
 	private Categorie categorieArticle;
 	private Retrait lieuRetrait;
+	private String image;
 
 	// - - - - - - - - - - - - - - - - - - constructeurs - - - - - - - - - - - - - -
 
@@ -44,6 +46,22 @@ public class ArticleVendu {
 		this.categorieArticle = categorieArticle;
 		this.lieuRetrait = lieuRetrait;
 	}
+	public ArticleVendu(int noArticle, String nomArticle, String description, LocalDateTime dateDebutEncheres,
+			LocalDateTime dateFinEncheres, int miseAPrix, int prixVente, String etatVente, Utilisateur vendeur,
+			Categorie categorieArticle,String image) {
+		super();
+		this.noArticle = noArticle;
+		this.nomArticle = nomArticle;
+		this.description = description;
+		this.dateDebutEncheres = dateDebutEncheres;
+		this.dateFinEncheres = dateFinEncheres;
+		this.miseAPrix = miseAPrix;
+		this.prixVente = prixVente;
+		this.etatVente = etatVente;
+		this.vendeur = vendeur;
+		this.categorieArticle = categorieArticle;
+		this.image = image;
+	}
 
 	public ArticleVendu(String nomArticle, String description, LocalDateTime dateDebutEncheres,
 			LocalDateTime dateFinEncheres, int miseAPrix, int prixVente, String etatVente, Utilisateur vendeur,
@@ -61,8 +79,19 @@ public class ArticleVendu {
 		this.categorieArticle = categorieArticle;
 		this.lieuRetrait = lieuRetrait;
 	}
-
+	
+	public ArticleVendu(String nom_article, int prix_initial, LocalDateTime date_fin, Utilisateur user, Enchere prix_enchere, String etat_vente,
+			String image) {
+		this.nomArticle = nom_article;
+		this.miseAPrix= prix_initial;
+		this.dateFinEncheres = date_fin;
+		this.vendeur=user;
+		this.image = image;
+	}
 	// - - - - - - - - - - - - - - - - - - getters & setters - - - - - - - - - - - -
+
+
+
 
 	public int getNoArticle() {
 		return noArticle;
