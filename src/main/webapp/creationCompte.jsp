@@ -69,11 +69,11 @@
 		</div>
 		<div class="saisie">
 			<label for="mdp">Mot de passe : </label> <input type="password"
-				id="mdp" name="mdp" required pattern="[A-Za-z0-9]{8,30}">
+				id="mdp" name="mdp" required pattern="[A-Za-z0-9]{8,30}" title="le mot de passe doit contenir entre 8 et 30 caractères alphanumériques. Caractères spéciaux non autorisés."> 
 		</div>
 		<div class="saisie">
 			<label for="mdp">Confirmation mot de passe : </label> <input
-				type="password" id="mdp" name="mdp" required pattern="[A-Za-z0-9]{8,30}">
+				type="password" id="mdp" name="confirmationMdp" required pattern="[A-Za-z0-9]{8,30}">
 		</div>
 		<div>
 			<input type="submit" value="Créer" />
