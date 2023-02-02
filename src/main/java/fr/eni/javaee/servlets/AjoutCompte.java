@@ -81,7 +81,7 @@ public class AjoutCompte extends HttpServlet {
 			utilisateurManager.ajouterUtilisateur(user);
 			request.setAttribute("utilisateur", user);
 			//TODO 
-			RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("ServletRedirectionAccueil");
 			rd.forward(request, response);
 			} 
 		}
