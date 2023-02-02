@@ -85,7 +85,7 @@ int credit = user.getCredit();
 		</div>
 		<div class="saisie">
 			<label for="mdp">Mot de passe actuel : </label> <input
-				type="password" id="mdp" name="mdpActuel" required
+				type="password" id="mdp" name="mdpActuel" required placeholder="Pour supprimer votre compte, veuillez saisir votre mot de passe"
 				pattern="[A-Za-z0-9]{8,30}">
 		</div>
 		<div class="saisie">
