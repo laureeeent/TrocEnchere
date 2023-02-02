@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.javaee.bll.CategorieManager;
-import fr.eni.javaee.bo.Categorie;
 
 /**
  * Servlet implementation class ServletCategories

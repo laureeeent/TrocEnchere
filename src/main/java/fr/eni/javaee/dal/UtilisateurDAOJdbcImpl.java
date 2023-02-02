@@ -33,6 +33,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	
 	@Override
 	public void insert(Utilisateur data) throws BusinessException {
+		
 		if (data == null) {
 			BusinessException be = new BusinessException();
 			be.ajouterCodeErreur(CodeResultatDAL.INSERT_OBJET_NULL);
