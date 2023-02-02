@@ -31,7 +31,7 @@
 		%>
 
 	<div class="retourAccueil">
-		<a href="<%=request.getContextPath()%>/index.jsp"><input
+		<a href="ServletRedirectionAccueil"><input
 			type="button" value="TrocEnchère - Retour accueil" /></a>
 	</div>
 
@@ -85,7 +85,7 @@
 	</form>
 
 	<div class="retourAccueil">
-		<a href="<%=request.getContextPath()%>/index.jsp"><input
+		<a href="ServletRedirectionAccueil"><input
 			type="button" value="Annuler" /></a>
 	</div>
 

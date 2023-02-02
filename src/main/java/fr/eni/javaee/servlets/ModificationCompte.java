@@ -37,16 +37,13 @@ public class ModificationCompte extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		Utilisateur user = (Utilisateur) session.getAttribute("utilisateur");
-		System.out.println(user.getPseudo());
 		UtilisateurManager utilisateurManager = new UtilisateurManager();
 		String submit=null;
 		String submitUpdate="Enregistrer";
 		String submitDelete="Supprimer mon compte";
 		request.setCharacterEncoding("UTF-8");
 		submit=request.getParameter("submit");
-		
-//		submitUpdate=request.getParameter("update");
-//		submitUpdate=request.getParameter("delete");
+
 		if(submit.equals(submitUpdate)) {
 		
 			String pseudo;
@@ -115,7 +112,9 @@ public class ModificationCompte extends HttpServlet {
 			
 		} else if (submit.equals(submitDelete)) {
 				utilisateurManager.supprimerUtilisateur(user);
-				RequestDispatcher rd = request.getRequestDispatcher("/modificationCompte.jsp");
+				Utilisateur userNull = null;
+				session.setAttribute("utilisateur", userNull);
+				RequestDispatcher rd = request.getRequestDispatcher("ServletRedirectionAccueil");
 				rd.forward(request, response);
 		}
 	}
