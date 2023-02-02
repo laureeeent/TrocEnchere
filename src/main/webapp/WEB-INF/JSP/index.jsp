@@ -34,7 +34,7 @@
 				<% if (user != null) { %>
 					<ul>
 						<li><a href="#">Enchères</a></li>
-						<li><a href="#">Vendre un article</a></li>
+						<li><a href="ServletNouvelleVente">Vendre un article</a></li>
 						<li><a href="ServletAfficherCompte">Mon profil ( <%= user.getPseudo() %> )</a></li>
 						<li><a href="ServletDeconnexion">Déconnexion</a></li>
 					</ul>

@@ -55,7 +55,6 @@ public class UtilisateurManager {
 		
 		if (alphaNumericMatcher.find()) {
 			res = true;
-			System.out.println("condition vérifiée");
 		}
 		else {
 			

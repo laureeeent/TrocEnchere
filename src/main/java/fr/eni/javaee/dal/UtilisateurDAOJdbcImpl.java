@@ -62,7 +62,6 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			ResultSet rs = pst.getGeneratedKeys();
 			if (rs.next()) {
 				data.setNoUtilisateur(rs.getInt(1));
-				System.out.println(data.getNoUtilisateur());
 
 			}
 			conx.commit();
@@ -198,7 +197,6 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		}
 		
 		Utilisateur resultat = null;
-		System.out.println("vous êtes passé ici");
 		try ( Connection conx = ConnectionProvider.getConnection() ) {
 			conx.setAutoCommit(false);
 			PreparedStatement pst = conx.prepareStatement(SELECT_BY_PSEUDO);
