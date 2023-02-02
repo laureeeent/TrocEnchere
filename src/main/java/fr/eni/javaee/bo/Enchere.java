@@ -7,12 +7,12 @@ public class Enchere {
 	// - - - - - - - - - - - - - - attributs - - - - - - - - - - - - - -
 
 	private LocalDateTime dateEnchère;
-	private float montant_enchere;
+	private int montant_enchere;
 	private Utilisateur acheteur;
 	private ArticleVendu vente;
 
 	// - - - - - - - - - - - - - - - - - - constructeurs - - - - - - - - - - - - - -
-	public Enchere(LocalDateTime dateEnchère, float montant_enchere, Utilisateur acheteur, ArticleVendu vente) {
+	public Enchere(LocalDateTime dateEnchère, int montant_enchere, Utilisateur acheteur, ArticleVendu vente) {
 		super();
 		this.dateEnchère = dateEnchère;
 		this.montant_enchere = montant_enchere;
@@ -26,6 +26,14 @@ public class Enchere {
 
 	// - - - - - - - - - - - - - - - - - - getters & setters - - - - - - - - - - - -
 
+	public Enchere(Utilisateur no_utilisateur, ArticleVendu no_article, LocalDateTime date_enchere, int montant_enchere) {
+		this.acheteur = no_utilisateur;
+		this.vente = no_article;
+		this.acheteur = no_utilisateur;
+		this.acheteur = no_utilisateur;
+		
+	}
+
 	public LocalDateTime getDateEnchère() {
 		return dateEnchère;
 	}
@@ -38,7 +46,7 @@ public class Enchere {
 		return montant_enchere;
 	}
 
-	public void setMontant_enchere(float montant_enchere) {
+	public void setMontant_enchere(int montant_enchere) {
 		this.montant_enchere = montant_enchere;
 	}
 
