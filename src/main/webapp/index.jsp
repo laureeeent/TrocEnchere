@@ -59,7 +59,7 @@
 						<h3>Catégorie:</h3>
 						<select name="categorie">
 							<%
-							List<Categorie> listeCategories = (ArrayList<Categorie>)request.getAttribute("listeCategories");
+							List<Categorie> listeCategories = (ArrayList<Categorie>) request.getAttribute("listeCategories");
 							if (listeCategories!=null){
 							for (Categorie s : listeCategories) {
 							%>

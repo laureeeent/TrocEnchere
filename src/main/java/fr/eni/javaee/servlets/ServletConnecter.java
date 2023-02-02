@@ -1,6 +1,7 @@
 package fr.eni.javaee.servlets;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,7 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.eni.javaee.bll.CategorieManager;
 import fr.eni.javaee.bll.UtilisateurManager;
+import fr.eni.javaee.bo.Categorie;
 import fr.eni.javaee.bo.Utilisateur;
 
 /**
@@ -46,7 +49,7 @@ public class ServletConnecter extends HttpServlet {
 		}
 		
 		else if(utilisateurManager.isPwdCorrect(user, rep_Mdp) ) {
-			rs = request.getRequestDispatcher("./index.jsp");
+			rs = request.getRequestDispatcher("ServletRedirectionAccueil");
 			request.setAttribute("utilisateur", user);
 			request.setAttribute("messageErreur", "Vous êtes connecté");
 		}
@@ -55,6 +58,12 @@ public class ServletConnecter extends HttpServlet {
 			rs = request.getRequestDispatcher("./login.jsp");
 			request.setAttribute("messageErreur", "mot de passe incorrect.");
 		}
+		
+		CategorieManager categorieManager = new CategorieManager();
+		List<Categorie> listeCategories = categorieManager.selectionnerToutesLesCategories();
+		request.setAttribute("listeCategories", listeCategories);
+
+		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
 		
 		rs.forward(request, response);
 	}

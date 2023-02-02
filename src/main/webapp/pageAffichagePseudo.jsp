@@ -8,6 +8,7 @@
 <title>Profil de (mettre le nom du pseudo que l'on consulte)</title>
 </head>
 <body>
+<h1 style="text-align:center;">MON PROFIL</h1>
 
 
 </body>
