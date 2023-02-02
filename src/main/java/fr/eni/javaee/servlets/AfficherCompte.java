@@ -8,9 +8,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import fr.eni.javaee.bo.Utilisateur;
+//import javax.servlet.http.HttpSession;
+//
+//import fr.eni.javaee.bll.UtilisateurManager;
+//import fr.eni.javaee.bo.Utilisateur;
+//import fr.eni.javaee.exceptions.BusinessException;
 
 /**
  * Servlet implementation class AfficherCompte
@@ -23,11 +25,23 @@ public class AfficherCompte extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
+//		HttpSession session = request.getSession();
 		
+//		UtilisateurManager utilsateurManager = new UtilisateurManager();
+		
+//		Utilisateur user = (Utilisateur) session.getAttribute("utilisateur");
+//		Utilisateur userAffichage;
+//		try {
+//			userAffichage = utilsateurManager.getUtilisateur( (String)request.getAttribute("utilisateurAffichage_nom") );
+//			request.setAttribute("utilisateurAffichage", userAffichage);
+//			
+//		} catch (BusinessException e) {
+//			for (int code : e.getCodeErreurs()) {
+//				System.out.println(code);
+//			}
+//			e.printStackTrace();
+//		}
 		RequestDispatcher rs = request.getRequestDispatcher("./pageAffichagePseudo.jsp");
-		Utilisateur user = (Utilisateur) session.getAttribute("utilisateur");
-		System.out.println("Utilisateur : "+user.getPseudo());
 		rs.forward(request, response);
 	}
 
