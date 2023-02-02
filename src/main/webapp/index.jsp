@@ -18,7 +18,7 @@
 </head>
 <body>
 	<%
-	Utilisateur user = (Utilisateur) request.getAttribute("utilisateur");
+	Utilisateur user = (Utilisateur) session.getAttribute("utilisateur");
 	%>
 	<header id="h_principal">
 		<div id="entete">
@@ -35,8 +35,8 @@
 					<ul>
 						<li><a href="#">Enchères</a></li>
 						<li><a href="#">Vendre un article</a></li>
-						<li><a href="#">Mon profil ( <%= user.getPseudo() %> )</a></li>
-						<li><a href="#">Déconnexion</a></li>
+						<li><a href="ServletAfficherCompte">Mon profil ( <%= user.getPseudo() %> )</a></li>
+						<li><a href="ServletDeconnexion">Déconnexion</a></li>
 					</ul>
 				
 				<%}%>

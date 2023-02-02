@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.eni.javaee.bll.CategorieManager;
 import fr.eni.javaee.bll.UtilisateurManager;
@@ -36,13 +37,14 @@ public class ServletConnecter extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String rep_Identifiant = request.getParameter("identifiant");
 		String rep_Mdp = request.getParameter("mot_de_passe");
-		UtilisateurManager utilisateurManager = new UtilisateurManager();
-
-
-
-		RequestDispatcher rs;
 		
+		UtilisateurManager utilisateurManager = new UtilisateurManager();
 		Utilisateur user = utilisateurManager.getUtilisateur(rep_Identifiant);
+		
+		HttpSession session = request.getSession();
+		RequestDispatcher rs = null;
+		
+		
 		if( user == null ) {
 			rs = request.getRequestDispatcher("./login.jsp");
 			request.setAttribute("messageErreur", "Identifiant inconnu");
@@ -50,7 +52,7 @@ public class ServletConnecter extends HttpServlet {
 		
 		else if(utilisateurManager.isPwdCorrect(user, rep_Mdp) ) {
 			rs = request.getRequestDispatcher("ServletRedirectionAccueil");
-			request.setAttribute("utilisateur", user);
+			session.setAttribute("utilisateur", user);
 			request.setAttribute("messageErreur", "Vous êtes connecté");
 		}
 		
@@ -59,11 +61,11 @@ public class ServletConnecter extends HttpServlet {
 			request.setAttribute("messageErreur", "mot de passe incorrect.");
 		}
 		
-		CategorieManager categorieManager = new CategorieManager();
-		List<Categorie> listeCategories = categorieManager.selectionnerToutesLesCategories();
-		request.setAttribute("listeCategories", listeCategories);
-
-		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+//		CategorieManager categorieManager = new CategorieManager();
+//		List<Categorie> listeCategories = categorieManager.selectionnerToutesLesCategories();
+//		request.setAttribute("listeCategories", listeCategories);
+//
+//		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
 		
 		rs.forward(request, response);
 	}
