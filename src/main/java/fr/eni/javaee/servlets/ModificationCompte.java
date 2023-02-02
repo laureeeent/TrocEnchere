@@ -27,7 +27,7 @@ public class ModificationCompte extends HttpServlet {
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("/modificationCompte.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("./modificationCompte.jsp");
 		rd.forward(request, response);
 	}
 
@@ -35,13 +35,16 @@ public class ModificationCompte extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession();
+		
 		Utilisateur user = (Utilisateur) session.getAttribute("utilisateur");
+		System.out.println(user.getPseudo());
 		UtilisateurManager utilisateurManager = new UtilisateurManager();
 		String submit=null;
 		String submitUpdate="Enregistrer";
 		String submitDelete="Supprimer mon compte";
 		request.setCharacterEncoding("UTF-8");
 		submit=request.getParameter("submit");
+		
 //		submitUpdate=request.getParameter("update");
 //		submitUpdate=request.getParameter("delete");
 		if(submit.equals(submitUpdate)) {
@@ -111,7 +114,6 @@ public class ModificationCompte extends HttpServlet {
 			}
 			
 		} else if (submit.equals(submitDelete)) {
-			
 				utilisateurManager.supprimerUtilisateur(user);
 				RequestDispatcher rd = request.getRequestDispatcher("/modificationCompte.jsp");
 				rd.forward(request, response);
