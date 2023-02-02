@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.eni.javaee.bll.ArticleManager;
 import fr.eni.javaee.bll.CategorieManager;
+import fr.eni.javaee.bo.ArticleVendu;
 import fr.eni.javaee.bo.Categorie;
 
 /**
@@ -39,8 +41,15 @@ public class ServletRedirectionAccueil extends HttpServlet {
 		CategorieManager categorieManager = new CategorieManager();
 		List<Categorie> listeCategories = categorieManager.selectionnerToutesLesCategories();
 		request.setAttribute("listeCategories", listeCategories);
+<<<<<<< HEAD
+		ArticleManager articleManager = new ArticleManager();
+		List<ArticleVendu> liste_EnchereEC = articleManager.selectionnerByEtat("EC");
+		request.setAttribute("listeCategories", listeCategories);
+		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+=======
 
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JSP/index.jsp");
+>>>>>>> branch 'main' of https://github.com/laureeeent/TrocEnchere.git
 		rd.forward(request, response);
 	}
 
