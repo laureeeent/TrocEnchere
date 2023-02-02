@@ -114,5 +114,23 @@ public class UtilisateurManager {
 		}
 	}
 	
+	public void modifierUtilisateur(Utilisateur user) {
+		try {
+			utilisateurDAO.update(user);
+		}
+		catch (BusinessException be) {
+			be.printStackTrace();
+		}
+	}
+	
+	public void supprimerUtilisateur(Utilisateur user) {
+		try {
+			utilisateurDAO.delete(user);
+		}
+		catch (BusinessException be) {
+			be.printStackTrace();
+		}
+	}
+	
 	
 }
