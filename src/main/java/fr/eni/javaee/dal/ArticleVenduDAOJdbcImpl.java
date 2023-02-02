@@ -157,7 +157,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 				Utilisateur user = util.selectByPseudo(rs.getString("pseudo"));
 				
 				EnchereDAOJdbcImpl e = new EnchereDAOJdbcImpl();
-				Enchere ench = e.selectByMontant(rs.getString("montant_enchere"));
+				Enchere ench = e.selectByMontant(rs.getInt("montant_enchere"));
 				
 				ArticleVendu art = new ArticleVendu(
 							rs.getString("nom_article"),
