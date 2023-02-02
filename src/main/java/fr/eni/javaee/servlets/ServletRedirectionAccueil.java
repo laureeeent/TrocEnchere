@@ -40,7 +40,7 @@ public class ServletRedirectionAccueil extends HttpServlet {
 		List<Categorie> listeCategories = categorieManager.selectionnerToutesLesCategories();
 		request.setAttribute("listeCategories", listeCategories);
 
-		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JSP/index.jsp");
 		rd.forward(request, response);
 	}
 

@@ -30,15 +30,14 @@
 				<p id="ligneVille">Ville :       <%=user.getVille() %></p>
 			</div>
 			
-			<form action="ServletRedirectionAccueil" method="get">
-				<button type="submit" ><h3>Retour Acceuil</h3></button>
-			</form>
-			<a href="./ModificationCompte"><input type="button" value="Modifier mon compte"></a>
-			
-			
 		<%
 	}
 	%>
+	
+		<form action="ServletRedirectionAccueil" method="get">
+			<button type="submit" ><h3>Retour Acceuil</h3></button>
+		</form>
+		<a href="./ModificationCompte"><input type="button" value="Modifier mon compte"></a>
 	
 
 

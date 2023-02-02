@@ -25,7 +25,7 @@ public class ServletConnecter extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rs = request.getRequestDispatcher("/login.jsp");
+		RequestDispatcher rs = request.getRequestDispatcher("/WEB-INF/JSP/login.jsp");
 		rs.forward(request, response);
 	}
 
@@ -52,7 +52,7 @@ public class ServletConnecter extends HttpServlet {
 		
 		
 		if( user == null ) {
-			rs = request.getRequestDispatcher("./login.jsp");
+			rs = request.getRequestDispatcher("./WEB-INF/JSP/login.jsp");
 			request.setAttribute("messageErreur", "Identifiant inconnu");
 		}
 		
@@ -63,7 +63,7 @@ public class ServletConnecter extends HttpServlet {
 		}
 		
 		else {
-			rs = request.getRequestDispatcher("./login.jsp");
+			rs = request.getRequestDispatcher("./WEB-INF/JSP/login.jsp");
 			request.setAttribute("messageErreur", "mot de passe incorrect.");
 		}
 		
