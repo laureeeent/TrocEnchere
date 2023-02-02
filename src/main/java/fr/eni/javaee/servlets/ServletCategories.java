@@ -30,7 +30,7 @@ public class ServletCategories extends HttpServlet {
 		if (listeCategories.selectionnerToutesLesCategories().isEmpty()) {
 			System.out.println("c'est la merde");
 		}
-		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JSP/index.jsp");
 		rd.forward(request, response);
 	}
 

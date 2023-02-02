@@ -24,7 +24,7 @@ public class AjoutCompte extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		RequestDispatcher rs = request.getRequestDispatcher("/creationCompte.jsp");
+		RequestDispatcher rs = request.getRequestDispatcher("/WEB-INF/JSP/creationCompte.jsp");
 		rs.forward(request, response);
 	}
 
@@ -72,7 +72,7 @@ public class AjoutCompte extends HttpServlet {
 
 		if (listeMessagesErreur.size() > 0) {
 			request.setAttribute("listeMessagesErreur", listeMessagesErreur);
-			RequestDispatcher rd = request.getRequestDispatcher("/creationCompte.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JSP/creationCompte.jsp");
 			rd.forward(request, response);
 		} else {
 			Utilisateur user = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, mdp, 100,

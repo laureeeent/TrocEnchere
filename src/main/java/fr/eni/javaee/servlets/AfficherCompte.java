@@ -41,7 +41,7 @@ public class AfficherCompte extends HttpServlet {
 //			}
 //			e.printStackTrace();
 //		}
-		RequestDispatcher rs = request.getRequestDispatcher("./pageAffichagePseudo.jsp");
+		RequestDispatcher rs = request.getRequestDispatcher("./WEB-INF/JSP/pageAffichagePseudo.jsp");
 		rs.forward(request, response);
 	}
 
