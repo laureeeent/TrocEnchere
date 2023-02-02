@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.eni.javaee.bll.UtilisateurManager;
 import fr.eni.javaee.bo.Utilisateur;
@@ -30,6 +31,8 @@ public class AjoutCompte extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		
 		String pseudo;
 		String email;
 		String prenom;
@@ -79,7 +82,7 @@ public class AjoutCompte extends HttpServlet {
 					false);
 			
 			utilisateurManager.ajouterUtilisateur(user);
-			request.setAttribute("utilisateur", user);
+			session.setAttribute("utilisateur", user);
 			RequestDispatcher rd = request.getRequestDispatcher("ServletRedirectionAccueil");
 			rd.forward(request, response);
 			} 

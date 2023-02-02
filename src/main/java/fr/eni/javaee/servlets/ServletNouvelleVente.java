@@ -24,7 +24,7 @@ public class ServletNouvelleVente extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher rs = request.getRequestDispatcher("/WEB-INF/JSP/nouvelleVente.jsp");
 		CategorieManager categorieManager = new CategorieManager();
-		request.setAttribute("listeCategorie", categorieManager.selectionnerToutesLesCategories());
+		request.setAttribute("listeCategories", categorieManager.selectionnerToutesLesCategories());
 		
 		
 		rs.forward(request, response);
