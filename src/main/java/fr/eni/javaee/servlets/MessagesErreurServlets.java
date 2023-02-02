@@ -12,6 +12,8 @@ public abstract class MessagesErreurServlets {
 	
 	public static final String ERREUR_COMPTE_EXISTANT = "Vous avez déjà un compte";
 	
+	public static final String ERREUR_SAISIE_MDP_ACTUEL = "Le mot de passe actuel saisi est erroné";
+	
 	
 	
 
