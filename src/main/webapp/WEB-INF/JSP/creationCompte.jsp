@@ -16,7 +16,6 @@
 <body>
 
 <%
-			Utilisateur user = (Utilisateur) request.getAttribute("utilisateur");
 			List<String> listeMessagesErreur = (List<String>)request.getAttribute("listeMessagesErreur");
 			if(listeMessagesErreur!=null)
 			{
@@ -41,7 +40,7 @@
 	<form action="<%=request.getContextPath()%>/AjoutCompte" method="post">
 		<div class="saisie">
 			<label for="pseudo">Pseudo : </label>
-			<input type="text" id="pseudo" pattern="[a-zA-Z0-9]{3,30}" name="pseudo" required="required" title="le pseudo doit contenir entre 3 et 30 caractères alphanumériques."value="<%=request.getParameter("pseudo") != null ? request.getParameter("pseudo") : ""%>">
+			<input type="text" id="pseudo" pattern="[a-zA-Z0-9]{3,30}" name="pseudo" required="required" value="<%=request.getParameter("pseudo") != null ? request.getParameter("pseudo") : ""%>">
 		</div>
 
 		<div class="saisie">
@@ -50,7 +49,7 @@
 		</div>
 		<div class="saisie">
 			<label for="prenom">Prénom : </label>
-			<input type="text" id="prenom" name="prenom" pattern="[a-zA-Z- ]{3,30}" required="required"  value="<%=request.getParameter("prenom") != null ? request.getParameter("prenom") : ""%>">
+			<input type="text" id="prenom" name="prenom" pattern="[a-zA-Z- ]{3,30}" required="required" value="<%=request.getParameter("prenom") != null ? request.getParameter("prenom") : ""%>">
 		</div>
 		<div class="saisie">
 			<label for="nom">Nom : </label>

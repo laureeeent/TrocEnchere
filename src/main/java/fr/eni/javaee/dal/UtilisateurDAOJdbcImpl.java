@@ -25,7 +25,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			+ "code_postal=?, ville=?, mot_de_passe=?, credit=?, administrateur=? "
 			+ "WHERE no_utilisateur=?;";
 
-	private static final String DELETE = "DELETE * FROM UTILISATEURS WHERE no_utilisateur=?;";
+	private static final String DELETE = "DELETE FROM UTILISATEURS WHERE no_utilisateur=?;";
 	private static final String SELECT_BY_ID = "SELECT * FROM UTILISATEURS WHERE no_utilisateur=?";
 	private static final String SELECT_BY_PSEUDO = "SELECT * FROM UTILISATEURS WHERE pseudo=?";
 	private static final String SELECT_BY_EMAIL = "SELECT * FROM UTILISATEURS WHERE email=?";
@@ -33,6 +33,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	
 	@Override
 	public void insert(Utilisateur data) throws BusinessException {
+		
 		if (data == null) {
 			BusinessException be = new BusinessException();
 			be.ajouterCodeErreur(CodeResultatDAL.INSERT_OBJET_NULL);

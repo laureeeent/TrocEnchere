@@ -16,21 +16,14 @@ public class UtilisateurManager {
 		utilisateurDAO = DAOFactory.getUtilisateurDAO();
 	}
 	
-	public Utilisateur getUtilisateur(String entree) {
+	public Utilisateur getUtilisateur(String entree) throws BusinessException {
 		Utilisateur res = null;
 		if ( isPseudo(entree) ) {
-			try {
-				res = utilisateurDAO.selectByPseudo(entree);
-			} catch (BusinessException be) {
-				be.printStackTrace();
-			}
+			res = utilisateurDAO.selectByPseudo(entree);
 			
 		} else if ( isEmail(entree) ) {
-			try {
-				res = utilisateurDAO.selectByEmail(entree);
-			} catch (BusinessException be) {
-				be.printStackTrace();
-			}
+			res = utilisateurDAO.selectByEmail(entree);
+
 		}
 		
 		return res;
@@ -108,6 +101,24 @@ public class UtilisateurManager {
 		
 		try {
 			utilisateurDAO.insert(user);
+		}
+		catch (BusinessException be) {
+			be.printStackTrace();
+		}
+	}
+	
+	public void modifierUtilisateur(Utilisateur user) {
+		try {
+			utilisateurDAO.update(user);
+		}
+		catch (BusinessException be) {
+			be.printStackTrace();
+		}
+	}
+	
+	public void supprimerUtilisateur(Utilisateur user) {
+		try {
+			utilisateurDAO.delete(user);
 		}
 		catch (BusinessException be) {
 			be.printStackTrace();

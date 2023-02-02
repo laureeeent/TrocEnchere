@@ -8,36 +8,33 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import fr.eni.javaee.bll.CategorieManager;
+import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class ServletCategories
+ * Servlet implementation class ServletDeconnexion
  */
-@WebServlet("/ServletCategories")
-public class ServletCategories extends HttpServlet {
+@WebServlet("/ServletDeconnexion")
+public class ServletDeconnexion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-   
-    public ServletCategories() {
-        super();
-    }
 
-	
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		CategorieManager listeCategories = new CategorieManager();
-		request.setAttribute("listeCategories", listeCategories.selectionnerToutesLesCategories());
-		if (listeCategories.selectionnerToutesLesCategories().isEmpty()) {
-			System.out.println("c'est la merde");
-		}
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JSP/index.jsp");
-		rd.forward(request, response);
+		RequestDispatcher rs = request.getRequestDispatcher("/ServletRedirectionAccueil");
+		
+		HttpSession session = request.getSession();
+		session.setAttribute("utilisateur", null);
+		
+		rs.forward(request, response);
 	}
 
-	
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
-		}
+	}
 
 }
