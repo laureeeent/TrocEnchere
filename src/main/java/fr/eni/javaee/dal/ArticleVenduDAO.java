@@ -17,4 +17,6 @@ public interface ArticleVenduDAO {
 	
 	public List<ArticleVendu> selectAll();
 
+	List<ArticleVendu> selectByEtat(String etat) throws BusinessException;
+
 }

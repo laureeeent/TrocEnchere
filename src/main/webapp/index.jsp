@@ -91,8 +91,9 @@
 		</div>
 	</header>
 	<main id="m_principal">
-<%-- 		<div id="conteneur_articles">
-		<% if (liste_EnchereEC != null){
+		<div id="conteneur_articles">
+		<% List<ArticleVendu> liste_EnchereEC = (ArrayList<ArticleVendu>)request.getAttribute("listeArticles");
+		 if (liste_EnchereEC != null){
 			for (ArticleVendu article : liste_EnchereEC){%>
 			<div id="conteneur_article">
 				<div class="img_conteneur_article">
@@ -100,14 +101,14 @@
 				</div>
 				<div class="texte_conteneur_article">
 					<p class="designation_article"><%= article.getNomArticle() %></p>
-					<p class="prix_article">Prix: <%= article.getPrixVente() %> </p>
+					<p class="prix_article">Prix: <%=  article.getPrixVente() %> </p>
 					<p class="date_fin_enchere_article">Fin de l'enchère : <%= article.getDateFinEncheres() %></p>
 					<p class="vendeur_enchere_article">Vendeur: <%=article.getVendeur() %></p>
 				</div>
 			</div>
 			
 		<% }}%>
-		</div> --%>
+		</div>
 	</main>
 	<footer id="f_principal"></footer>
 </body>

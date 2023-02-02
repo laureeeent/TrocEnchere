@@ -5,12 +5,16 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
 import fr.eni.javaee.bo.ArticleVendu;
+import fr.eni.javaee.bo.Categorie;
+import fr.eni.javaee.bo.Enchere;
+import fr.eni.javaee.bo.Utilisateur;
 import fr.eni.javaee.exceptions.BusinessException;
 
 public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
@@ -20,6 +24,11 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 						+ " VALUES(?,?,?,?,?,?,?,?,DEFAULT,null) ";
 	
 	private static final String SELECT_BY_ID = "SELECT * FROM ARTICLES_VENDUS WHERE no_article=?;";
+
+	private static final String SELECT_ARTICLE_ENCHERE_BY_ETAT = "SELECT nom_article, prix_initial, date_fin_enchere, pseudo,montant_enchere,etat_vente,image FROM ARTICLES_VENDUS as a LEFT OUTER JOIN ENCHERES as e ON a.no_article = e.no_article	INNER JOIN UTILISATEURS as u on a.no_utilisateur=u.no_utilisateur WHERE etat_vente= ?;"
+			+ ""
+			+ "";
+	
 
 	@Override
 	public void insert(ArticleVendu data) throws BusinessException {
@@ -122,11 +131,55 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
+	public List<ArticleVendu> selectByEtat(String etat) throws BusinessException {
+		if (etat == null) {
+			BusinessException be = new BusinessException();
+			be.ajouterCodeErreur(CodeResultatDAL.SELECT_ID_INCORRECT);
+		}
+		
+		List<ArticleVendu>  res = null;
+		
+		try ( Connection conx = ConnectionProvider.getConnection() ) {
+			PreparedStatement pst = conx.prepareStatement(SELECT_ARTICLE_ENCHERE_BY_ETAT);
+			pst.setString(1, etat);
+			
+			ResultSet rs = pst.executeQuery();
+			 // exploitation du resultat
+			 while (rs.next()) {
 
-	public ArticleVendu selectByEtat(ArticleVendu data) throws BusinessException {
-		ArticleVendu ec = data;
-		return ec;
-	}
+				
+				LocalDate date_fin_date = rs.getDate("date_fin_enchere").toLocalDate();
+				LocalTime date_fin_time = rs.getTime("date_fin_enchere").toLocalTime();
+				LocalDateTime date_fin = LocalDateTime.of(date_fin_date, date_fin_time);
+				
+				UtilisateurDAOJdbcImpl util = new UtilisateurDAOJdbcImpl();
+				Utilisateur user = util.selectByPseudo(rs.getString("pseudo"));
+				
+				EnchereDAOJdbcImpl e = new EnchereDAOJdbcImpl();
+				Enchere ench = e.selectByMontant(rs.getString("montant_enchere"));
+				
+				ArticleVendu art = new ArticleVendu(
+							rs.getString("nom_article"),
+							rs.getInt("prix_initial"),
+							date_fin,
+							user,							
+							ench,
+							rs.getString("etat_vente"),
+							rs.getString("image")			
+						);
+				res.add(art);
+				if (art != null) {
+					System.out.println(art.getDescription());
+					
+					
+				}	
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return res;
 	
-
+	}
 }
