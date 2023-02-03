@@ -10,5 +10,4 @@ public interface EnchereDAO {
 	
 	public List<Enchere>selectAll() ;
 	
-	public Enchere selectByMontant(int int1);
 }

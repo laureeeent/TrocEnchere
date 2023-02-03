@@ -9,7 +9,10 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
 
 import fr.eni.javaee.bo.ArticleVendu;
 import fr.eni.javaee.bo.Categorie;
@@ -18,6 +21,8 @@ import fr.eni.javaee.bo.Utilisateur;
 import fr.eni.javaee.exceptions.BusinessException;
 
 public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
+	private static final String VALEUR_DEFAUT_STRING = "Aucune information";
+	private static final int VALEUR_DEFAUT_INT = 0;
 	
 	private static final String INSERT = "INSERT INTO ARTICLES_VENDUS"
 						+ "(nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente, image)"
@@ -25,9 +30,12 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 	
 	private static final String SELECT_BY_ID = "SELECT * FROM ARTICLES_VENDUS WHERE no_article=?;";
 
-	private static final String SELECT_ARTICLE_ENCHERE_BY_ETAT = "SELECT nom_article, prix_initial, date_fin_enchere, pseudo,montant_enchere,etat_vente,image FROM ARTICLES_VENDUS as a LEFT OUTER JOIN ENCHERES as e ON a.no_article = e.no_article	INNER JOIN UTILISATEURS as u on a.no_utilisateur=u.no_utilisateur WHERE etat_vente= ?;"
+	private static final String SELECT_ARTICLE_ENCHERE_BY_ETAT = "SELECT nom_article, prix_initial, date_fin_enchere, pseudo,montant_enchere,etat_vente,image, a.no_article FROM ARTICLES_VENDUS as a LEFT OUTER JOIN ENCHERES as e ON a.no_article = e.no_article	INNER JOIN UTILISATEURS as u on a.no_utilisateur=u.no_utilisateur WHERE etat_vente= ?;"
 			+ ""
 			+ "";
+	private static final LocalDateTime VALEUR_DEFAUT_DATE = LocalDateTime.of(1900, 01, 01, 00, 00, 00, 00);
+	private static final Enchere VALEUR_DEFAUT_ENCHERE = new Enchere(0);
+	private static final Utilisateur VALEUR_DEFAUT_UTILISATEUR = new Utilisateur("Pas de pseudo");
 	
 
 	@Override
@@ -138,7 +146,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			be.ajouterCodeErreur(CodeResultatDAL.SELECT_ID_INCORRECT);
 		}
 		
-		List<ArticleVendu>  res = null;
+		List<ArticleVendu>  res = new ArrayList<ArticleVendu>();
 		
 		try ( Connection conx = ConnectionProvider.getConnection() ) {
 			PreparedStatement pst = conx.prepareStatement(SELECT_ARTICLE_ENCHERE_BY_ETAT);
@@ -155,9 +163,10 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 				
 				UtilisateurDAOJdbcImpl util = new UtilisateurDAOJdbcImpl();
 				Utilisateur user = util.selectByPseudo(rs.getString("pseudo"));
+			
 				
 				EnchereDAOJdbcImpl e = new EnchereDAOJdbcImpl();
-				Enchere ench = e.selectByMontant(rs.getInt("montant_enchere"));
+				Enchere ench = e.selectById(rs.getInt("no_article"));
 				
 				ArticleVendu art = new ArticleVendu(
 							rs.getString("nom_article"),
@@ -168,12 +177,46 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 							rs.getString("etat_vente"),
 							rs.getString("image")			
 						);
+
+				
+				
+				
+				
+				if (art.getEnchere()== null) {
+					art.setEnchere(VALEUR_DEFAUT_ENCHERE);
+			
+				}
+				if (art.getImage()== null) {
+					art.setImage(VALEUR_DEFAUT_STRING);
+			
+				}
+				
+//				if (rs.getString("nom_article")== null) {
+//					rs.getString(VALEUR_DEFAUT_STRING);
+//				}
+//				if (rs.getInt("prix_initial") == 0 ) {
+//					rs.getInt(VALEUR_DEFAUT_INT);
+//				}
+//				if (date_fin == null) {
+//					date_fin = VALEUR_DEFAUT_DATE;
+//				}
+//				if (user== null) {
+//					user = VALEUR_DEFAUT_UTILISATEUR;
+//				}
+//				if (ench== null) {
+//					ench= VALEUR_DEFAUT_ENCHERE;
+//				}
+//				if (rs.getString("etat_vente")== null) {
+//					rs.getString(VALEUR_DEFAUT_STRING);
+//				}
+//				if (rs.getString("image")== null) {
+//					rs.getString(VALEUR_DEFAUT_STRING);
+//				}
+
+			
 				res.add(art);
-				if (art != null) {
-					System.out.println(art.getDescription());
-					
-					
-				}	
+			System.out.println(art);
+	
 			}
 			
 		} catch (SQLException e) {

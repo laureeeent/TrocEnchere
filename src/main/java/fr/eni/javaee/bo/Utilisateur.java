@@ -101,6 +101,10 @@ public class Utilisateur {
 
 	// - - - - - - - - - - - - - - - - - - getters & setters - - - - - - - - - - - -
 
+	public Utilisateur(String pseudo) {
+		this.pseudo=pseudo;
+	}
+
 	public int getNoUtilisateur() {
 		return noUtilisateur;
 	}
