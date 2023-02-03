@@ -30,8 +30,14 @@ public class Enchere {
 		this.acheteur = no_utilisateur;
 		this.vente = no_article;
 		this.acheteur = no_utilisateur;
-		this.acheteur = no_utilisateur;
+		this.montant_enchere = montant_enchere;
 		
+	}
+
+
+
+	public Enchere(int montant) {
+		this.montant_enchere=montant;
 	}
 
 	public LocalDateTime getDateEnchère() {
@@ -42,7 +48,7 @@ public class Enchere {
 		this.dateEnchère = dateEnchère;
 	}
 
-	public float getMontant_enchere() {
+	public int getMontant_enchere() {
 		return montant_enchere;
 	}
 

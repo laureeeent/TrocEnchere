@@ -15,6 +15,7 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 	
 	private static final String SELECT_ALL = "SELECT * FROM CATEGORIES;";
 	private static final String SELECT_BY_ID = "SELECT * FROM CATEGORIES WHERE no_categorie=?";
+	private static final String SELECT_BY_LIBELLE = "SELECT * FROM CATEGORIES WHERE libelle=?";
 
 	@Override
 	public Categorie selectById(int id) throws BusinessException {
@@ -47,6 +48,42 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 		}
 		catch (SQLException e) {
 			System.out.println("La catégorie avec id = "+id+" n'existe pas.");
+			e.printStackTrace();
+		}
+		return resultat;
+	}
+	
+	@Override
+	public Categorie selectByLibelle(String libelle) throws BusinessException {
+		if (libelle.isEmpty()) {
+			BusinessException be = new BusinessException();
+			be.ajouterCodeErreur(CodeResultatDAL.SELECT_CATEGORIE_LIBELLE_INCORRECT);
+		}
+		
+		Categorie resultat = null;
+		
+		try ( Connection conx = ConnectionProvider.getConnection() ) {
+			conx.setAutoCommit(false);
+			PreparedStatement pst = conx.prepareStatement(SELECT_BY_LIBELLE);
+			
+			pst.setString(1, libelle);
+			
+			ResultSet rs = pst.executeQuery();
+			if (rs.next()) {
+				resultat= new Categorie(
+						rs.getInt("no_categorie"),
+						rs.getString("libelle")
+						);
+						
+			}
+			
+			rs.close();
+			pst.close();
+			conx.commit();
+		
+		}
+		catch (SQLException e) {
+			System.out.println("La catégorie avec libelle = "+libelle+" n'existe pas.");
 			e.printStackTrace();
 		}
 		return resultat;

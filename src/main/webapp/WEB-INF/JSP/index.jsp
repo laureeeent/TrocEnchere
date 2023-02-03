@@ -101,9 +101,10 @@
 				</div>
 				<div class="texte_conteneur_article">
 					<p class="designation_article"><%= article.getNomArticle() %></p>
-					<p class="prix_article">Prix: <%=  article.getPrixVente() %> </p>
+					<p class="prix_initial">Prix initial: <%=  article.getMiseAPrix() %></p>
+					<p class="prix_encheres">Prix enchère: <%=  article.getEnchere().getMontant_enchere() %></p>
 					<p class="date_fin_enchere_article">Fin de l'enchère : <%= article.getDateFinEncheres() %></p>
-					<p class="vendeur_enchere_article">Vendeur: <%=article.getVendeur() %></p>
+					<p class="vendeur_enchere_article">Vendeur: <%=article.getVendeur().getPseudo() %></p>
 				</div>
 			</div>
 			
