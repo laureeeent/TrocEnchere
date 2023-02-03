@@ -43,8 +43,8 @@ public class ServletRedirectionAccueil extends HttpServlet {
 		request.setAttribute("listeCategories", listeCategories);
 
 		ArticleManager articleManager = new ArticleManager();
-		List<ArticleVendu> liste_EnchereEC = articleManager.selectionnerByEtat("EC");
-		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+//		List<ArticleVendu> liste_EnchereEC = articleManager.selectionnerByEtat("EC");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JSP/index.jsp");
 
 		rd.forward(request, response);
 	}
