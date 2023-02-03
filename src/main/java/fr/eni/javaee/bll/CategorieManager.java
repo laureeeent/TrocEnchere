@@ -20,10 +20,14 @@ public class CategorieManager {
 		return this.categorieDAO.selectAll() ;
 	}
 	
-	public Categorie selectionnerByID (int id)throws BusinessException {
+	public Categorie selectionnerByID (int id) throws BusinessException {
 		
 		return this.categorieDAO.selectById(id);
 		
+	}
+	
+	public Categorie selectionnerParLibelle(String libelle) throws BusinessException {
+		return this.categorieDAO.selectByLibelle(libelle);
 	}
 
 }

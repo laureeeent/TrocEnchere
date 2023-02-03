@@ -37,5 +37,10 @@ public class ArticleManager {
 			}
 			return null;
 		}
+		
+		public void ajouterArticle(ArticleVendu article) throws BusinessException {
+			articleVenduDAO.insert(article);
+			
+		}
 
 	}

@@ -31,5 +31,11 @@ public abstract class CodeResultatDAL {
 	 * Echec général quand tentative de récuperer l'utilisateur où l'email en paramètre est nul.
 	 */
 	public static final int SELECT_BY_EMAIL_INCORRECT=10005;
+	
+	/**
+	 * Echec général quand tentative de récuperer l'utilisateur où l'email en paramètre est nul.
+	 */
+	public static final int SELECT_CATEGORIE_LIBELLE_INCORRECT=10006;
 
+	
 }
