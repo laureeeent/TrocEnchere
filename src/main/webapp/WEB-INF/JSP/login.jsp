@@ -6,6 +6,18 @@
 <meta charset="UTF-8">
 <title>Login</title>
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/sunny/theme.min.css">
+<link rel="stylesheet" href="css/example.wink.css">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/hideshowpassword/2.1.1/hideShowPassword.min.js"></script>
+<script src="JS/index.js"></script>
 </head>
 <body>
 	<% String message = (String) request.getAttribute("messageErreur"); %>
@@ -24,7 +36,7 @@
 				<div id="h_form">
 					<label id="id">Identifiant: </label><input id="id"
 						name="identifiant" type="text" required="required"  title="Votre Pseudo ou votre E-mail entre 3 et 40 caractères"><label
-						id="mdp">Mot de Passe: </label><input id="mdp" name="mot_de_passe"
+						id="motdepasse">Mot de Passe: </label><input id="mdp" name="mot_de_passe"
 						type="password" required="required" pattern="[A-Za-z0-9]{3,40}">
 				</div>
 				<div id="connexion_form">
