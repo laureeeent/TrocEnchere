@@ -86,12 +86,30 @@ public class ArticleVendu {
 		this.miseAPrix= prix_initial;
 		this.dateFinEncheres = date_fin;
 		this.vendeur=user;
+		this.enchere=prix_enchere;
+		this.etatVente=etat_vente;
 		this.image = image;
 	}
 	// - - - - - - - - - - - - - - - - - - getters & setters - - - - - - - - - - - -
 
 
 
+
+	public Enchere getEnchere() {
+		return enchere;
+	}
+
+	public void setEnchere(Enchere enchere) {
+		this.enchere = enchere;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
 
 	public int getNoArticle() {
 		return noArticle;
@@ -198,6 +216,10 @@ public class ArticleVendu {
 				+ miseAPrix + ", prixVente=" + prixVente + ", etatVente=" + etatVente + ", vendeur=" + vendeur
 				+ ", encheres=" + encheres + ", categorieArticle=" + categorieArticle + ", lieuRetrait=" + lieuRetrait
 				+ "]";
+	}
+
+	public String getNomArticle(String valeurDefautString) {
+		return valeurDefautString;
 	}
 
 }

@@ -15,8 +15,8 @@ import fr.eni.javaee.bo.Utilisateur;
 import fr.eni.javaee.exceptions.BusinessException;
 
 public class EnchereDAOJdbcImpl implements EnchereDAO {
-
-	private static final String SELECT_BY_ID = null;
+	private static final LocalDateTime VALEUR_DEFAUT_DATE = LocalDateTime.of(1900, 01, 01, 00, 00, 00, 00);
+	private static final String SELECT_BY_ID = "SELECT e.no_article,montant_enchere,e.no_utilisateur,date_enchere FROM ENCHERES as e RIGHT OUTER JOIN ARTICLES_VENDUS as a ON e.no_article = a.no_article WHERE a.no_article = ?;";
 
 	@Override
 	public Enchere selectById(int id) throws BusinessException {
@@ -29,14 +29,27 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 		
 		try ( Connection conx = ConnectionProvider.getConnection() ) {
 			PreparedStatement pst = conx.prepareStatement(SELECT_BY_ID);
-			pst.setInt(1, id);
+			pst.setInt(1,id);
 			
 			ResultSet rs = pst.executeQuery();
 			
 			if (rs.next()) {
-				LocalDate date_debut_date = rs.getDate("date_enchere").toLocalDate();
-				LocalTime date_debut_time = rs.getTime("date_enchere").toLocalTime();
-				LocalDateTime date_enchere = LocalDateTime.of(date_debut_date, date_debut_time);
+				LocalDate date_debut_date = null;
+				LocalTime date_debut_time = null;
+				LocalDateTime date_enchere = null;
+				if (rs.getDate("date_enchere")!=null) {
+					date_debut_date = rs.getDate("date_enchere").toLocalDate();
+				}
+				if (rs.getTime("date_enchere")!=null) {
+					 date_debut_time = rs.getTime("date_enchere").toLocalTime();
+				}
+				if (date_debut_date!=null && date_debut_time!=null) {
+					 date_enchere = LocalDateTime.of(date_debut_date, date_debut_time);
+				}
+				if (date_enchere==null) {
+					date_enchere= VALEUR_DEFAUT_DATE;
+				}
+				
 
 				UtilisateurDAOJdbcImpl util = new UtilisateurDAOJdbcImpl();
 				Utilisateur user = util.selectById(rs.getInt("no_utilisateur"));
@@ -50,12 +63,13 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 							date_enchere,
 							rs.getInt("montant_enchere")
 						);
+				
 			}
 	} catch (SQLException e) {
 		System.out.println("echec de la requête de selection d'une enchère où l'id = "+ id+ " a échouée");
 		e.printStackTrace();
 	}
-		return null;
+		return res;
 		}
 
 	@Override
@@ -64,8 +78,4 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 		return null;
 	}
 
-	public Enchere selectByMontant(int int1) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
