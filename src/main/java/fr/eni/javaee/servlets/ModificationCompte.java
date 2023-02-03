@@ -91,8 +91,25 @@ public class ModificationCompte extends HttpServlet {
 				RequestDispatcher rd = request.getRequestDispatcher("/modificationCompte.jsp");
 				rd.forward(request, response);
 			} 
-			else 
+			if (mdp.isEmpty()&&confirmationMdp.isEmpty())
 			{
+				user.setPseudo(pseudo);
+				user.setEmail(email);
+				user.setPrenom(prenom);
+				user.setNom(nom);
+				user.setTelephone(telephone);
+				user.setRue(rue);
+				user.setVille(ville);
+				user.setCodePostal(codePostal);
+				user.setMotDePasse(mdpActuel);
+				user.setCredit(user.getCredit());
+				user.setAdministrateur(user.isAdministrateur());
+				
+				utilisateurManager.modifierUtilisateur(user);
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JSP/modificationCompte.jsp");
+				rd.forward(request, response);
+			} else
+			{	
 				user.setPseudo(pseudo);
 				user.setEmail(email);
 				user.setPrenom(prenom);
@@ -108,9 +125,12 @@ public class ModificationCompte extends HttpServlet {
 				utilisateurManager.modifierUtilisateur(user);
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JSP/modificationCompte.jsp");
 				rd.forward(request, response);
+				
 			}
 			
-		} else if (submit.equals(submitDelete)) {
+					
+		}  
+			if (submit.equals(submitDelete)) {
 				utilisateurManager.supprimerUtilisateur(user);
 				Utilisateur userNull = null;
 				session.setAttribute("utilisateur", userNull);
