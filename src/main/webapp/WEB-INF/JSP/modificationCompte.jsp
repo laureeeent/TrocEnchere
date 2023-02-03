@@ -8,12 +8,25 @@
 	pageEncoding="UTF-8"%>
 <%
 Utilisateur user = (Utilisateur) session.getAttribute("utilisateur");
-int credit = user.getCredit();
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/sunny/theme.min.css">
+<link rel="stylesheet" href="css/example.wink.css">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/hideshowpassword/2.1.1/hideShowPassword.min.js"></script>
+<script src="JS/index.js"></script>
 <title>Modification du compte de <%=user.getPseudo()%></title>
 </head>
 <body>
@@ -51,7 +64,8 @@ int credit = user.getCredit();
 
 		<div class="saisie">
 			<label for="email">Email : </label> <input type="email" id="email"
-				name="email" size="40" required pattern="[a-z0-9-@.]{8,40}" value="<%=user.getEmail()%>">
+				name="email" size="40" required pattern="[a-z0-9-@.]{8,40}"
+				value="<%=user.getEmail()%>">
 		</div>
 		<div class="saisie">
 			<label for="prenom">Prénom : </label> <input type="text" id="prenom"
@@ -83,24 +97,24 @@ int credit = user.getCredit();
 				name="codePostal" pattern="[0-9]{5}" required="required"
 				value="<%=user.getCodePostal()%>">
 		</div>
-		<div class="saisie">
+		<div class="mdp">
 			<label for="mdp">Mot de passe actuel : </label> <input
 				type="password" id="mdp" name="mdpActuel" required
+				title="saisir mdp pour supprimer/modifier le compte"
 				pattern="[A-Za-z0-9]{8,30}">
 		</div>
-		<div class="saisie">
+		<div class="mdp">
 			<label for="mdp">Nouveau mot de passe : </label> <input
-				type="password" id="mdp" name="mdp" 
-				pattern="[A-Za-z0-9]{8,30}"
+				type="password" id="mdp1" name="mdp" pattern="[A-Za-z0-9]{8,30}"
 				title="le mot de passe doit contenir entre 8 et 30 caractères alphanumériques. Caractères spéciaux non autorisés.">
 		</div>
-		<div class="saisie">
+		<div class="mdp">
 			<label for="mdp">Confirmation mot de passe : </label> <input
-				type="password" id="mdp" name="confirmationMdp" 
+				type="password" id="mdp2" name="confirmationMdp"
 				pattern="[A-Za-z0-9]{8,30}">
 		</div>
 		<div class="consultation">
-			<label for="credit">Crédit : <%=credit%></label>
+			<label for="credit">Crédit : <%=user.getCredit()%></label>
 		</div>
 		<div>
 			<input type="submit" name="submit" value="Enregistrer" />

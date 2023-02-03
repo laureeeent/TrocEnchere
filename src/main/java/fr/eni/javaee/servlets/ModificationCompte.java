@@ -27,7 +27,7 @@ public class ModificationCompte extends HttpServlet {
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("./modificationCompte.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JSP/modificationCompte.jsp");
 		rd.forward(request, response);
 	}
 
@@ -106,7 +106,7 @@ public class ModificationCompte extends HttpServlet {
 				user.setAdministrateur(user.isAdministrateur());
 				
 				utilisateurManager.modifierUtilisateur(user);
-				RequestDispatcher rd = request.getRequestDispatcher("/modificationCompte.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JSP/modificationCompte.jsp");
 				rd.forward(request, response);
 			}
 			
