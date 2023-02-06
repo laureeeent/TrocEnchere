@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -51,21 +52,13 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 		try ( Connection conx = ConnectionProvider.getConnection() ) {
 			conx.setAutoCommit(false);
 			PreparedStatement pst = conx.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
-			
-			Date date_debut_date = Date.valueOf(data.getDateDebutEncheres().toLocalDate().toString());
-			System.out.println(data.getDateDebutEncheres().toLocalTime().toString()+":00");
-			Time date_debut_time = Time.valueOf(data.getDateDebutEncheres().toLocalTime().toString()+":00");
-			Date date_fin_date = Date.valueOf(data.getDateFinEncheres().toLocalDate().toString());
-			Time date_fin_time = Time.valueOf(data.getDateFinEncheres().toLocalTime().toString()+":00");
-			
+				
 			pst.setString(1, data.getNomArticle());
 			pst.setString(2, data.getDescription());
-			pst.setDate(3, date_debut_date);
-			pst.setTime(3, date_debut_time);
-			pst.setDate(4, date_fin_date);
-			pst.setTime(4, date_fin_time);
+			pst.setTimestamp(3, Timestamp.valueOf(data.getDateDebutEncheres()));
+			pst.setTimestamp(4, Timestamp.valueOf(data.getDateFinEncheres()));
 			pst.setInt(5, data.getMiseAPrix());
-			pst.setInt(6, data.getPrixVente());
+			pst.setNull(6, 0);
 			pst.setInt(7, data.getVendeur().getNoUtilisateur());
 			pst.setInt(8, data.getCategorieArticle().getNoCategorie());
 			

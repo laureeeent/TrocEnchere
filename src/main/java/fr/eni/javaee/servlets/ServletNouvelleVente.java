@@ -33,7 +33,20 @@ public class ServletNouvelleVente extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rs = request.getRequestDispatcher("/WEB-INF/JSP/nouvelleVente.jsp");
+		RequestDispatcher rs = null;
+		
+		HttpSession session = request.getSession();
+		Utilisateur user = (Utilisateur) session.getAttribute("utilisateur");
+		
+		
+		if (user == null) {
+			request.setAttribute("messageErreur", "Vous êtes déconnecté, veuillez vous reconnecter pour proposer un nouvelle vente");
+			rs = request.getRequestDispatcher("/WEB-INF/JSP/erreurConnexionUtilisateur.jsp");
+			rs.forward(request, response);
+			
+		}
+		
+		rs = request.getRequestDispatcher("/WEB-INF/JSP/nouvelleVente.jsp");
 		CategorieManager categorieManager = new CategorieManager();
 		request.setAttribute("listeCategories", categorieManager.selectionnerToutesLesCategories());
 		
@@ -45,14 +58,23 @@ public class ServletNouvelleVente extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		RequestDispatcher rs = null;
+		
 		if ( request.getParameter("boutton_form").equals("annuler")) {
-			RequestDispatcher rs = request.getRequestDispatcher("ServletRedirectionAccueil");
+			rs = request.getRequestDispatcher("ServletRedirectionAccueil");
 			rs.forward(request, response);
 		}
 		
 		else if (request.getParameter("boutton_form").equals("enregistrer")) {
 			HttpSession session = request.getSession();
 			Utilisateur vendeur = (Utilisateur) session.getAttribute("utilisateur");
+			
+			if (vendeur == null) {
+				request.setAttribute("messageErreur", "Vous êtes déconnecté, veuillez vous reconnecter pour proposer un nouvelle vente");
+				rs = request.getRequestDispatcher("/WEB-INF/JSP/erreurConnexionUtilisateur.jsp");
+				rs.forward(request, response);
+			}
+			
 			
 			CategorieManager categorieManager = new CategorieManager();
 			ArticleManager articleManager = new ArticleManager();
@@ -71,6 +93,7 @@ public class ServletNouvelleVente extends HttpServlet {
 			String retraitRue = request.getParameter("input_rue");
 			String codePostal = request.getParameter("input_code_postal");
 			String ville = request.getParameter("input_ville");
+			
 			Retrait retrait = new Retrait(retraitRue, codePostal, ville);
 			
 			
@@ -80,7 +103,7 @@ public class ServletNouvelleVente extends HttpServlet {
 				ArticleVendu artAVendre = new ArticleVendu(nom_article, description, dateDebutEnchere, dateFinEnchere, miseAPrix, 0, "EC", vendeur, new ArrayList<Enchere>(), categorieArt, retrait);
 				articleManager.ajouterArticle(artAVendre);
 				if (artAVendre.getNoArticle() != 0 ) {
-					request.setAttribute("messageVente", "L'article à bien été enregistré !");
+					request.setAttribute("messageVente", "L'article a bien été enregistré !");
 				}
 				else {
 					request.setAttribute("messageVente", "Erreur lors de l'enregistrement");
@@ -93,12 +116,25 @@ public class ServletNouvelleVente extends HttpServlet {
 			}
 			request.setAttribute("listeCategories", categorieManager.selectionnerToutesLesCategories());
 			
-			RequestDispatcher rs = request.getRequestDispatcher("/WEB-INF/JSP/nouvelleVente.jsp");
+			rs = request.getRequestDispatcher("/WEB-INF/JSP/nouvelleVente.jsp");
 			rs.forward(request, response);
 		}
 		
 		else if (request.getParameter("boutton_form").equals("annuler_vente")) {
+			HttpSession session = request.getSession();
+			Utilisateur vendeur = (Utilisateur) session.getAttribute("utilisateur");
 			
+			if (vendeur == null) {
+				request.setAttribute("messageErreur", "Vous êtes déconnecté, veuillez vous reconnecter pour proposer un nouvelle vente");
+				rs = request.getRequestDispatcher("/WEB-INF/JSP/erreurConnexionUtilisateur.jsp");
+				rs.forward(request, response);
+			}
+			
+			CategorieManager categorieManager = new CategorieManager();
+			
+			rs = request.getRequestDispatcher("/WEB-INF/JSP/nouvelleVente.jsp");
+			request.setAttribute("listeCategories", categorieManager.selectionnerToutesLesCategories());
+			rs.forward(request, response);
 		}
 
 		
