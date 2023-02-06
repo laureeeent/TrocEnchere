@@ -91,6 +91,7 @@ public class ServletNouvelleVente extends HttpServlet {
 				}
 				e.printStackTrace();
 			}
+			request.setAttribute("listeCategories", categorieManager.selectionnerToutesLesCategories());
 			
 			RequestDispatcher rs = request.getRequestDispatcher("/WEB-INF/JSP/nouvelleVente.jsp");
 			rs.forward(request, response);
