@@ -12,4 +12,6 @@ public interface RetraitDAO {
 	
 	public void update(Retrait retrait) throws BusinessException;
 
+	public void delete(Retrait retrait) throws BusinessException;
+
 }

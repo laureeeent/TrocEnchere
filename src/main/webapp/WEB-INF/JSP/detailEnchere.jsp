@@ -20,6 +20,20 @@ Enchere enchere;
 	enchère</title>
 </head>
 <body>
+	<%
+			List<String> listeMessagesErreur = (List<String>)request.getAttribute("listeMessagesErreur");
+			if(listeMessagesErreur!=null)
+			{
+		%>
+				<p style="color:red;">Erreur, votre enchère n'a pas été enregistrée :</p>
+		<%
+				for(String messageErreur:listeMessagesErreur)
+				{
+		%>		<p>><%out.println(messageErreur);%></p>
+		<%		
+				}
+			}
+		%>
 	<h2>Détails enchère</h2>
 	<input type="text" hidden="none" name="noArticle" value="<%= art.getNoArticle() %>">
 	<label id="description"> Description :</label><input type="text" value="<%=art.getDescription()%> " name="description" readonly="readonly"><br>
