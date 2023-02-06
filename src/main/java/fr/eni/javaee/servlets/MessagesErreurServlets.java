@@ -14,6 +14,8 @@ public abstract class MessagesErreurServlets {
 	
 	public static final String ERREUR_SAISIE_MDP_ACTUEL = "Le mot de passe actuel saisi est erroné";
 	
+	public static final String ERREUR_CREDIT_INSUFFISANT = "Vous ne disposez pas d'aasez de crédit pour enchérir sur cet article";
+	
 	
 	
 

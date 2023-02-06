@@ -1,6 +1,9 @@
 package fr.eni.javaee.servlets;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,9 +13,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import fr.eni.javaee.bll.ArticleManager;
+import fr.eni.javaee.bll.EnchereManager;
 import fr.eni.javaee.bll.UtilisateurManager;
 import fr.eni.javaee.bo.ArticleVendu;
+import fr.eni.javaee.bo.Enchere;
 import fr.eni.javaee.bo.Utilisateur;
+import fr.eni.javaee.exceptions.BusinessException;
 
 
 @WebServlet("/DetailEnchere")
@@ -37,21 +44,43 @@ public class DetailEnchere extends HttpServlet {
 	 * */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		
 		HttpSession session = request.getSession();
 		Utilisateur user = (Utilisateur) session.getAttribute("utilisateur");
+		EnchereManager enchereManager = new EnchereManager();
 		
-
-		UtilisateurManager utilisateurManager = new UtilisateurManager();
+		int noArticle = Integer.parseInt(request.getParameter("noArticle"));
+		int ancienPrix = Integer.parseInt(request.getParameter("meilleure_offre"));
+		int enchereEnCours = Integer.parseInt(request.getParameter("enchereEnCours"));
+		int noAncienEncherisseur = Integer.parseInt(request.getParameter("no_ancien_encherisseur"));
+		String vendeur = request.getParameter("vendeur");
 		
+		List<String> listeMessagesErreur = new ArrayList<>();
+				
+		//contrôler si l'enchérisseur a suffisamment de crédit
+		if(user.getCredit() < enchereEnCours) {
+			listeMessagesErreur.add(MessagesErreurServlets.ERREUR_CREDIT_INSUFFISANT);
+		}
 		
-		int enchereEnCours;
-		String ancienEncherisseur;
-		String vendeur;
-		
-		ancienEncherisseur=request.getParameter("vendeur");
-		vendeur= request.getParameter("vendeur");
-		enchereEnCours= Integer.parseInt(request.getParameter("enchereEnCours"));
-		
+		if (listeMessagesErreur.size() > 0) {
+			request.setAttribute("listeMessagesErreur", listeMessagesErreur);
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JSP/detailEnchere.jsp"); //TODO afficher la liste erreur sur la JSP
+			rd.forward(request, response);
+		}
+		else {
+			try {
+				enchereManager.ajouterEnchere(noArticle, enchereEnCours, user, noAncienEncherisseur, ancienPrix);
+			} catch (BusinessException e) {
+				for (int code : e.getCodeErreurs()) {
+					System.out.println("code erreur : " + code);
+				}
+				e.printStackTrace();
+			}
+			
+			RequestDispatcher rd = request.getRequestDispatcher("ServletRedirectionAccueil");
+			rd.forward(request, response);
+		}
 	}
-
+	
+	
 }

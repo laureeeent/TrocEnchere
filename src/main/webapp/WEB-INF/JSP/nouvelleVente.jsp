@@ -1,3 +1,4 @@
+<%@page import="java.time.LocalDateTime"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     import="fr.eni.javaee.bo.*"
@@ -9,6 +10,11 @@
     <%
     	Utilisateur user = (Utilisateur) session.getAttribute("utilisateur"); 
     	String messageVente = (String) request.getAttribute("messageVente");
+    	LocalDateTime dateNow = LocalDateTime.now();
+    	dateNow = LocalDateTime.of( dateNow.getYear(), dateNow.getMonthValue(), dateNow.getDayOfMonth(), dateNow.getHour()+1, dateNow.getMinute());
+    	LocalDateTime dateFin = dateNow.plusDays(1);
+    	//LocalDateTime dateFin = LocalDateTime.of(dateNow.getYear(), dateNow.getMonthValue(), dateNow.getDayOfMonth(), dateNow.getHour(), dateNow.getMinute());
+    	
     %>
 <!DOCTYPE html>
 <html>
@@ -32,9 +38,9 @@
 								%>
 								</select> <br>
 		<label id="label_photo">Photo de l'article : </label><input type="text" name="input_photo"><br>
-		<label id="label_mise_a_prix">Mise à prix : </label><input type="number" name="input_mise_a_prix"><br>
-		<label id="label_debut_enchere">Début de l'enchère : </label><input type="datetime-local" name="input_date_debut_enchere"><br>
-		<label id="label_fin_enchere">Fin de l'enchère : </label><input type="datetime-local" name="input_date_fin_enchere"><br>
+		<label id="label_mise_a_prix">Mise à prix : </label><input type="number" name="input_mise_a_prix" value="0"><br>
+		<label id="label_debut_enchere">Début de l'enchère : </label><input type="datetime-local" name="input_date_debut_enchere" value="<%=dateNow.toString()%>"><br>
+		<label id="label_fin_enchere">Fin de l'enchère : </label><input type="datetime-local" name="input_date_fin_enchere" value="<%=dateFin.toString()%>"><br>
 		<br>
 		
 		<h3>Retrait : </h3>
@@ -52,6 +58,9 @@
 		<button type="submit" name="boutton_form" value="annuler">Annuler</button>
 		<button type="submit" name="boutton_form" value="annuler_vente">Annuler la vente</button>
 	</form>
+	
+	<p>En confirmant cette mise en vente, vous vous engagez dès que le début de l'enchère a commencé. <br>
+		Vous ne pouvez ni supprimer l'article, ni supprimer votre compte jusqu'à la fin de l'enchère et au retrait de l'article.</p>
 	
 	
 </body>

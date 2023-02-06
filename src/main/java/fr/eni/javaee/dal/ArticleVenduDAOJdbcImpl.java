@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -34,9 +35,11 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 	private static final String SELECT_ARTICLE_ENCHERE_BY_ETAT = "SELECT nom_article, prix_initial, date_fin_enchere, pseudo,montant_enchere,etat_vente,image, a.no_article FROM ARTICLES_VENDUS as a LEFT OUTER JOIN ENCHERES as e ON a.no_article = e.no_article	INNER JOIN UTILISATEURS as u on a.no_utilisateur=u.no_utilisateur WHERE etat_vente= ?;"
 			+ ""
 			+ "";
+	private static final String UPDATE_MONTANT_ENCHERE = "UPDATE ARTICLES_VENDUS set prix_vente=? WHERE no_article=? "	;
 	private static final LocalDateTime VALEUR_DEFAUT_DATE = LocalDateTime.of(1900, 01, 01, 00, 00, 00, 00);
 	private static final Enchere VALEUR_DEFAUT_ENCHERE = new Enchere(0);
 	private static final Utilisateur VALEUR_DEFAUT_UTILISATEUR = new Utilisateur("Pas de pseudo");
+	
 	
 
 	@Override
@@ -49,21 +52,13 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 		try ( Connection conx = ConnectionProvider.getConnection() ) {
 			conx.setAutoCommit(false);
 			PreparedStatement pst = conx.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
-			
-			Date date_debut_date = Date.valueOf(data.getDateDebutEncheres().toLocalDate().toString());
-			System.out.println(data.getDateDebutEncheres().toLocalTime().toString()+":00");
-			Time date_debut_time = Time.valueOf(data.getDateDebutEncheres().toLocalTime().toString()+":00");
-			Date date_fin_date = Date.valueOf(data.getDateFinEncheres().toLocalDate().toString());
-			Time date_fin_time = Time.valueOf(data.getDateFinEncheres().toLocalTime().toString()+":00");
-			
+				
 			pst.setString(1, data.getNomArticle());
 			pst.setString(2, data.getDescription());
-			pst.setDate(3, date_debut_date);
-			pst.setTime(3, date_debut_time);
-			pst.setDate(4, date_fin_date);
-			pst.setTime(4, date_fin_time);
+			pst.setTimestamp(3, Timestamp.valueOf(data.getDateDebutEncheres()));
+			pst.setTimestamp(4, Timestamp.valueOf(data.getDateFinEncheres()));
 			pst.setInt(5, data.getMiseAPrix());
-			pst.setInt(6, data.getPrixVente());
+			pst.setNull(6, 0);
 			pst.setInt(7, data.getVendeur().getNoUtilisateur());
 			pst.setInt(8, data.getCategorieArticle().getNoCategorie());
 			
@@ -91,10 +86,29 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 	}
 
 	@Override
-	public void update(ArticleVendu data) throws BusinessException {
-		// TODO Auto-generated method stub
+	public void updateMontantEnchere(ArticleVendu data) throws BusinessException {
+		if (data == null) {
+			BusinessException be = new BusinessException();
+			be.ajouterCodeErreur(CodeResultatDAL.UPDATE_OBJET_NULL);
+		}
 		
+		try ( Connection conx = ConnectionProvider.getConnection() ) {
+			conx.setAutoCommit(false);
+			PreparedStatement pst = conx.prepareStatement(UPDATE_MONTANT_ENCHERE);
+			
+			pst.setInt(1, data.getPrixVente());
+			
+			pst.executeUpdate();
+			
+			pst.close();
+			conx.commit();
+		} catch (SQLException e) {
+			System.out.println("Echec de la mise a jour de l'enchère de : "+data.getNomArticle()+"");
+			e.printStackTrace();
+		}
+			
 	}
+		
 
 	@Override
 	public ArticleVendu selectById(int id) throws BusinessException {

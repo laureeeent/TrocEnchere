@@ -5,40 +5,46 @@ import java.time.LocalDateTime;
 public class Enchere {
 
 	// - - - - - - - - - - - - - - attributs - - - - - - - - - - - - - -
-
+	private int noEnchere; // égal à noArticle, sa clé pirmaire en base
 	private LocalDateTime dateEnchère;
 	private int montant_enchere;
 	private Utilisateur acheteur;
-	private ArticleVendu vente;
+	private ArticleVendu article;
 
-	// - - - - - - - - - - - - - - - - - - constructeurs - - - - - - - - - - - - - -
-	public Enchere(LocalDateTime dateEnchère, int montant_enchere, Utilisateur acheteur, ArticleVendu vente) {
+	// - - - - - - - - - - - - - - - - - - constructeurs - - - - - - - - 
+	
+	public Enchere(int noEnchere, LocalDateTime dateEnchère, int montant_enchere, Utilisateur acheteur, ArticleVendu vente) {
 		super();
+		this.noEnchere = noEnchere;
 		this.dateEnchère = dateEnchère;
 		this.montant_enchere = montant_enchere;
 		this.acheteur = acheteur;
-		this.vente = vente;
+		this.article = vente;
 	}
 
 	public Enchere() {
 		super();
 	}
+	
 
-	// - - - - - - - - - - - - - - - - - - getters & setters - - - - - - - - - - - -
+	public Enchere(Utilisateur utilisateur, ArticleVendu article, LocalDateTime date_enchere, int montant_enchere) {
+		this.acheteur = utilisateur;
+		this.article = article;
+		this.acheteur = utilisateur;
 
-	public Enchere(Utilisateur no_utilisateur, ArticleVendu no_article, LocalDateTime date_enchere, int montant_enchere) {
-		this.acheteur = no_utilisateur;
-		this.vente = no_article;
-		this.acheteur = no_utilisateur;
 		this.montant_enchere = montant_enchere;
 		
 	}
+	// - - - - - - - - - - - - - - - - - - getters & setters - - - - - - -
+
+
 
 
 
 	public Enchere(int montant) {
 		this.montant_enchere=montant;
 	}
+
 
 	public LocalDateTime getDateEnchère() {
 		return dateEnchère;
@@ -65,19 +71,31 @@ public class Enchere {
 	}
 
 	public ArticleVendu getVente() {
-		return vente;
+		return article;
 	}
 
 	public void setVente(ArticleVendu vente) {
-		this.vente = vente;
+		this.article = vente;
+	}
+
+
+	public int getNoEnchere() {
+		return noEnchere;
+	}
+
+	public void setNoEnchere(int noEnchere) {
+		this.noEnchere = noEnchere;
 	}
 
 	// - - - - - - - - - - - - - - - - - - toString - - - - - - - - - - - -
 
+	
+	
+
 	@Override
 	public String toString() {
 		return "Enchere [dateEnchère=" + dateEnchère + ", montant_enchere=" + montant_enchere + ", acheteur=" + acheteur
-				+ ", vente=" + vente + "]";
+				+ ", vente=" + article + "]";
 	}
 
 }

@@ -11,7 +11,7 @@ public interface ArticleVenduDAO {
 	
 	public void delete(ArticleVendu data) throws BusinessException;
 	
-	public void update(ArticleVendu data) throws BusinessException;
+	public void updateMontantEnchere(ArticleVendu data) throws BusinessException;
 	
 	public ArticleVendu selectById(int id) throws BusinessException;
 	

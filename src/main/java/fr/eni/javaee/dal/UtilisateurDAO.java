@@ -24,6 +24,10 @@ public interface UtilisateurDAO {
 	boolean isEmailInBase(String email) throws BusinessException;
 
 	Utilisateur selectByEmail(String pseudo) throws BusinessException;
+	
+
+	void updateCredit(Utilisateur data) throws BusinessException;
+	
 	 
 	
 
