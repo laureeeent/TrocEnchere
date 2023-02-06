@@ -26,11 +26,12 @@ public class Enchere {
 		super();
 	}
 	
-	
+
 	public Enchere(Utilisateur utilisateur, ArticleVendu article, LocalDateTime date_enchere, int montant_enchere) {
 		this.acheteur = utilisateur;
 		this.article = article;
 		this.acheteur = utilisateur;
+
 		this.montant_enchere = montant_enchere;
 		
 	}

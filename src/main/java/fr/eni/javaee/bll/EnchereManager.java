@@ -26,7 +26,7 @@ public class EnchereManager {
 		article = articleManager.selectionnerByID(noArticle);
 		ancienAcheteur = utilisateurManager.selectionnerUtilisateurParID(noAncienEncherisseur);
 		ancienAcheteur.setCredit(ancienAcheteur.getCredit()+ancienPrix);
-		user.setCredit(user.getCredit() - ancienPrix);
+		user.setCredit(user.getCredit() - enchereEnCours);
 
 		utilisateurManager.modifierUtilisateur(user);
 		utilisateurManager.modifierUtilisateur(ancienAcheteur);
