@@ -38,27 +38,33 @@ public class ServletNouvelleVente extends HttpServlet {
 		HttpSession session = request.getSession();
 		Utilisateur user = (Utilisateur) session.getAttribute("utilisateur");
 		
-		
 		if (user == null) {
 			request.setAttribute("messageErreur", "Vous êtes déconnecté, veuillez vous reconnecter pour proposer un nouvelle vente");
 			rs = request.getRequestDispatcher("/WEB-INF/JSP/erreurConnexionUtilisateur.jsp");
 			rs.forward(request, response);
-			
 		}
-		
-		rs = request.getRequestDispatcher("/WEB-INF/JSP/nouvelleVente.jsp");
-		CategorieManager categorieManager = new CategorieManager();
-		request.setAttribute("listeCategories", categorieManager.selectionnerToutesLesCategories());
-		
-		
-		rs.forward(request, response);
+		else {
+			rs = request.getRequestDispatcher("/WEB-INF/JSP/nouvelleVente.jsp");
+			CategorieManager categorieManager = new CategorieManager();
+			request.setAttribute("listeCategories", categorieManager.selectionnerToutesLesCategories());
+			rs.forward(request, response);	
+		}
 	}
+	
+	
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher rs = null;
+		
+		HttpSession session = request.getSession();
+		Utilisateur vendeur = (Utilisateur) session.getAttribute("utilisateur");
+		
+		if (vendeur == null) {
+			request.setAttribute("messageErreur", "Vous êtes déconnecté, veuillez vous reconnecter pour proposer un nouvelle vente");
+			rs = request.getRequestDispatcher("/WEB-INF/JSP/erreurConnexionUtilisateur.jsp");
+			rs.forward(request, response);
+		}
 		
 		if ( request.getParameter("boutton_form").equals("annuler")) {
 			rs = request.getRequestDispatcher("ServletRedirectionAccueil");
@@ -66,43 +72,33 @@ public class ServletNouvelleVente extends HttpServlet {
 		}
 		
 		else if (request.getParameter("boutton_form").equals("enregistrer")) {
-			HttpSession session = request.getSession();
-			Utilisateur vendeur = (Utilisateur) session.getAttribute("utilisateur");
-			
-			if (vendeur == null) {
-				request.setAttribute("messageErreur", "Vous êtes déconnecté, veuillez vous reconnecter pour proposer un nouvelle vente");
-				rs = request.getRequestDispatcher("/WEB-INF/JSP/erreurConnexionUtilisateur.jsp");
-				rs.forward(request, response);
-			}
-			
-			
+
 			CategorieManager categorieManager = new CategorieManager();
 			ArticleManager articleManager = new ArticleManager();
 			
 			String nom_article = request.getParameter("input_article");
 			String description = request.getParameter("input_description");
 			String categorie = request.getParameter("input_categorie");
-//			String image = request.getParameter("input_photo");
 			int miseAPrix = Integer.parseInt(request.getParameter("input_mise_a_prix"));
 			
 			LocalDateTime dateDebutEnchere = LocalDateTime.parse(request.getParameter("input_date_debut_enchere"));
 			LocalDateTime dateFinEnchere = LocalDateTime.parse(request.getParameter("input_date_fin_enchere"));
 			
-			System.out.println(dateDebutEnchere);
-			
 			String retraitRue = request.getParameter("input_rue");
 			String codePostal = request.getParameter("input_code_postal");
 			String ville = request.getParameter("input_ville");
 			
-			Retrait retrait = new Retrait(retraitRue, codePostal, ville);
-			
-			
+			if (dateDebutEnchere.isAfter(dateFinEnchere)) {
+				request.setAttribute("messageVente", "La date de début de l'enchère doit être avant la fin de l'enchère");
+				request.setAttribute("listeCategories", categorieManager.selectionnerToutesLesCategories());
+				rs = request.getRequestDispatcher("/WEB-INF/JSP/nouvelleVente.jsp");
+				rs.forward(request, response);
+			}
 			
 			try {
-				Categorie categorieArt = categorieManager.selectionnerParLibelle(categorie);
-				ArticleVendu artAVendre = new ArticleVendu(nom_article, description, dateDebutEnchere, dateFinEnchere, miseAPrix, 0, "EC", vendeur, new ArrayList<Enchere>(), categorieArt, retrait);
-				articleManager.ajouterArticle(artAVendre);
-				if (artAVendre.getNoArticle() != 0 ) {
+				int resultatAjoutArticle = articleManager.ajouterArticle(nom_article, description, dateDebutEnchere, dateFinEnchere, miseAPrix, vendeur, categorie, retraitRue, codePostal, ville);
+				
+				if (resultatAjoutArticle != 0 ) {
 					request.setAttribute("messageVente", "L'article a bien été enregistré !");
 				}
 				else {
@@ -114,6 +110,7 @@ public class ServletNouvelleVente extends HttpServlet {
 				}
 				e.printStackTrace();
 			}
+			
 			request.setAttribute("listeCategories", categorieManager.selectionnerToutesLesCategories());
 			
 			rs = request.getRequestDispatcher("/WEB-INF/JSP/nouvelleVente.jsp");
@@ -121,8 +118,6 @@ public class ServletNouvelleVente extends HttpServlet {
 		}
 		
 		else if (request.getParameter("boutton_form").equals("annuler_vente")) {
-			HttpSession session = request.getSession();
-			Utilisateur vendeur = (Utilisateur) session.getAttribute("utilisateur");
 			
 			if (vendeur == null) {
 				request.setAttribute("messageErreur", "Vous êtes déconnecté, veuillez vous reconnecter pour proposer un nouvelle vente");
@@ -136,13 +131,6 @@ public class ServletNouvelleVente extends HttpServlet {
 			request.setAttribute("listeCategories", categorieManager.selectionnerToutesLesCategories());
 			rs.forward(request, response);
 		}
-
-		
-
-		
-		
-		
-		
 
 	}
 

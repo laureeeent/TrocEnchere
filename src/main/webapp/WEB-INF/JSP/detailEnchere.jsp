@@ -33,6 +33,7 @@ Enchere enchere;
 	<label id="label_code_postal"> Code postal : </label><input type="text" value=" <%=user.getCodePostal()%>" name="input_code_postal" readonly="readonly">
 	<label id="label_ville"> Ville : </label><input type="text" value="<%=user.getVille()%>" name="input_ville" readonly="readonly"><br>
 	<label id="vendeur"> Vendeur : </label><input type="text" value="<%=art.getVendeur().getPseudo()%>" name="vendeur" readonly="readonly"><br>
+	<label>Nom_pseudo</label><input name="var_pseudo" value="nom_pseudo" type="hidden">
 
 
 	<h4>Ma proposition :</h4>

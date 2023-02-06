@@ -59,6 +59,9 @@
 		<button type="submit" name="boutton_form" value="annuler_vente">Annuler la vente</button>
 	</form>
 	
+	<p>En confirmant cette mise en vente, vous vous engagez dès que le début de l'enchère a commencé. <br>
+		Vous ne pouvez ni supprimer l'article, ni supprimer votre compte jusqu'à la fin de l'enchère et au retrait de l'article.</p>
+	
 	
 </body>
 </html>
