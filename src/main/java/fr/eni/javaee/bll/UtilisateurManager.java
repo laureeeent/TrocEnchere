@@ -106,9 +106,29 @@ public class UtilisateurManager {
 		}
 	}
 	
+	public Utilisateur selectionnerUtilisateurParID(int id) throws BusinessException {
+		
+		Utilisateur user = null;
+		
+			user= this.utilisateurDAO.selectById(id);
+		
+	
+		return user;
+	
+	}
+	
 	public void modifierUtilisateur(Utilisateur user) {
 		try {
 			utilisateurDAO.update(user);
+		}
+		catch (BusinessException be) {
+			be.printStackTrace();
+		}
+	}
+	
+	public void modifierCreditUtilisateur(Utilisateur user) {
+		try {
+			utilisateurDAO.updateCredit(user);
 		}
 		catch (BusinessException be) {
 			be.printStackTrace();

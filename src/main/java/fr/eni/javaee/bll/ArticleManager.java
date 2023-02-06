@@ -22,10 +22,16 @@ public class ArticleManager {
 		}
 		
 		public ArticleVendu selectionnerByID (int id)throws BusinessException {
-			
-			return this.articleVenduDAO.selectById(id);
-			
+			ArticleVendu article = null;
+			try {
+			article= articleVenduDAO.selectById(id);
+			}
+			catch (BusinessException be) {
+				be.printStackTrace();
+			}
+			return article ;
 		}
+
 
 		public List<ArticleVendu> selectionnerByEtat (String etat) {
 		
@@ -41,6 +47,15 @@ public class ArticleManager {
 		public void ajouterArticle(ArticleVendu article) throws BusinessException {
 			articleVenduDAO.insert(article);
 			
+		}
+		
+		public void modifierPrixArticle(ArticleVendu article) {
+			try {
+				articleVenduDAO.updateMontantEnchere(article);
+			}
+			catch (BusinessException be) {
+				be.printStackTrace();
+			}
 		}
 
 	}
