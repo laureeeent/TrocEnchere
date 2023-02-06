@@ -30,7 +30,7 @@ public class Enchere {
 		
 	}
 	
-	public Enchere(Utilisateur utilisateur, ArticleVendu no_article, LocalDateTime date_enchere, int montant_enchere) {
+	public Enchere(Utilisateur no_utilisateur, ArticleVendu no_article, LocalDateTime date_enchere, int montant_enchere) {
 		this.no_acheteur = no_utilisateur;
 		this.no_article = no_article;
 		this.no_acheteur = no_utilisateur;
