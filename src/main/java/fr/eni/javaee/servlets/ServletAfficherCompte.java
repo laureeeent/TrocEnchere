@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class AfficherCompte
  */
 @WebServlet("/ServletAfficherCompte")
-public class AfficherCompte extends HttpServlet {
+public class ServletAfficherCompte extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
