@@ -81,7 +81,7 @@ public class ArticleVendu {
 	}
 	
 	public ArticleVendu(String nom_article, int prix_initial, LocalDateTime date_fin, Utilisateur user, Enchere prix_enchere, String etat_vente,
-			String image) {
+			String image, int no_article) {
 		this.nomArticle = nom_article;
 		this.miseAPrix= prix_initial;
 		this.dateFinEncheres = date_fin;
@@ -89,6 +89,7 @@ public class ArticleVendu {
 		this.enchere=prix_enchere;
 		this.etatVente=etat_vente;
 		this.image = image;
+		this.noArticle=no_article;
 	}
 	// - - - - - - - - - - - - - - - - - - getters & setters - - - - - - - - - - - -
 

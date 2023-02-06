@@ -120,18 +120,26 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 				LocalTime date_fin_time = rs.getTime("date_fin_enchere").toLocalTime();
 				LocalDateTime date_fin = LocalDateTime.of(date_fin_date, date_fin_time);
 				
-//				Utilisateur user = ArticleVenduDAO.
-//				
-//				res = new ArticleVendu(
-//							rs.getInt("no_article"),
-//							rs.getString("nom_article"),
-//							rs.getString("description"),
-//							date_debut,
-//							date_fin,
-//							rs.getInt("prix_initial"),
-//							rs.getInt("prix_vente"),
-//							rs.getInt("no_utilisateur")
-//						);
+				UtilisateurDAOJdbcImpl util = new UtilisateurDAOJdbcImpl();
+				Utilisateur user = util.selectById(rs.getInt("no_utilisateur"));
+			
+				
+				CategorieDAOJdbcImpl e = new CategorieDAOJdbcImpl();
+				Categorie cat = e.selectById(rs.getInt("no_categorie"));
+				
+				res = new ArticleVendu(
+							rs.getInt("no_article"),
+							rs.getString("nom_article"),
+							rs.getString("description"),
+							date_debut,
+							date_fin,
+							rs.getInt("prix_initial"),
+							rs.getInt("prix_vente"),
+							rs.getString("etat_vente"),
+							user,
+							cat,
+							rs.getString("image")
+						);
 			}
 			
 		} catch (SQLException e) {
@@ -181,7 +189,8 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 							user,							
 							ench,
 							rs.getString("etat_vente"),
-							rs.getString("image")			
+							rs.getString("image"),
+							rs.getInt("no_article")
 						);
 
 				
@@ -221,7 +230,6 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 
 			
 				res.add(art);
-			System.out.println(art);
 	
 			}
 			

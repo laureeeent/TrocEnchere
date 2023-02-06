@@ -95,19 +95,25 @@
 		<% List<ArticleVendu> liste_EnchereEC = (ArrayList<ArticleVendu>)request.getAttribute("listeArticles");
 		 if (liste_EnchereEC != null){
 			for (ArticleVendu article : liste_EnchereEC){%>
-			<div id="conteneur_article">
-				<div class="img_conteneur_article">
-					<img alt="#" src="#">
-				</div>
-				<div class="texte_conteneur_article">
-					<p class="designation_article"><%= article.getNomArticle() %></p>
-					<p class="prix_initial">Prix initial: <%=  article.getMiseAPrix() %></p>
-					<p class="prix_encheres">Prix enchère: <%=  article.getEnchere().getMontant_enchere() %></p>
-					<p class="date_fin_enchere_article">Fin de l'enchère : <%= article.getDateFinEncheres() %></p>
-					<p class="vendeur_enchere_article">Vendeur: <%=article.getVendeur().getPseudo() %></p>
-				</div>
-			</div>
 			
+			<form action="AfficherArticle" method="get" name="id">
+				
+					<div id="conteneur_article">
+						<div class="img_conteneur_article">
+							<img alt="#" src="#">
+						</div>
+						<div class="texte_conteneur_article">
+							 <input type="text" hidden="none" name="id" value="<%= article.getNoArticle() %>">
+							<p class="designation_article"><%= article.getNomArticle() %></p>
+							<p class="prix_initial">Prix initial: <%=  article.getMiseAPrix() %></p>
+							<p class="prix_encheres">Prix enchère: <%=  article.getEnchere().getMontant_enchere() %></p>
+							<p class="date_fin_enchere_article">Fin de l'enchère : <%= article.getDateFinEncheres() %></p>
+							<p class="vendeur_enchere_article">Vendeur: <a href="ServletAfficherCompte"><%=article.getVendeur().getPseudo() %></a> </p>
+							<input type="submit" name="select_article" value="Voir l'enchère" >
+						</div>
+					</div>
+			
+			</form>
 		<% }}%>
 		</div>
 	</main>
