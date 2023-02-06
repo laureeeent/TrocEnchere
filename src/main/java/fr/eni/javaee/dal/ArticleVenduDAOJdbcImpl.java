@@ -34,9 +34,11 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 	private static final String SELECT_ARTICLE_ENCHERE_BY_ETAT = "SELECT nom_article, prix_initial, date_fin_enchere, pseudo,montant_enchere,etat_vente,image, a.no_article FROM ARTICLES_VENDUS as a LEFT OUTER JOIN ENCHERES as e ON a.no_article = e.no_article	INNER JOIN UTILISATEURS as u on a.no_utilisateur=u.no_utilisateur WHERE etat_vente= ?;"
 			+ ""
 			+ "";
+	private static final String UPDATE_MONTANT_ENCHERE = "UPDATE ARTICLES_VENDUS set prix_vente=? WHERE no_article=? "	;
 	private static final LocalDateTime VALEUR_DEFAUT_DATE = LocalDateTime.of(1900, 01, 01, 00, 00, 00, 00);
 	private static final Enchere VALEUR_DEFAUT_ENCHERE = new Enchere(0);
 	private static final Utilisateur VALEUR_DEFAUT_UTILISATEUR = new Utilisateur("Pas de pseudo");
+	
 	
 
 	@Override
@@ -91,10 +93,29 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 	}
 
 	@Override
-	public void update(ArticleVendu data) throws BusinessException {
-		// TODO Auto-generated method stub
+	public void updateMontantEnchere(ArticleVendu data) throws BusinessException {
+		if (data == null) {
+			BusinessException be = new BusinessException();
+			be.ajouterCodeErreur(CodeResultatDAL.UPDATE_OBJET_NULL);
+		}
 		
+		try ( Connection conx = ConnectionProvider.getConnection() ) {
+			conx.setAutoCommit(false);
+			PreparedStatement pst = conx.prepareStatement(UPDATE_MONTANT_ENCHERE);
+			
+			pst.setInt(1, data.getPrixVente());
+			
+			pst.executeUpdate();
+			
+			pst.close();
+			conx.commit();
+		} catch (SQLException e) {
+			System.out.println("Echec de la mise a jour de l'enchère de : "+data.getNomArticle()+"");
+			e.printStackTrace();
+		}
+			
 	}
+		
 
 	@Override
 	public ArticleVendu selectById(int id) throws BusinessException {

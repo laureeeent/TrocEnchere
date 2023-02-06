@@ -49,7 +49,6 @@ public class AjoutCompte extends HttpServlet {
 		UtilisateurManager utilisateurManager = new UtilisateurManager();
 		pseudo = request.getParameter("pseudo");
 		email = request.getParameter("email");
-		System.out.println(email);
 		prenom = request.getParameter("prenom");
 		nom = request.getParameter("nom");
 		telephone = request.getParameter("telephone");

@@ -106,7 +106,7 @@ public class ModificationCompte extends HttpServlet {
 				user.setAdministrateur(user.isAdministrateur());
 				
 				utilisateurManager.modifierUtilisateur(user);
-				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JSP/modificationCompte.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("ServletRedirectionAccueil");
 				rd.forward(request, response);
 			} else
 			{	
@@ -123,7 +123,7 @@ public class ModificationCompte extends HttpServlet {
 				user.setAdministrateur(user.isAdministrateur());
 				
 				utilisateurManager.modifierUtilisateur(user);
-				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JSP/modificationCompte.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("ServletRedirectionAccueil");
 				rd.forward(request, response);
 				
 			}

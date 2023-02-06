@@ -5,40 +5,48 @@ import java.time.LocalDateTime;
 public class Enchere {
 
 	// - - - - - - - - - - - - - - attributs - - - - - - - - - - - - - -
-
+	private int noEnchere;
 	private LocalDateTime dateEnchère;
 	private int montant_enchere;
-	private Utilisateur acheteur;
-	private ArticleVendu vente;
+	private Utilisateur no_acheteur;
+	private ArticleVendu no_article;
 
-	// - - - - - - - - - - - - - - - - - - constructeurs - - - - - - - - - - - - - -
-	public Enchere(LocalDateTime dateEnchère, int montant_enchere, Utilisateur acheteur, ArticleVendu vente) {
+	// - - - - - - - - - - - - - - - - - - constructeurs - - - - - - - - 
+	
+	public Enchere(int noEnchere,LocalDateTime dateEnchère, int montant_enchere, Utilisateur acheteur, ArticleVendu vente) {
 		super();
+		this.noEnchere = noEnchere;
 		this.dateEnchère = dateEnchère;
 		this.montant_enchere = montant_enchere;
-		this.acheteur = acheteur;
-		this.vente = vente;
+		this.no_acheteur = acheteur;
+		this.no_article = vente;
 	}
 
 	public Enchere() {
 		super();
 	}
-
-	// - - - - - - - - - - - - - - - - - - getters & setters - - - - - - - - - - - -
-
-	public Enchere(Utilisateur no_utilisateur, ArticleVendu no_article, LocalDateTime date_enchere, int montant_enchere) {
-		this.acheteur = no_utilisateur;
-		this.vente = no_article;
-		this.acheteur = no_utilisateur;
+	
+	public Enchere(int noUtilisateur, int noArticle, LocalDateTime dateEnchere, int enchereEnCours) {
+		
+	}
+	
+	public Enchere(Utilisateur utilisateur, ArticleVendu no_article, LocalDateTime date_enchere, int montant_enchere) {
+		this.no_acheteur = no_utilisateur;
+		this.no_article = no_article;
+		this.no_acheteur = no_utilisateur;
 		this.montant_enchere = montant_enchere;
 		
 	}
+	// - - - - - - - - - - - - - - - - - - getters & setters - - - - - - -
+
+
 
 
 
 	public Enchere(int montant) {
 		this.montant_enchere=montant;
 	}
+
 
 	public LocalDateTime getDateEnchère() {
 		return dateEnchère;
@@ -57,27 +65,39 @@ public class Enchere {
 	}
 
 	public Utilisateur getAcheteur() {
-		return acheteur;
+		return no_acheteur;
 	}
 
 	public void setAcheteur(Utilisateur acheteur) {
-		this.acheteur = acheteur;
+		this.no_acheteur = acheteur;
 	}
 
 	public ArticleVendu getVente() {
-		return vente;
+		return no_article;
 	}
 
 	public void setVente(ArticleVendu vente) {
-		this.vente = vente;
+		this.no_article = vente;
+	}
+
+
+	public int getNoEnchere() {
+		return noEnchere;
+	}
+
+	public void setNoEnchere(int noEnchere) {
+		this.noEnchere = noEnchere;
 	}
 
 	// - - - - - - - - - - - - - - - - - - toString - - - - - - - - - - - -
 
+	
+	
+
 	@Override
 	public String toString() {
-		return "Enchere [dateEnchère=" + dateEnchère + ", montant_enchere=" + montant_enchere + ", acheteur=" + acheteur
-				+ ", vente=" + vente + "]";
+		return "Enchere [dateEnchère=" + dateEnchère + ", montant_enchere=" + montant_enchere + ", acheteur=" + no_acheteur
+				+ ", vente=" + no_article + "]";
 	}
 
 }
