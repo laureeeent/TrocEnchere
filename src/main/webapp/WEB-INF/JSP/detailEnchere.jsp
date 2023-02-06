@@ -5,12 +5,13 @@
 <%
 Utilisateur user = (Utilisateur) session.getAttribute("utilisateur");
 ArticleVendu art = (ArticleVendu) session.getAttribute("articleById");
-Enchere enchere;
+/*  Enchere enchere= null; */ 
 
 /* art.getNoArticle(); */
 /* Utilisateur vendeur=art.getVendeur();  */
-/* Utilisateur ancienEncherisseur =enchere.getAcheteur(); */
- 
+/*  Utilisateur ancienEncherisseur =enchere.getAcheteur(); */
+
+
 %>
 <!DOCTYPE html>
 <html>
@@ -26,7 +27,8 @@ Enchere enchere;
 	<label id="categorie"> Catégorie : </label><input type="text" value="<%=art.getCategorieArticle().getLibelle()%> " name="categorie" readonly="readonly"><br>
 	<label id="finEnchere"> Fin de l'enchère : </label><input type="text" value="<%=art.getDateFinEncheres()%>" name="finEnchere" readonly="readonly"><br>
 	<h4>Meilleure offre :</h4>
-	<input type="text" value="<%=user.getEncheres()%>" name="meilleure_offre" readonly="readonly"> par <input type="text" value="<%=user.getPseudo()%>" name="meilleure_offre" readonly="readonly">
+	<input type="text" value="<%=art.getPrixVente()%>" name="meilleure_offre" readonly="readonly"> par <input type="text" value="<%=(art.getEnchere() != null) ? art.getEnchere().getAcheteur().getPseudo() : "Aucun acheteur" %>" name="meilleure_offre" readonly="readonly">
+<%-- 	<%=(art.getEnchere() != null)?art.getEnchere().getAcheteur().getPseudo() : "Pas d'acheteur"%> --%>
 	<label id="mise_a_prix"> Mise à prix :</label><input type="text" value="<%=art.getMiseAPrix()%>" name="mise_a_prix" readonly="readonly"><br>
 	<h4>Retrait :</h4>
 	<label id="label_rue"> Rue : </label><input type="text" value="<%=user.getRue()%>" name="label_rue" readonly="readonly"><br>
@@ -37,8 +39,8 @@ Enchere enchere;
 
 	<h4>Ma proposition :</h4>
 	<input id="enchereEnCours" type="number"
-		min=" "
-		max=" " name="enchereEnCours"
+		min="<%=(art.getPrixVente() < art.getMiseAPrix())? art.getMiseAPrix(): (art.getPrixVente()+1)%>"
+		max="<%=user.getCredit()%>" name="enchereEnCours"
 		required="required" value="montant de l'enchère actuelle + 1">
 	<form action="./DetailEnchere"
 		method="post">
