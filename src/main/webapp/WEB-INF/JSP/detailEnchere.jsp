@@ -36,7 +36,10 @@ ArticleVendu art = (ArticleVendu) session.getAttribute("articleById");
 			}
 		%>
 	<h2>Détails enchère</h2>
-	<input type="text" hidden="none" name="noArticle" value="<%= art.getNoArticle() %>">
+	<form action="./DetailEnchere"
+		method="post">
+	<input type="text" hidden="none" name="noArticle" value="<%=art.getNoArticle() %>">
+	<input type="text" hidden="none" name="no_ancien_encherisseur" value="<%= (art.getEnchere() != null) ? art.getEnchere().getAcheteur().getPseudo() : 0 %>">
 	<label id="description"> Description :</label><input type="text" value="<%=art.getDescription()%> " name="description" readonly="readonly"><br>
 	<label id="categorie"> Catégorie : </label><input type="text" value="<%=art.getCategorieArticle().getLibelle()%> " name="categorie" readonly="readonly"><br>
 	<label id="finEnchere"> Fin de l'enchère : </label><input type="text" value="<%=art.getDateFinEncheres()%>" name="finEnchere" readonly="readonly"><br>
@@ -56,9 +59,8 @@ ArticleVendu art = (ArticleVendu) session.getAttribute("articleById");
 	<input id="enchereEnCours" type="number"
 		min="<%=(art.getPrixVente() < art.getMiseAPrix())? art.getMiseAPrix(): (art.getPrixVente()+1)%>"
 		max="<%=user.getCredit()%>" name="enchereEnCours"
-		required="required" value="montant de l'enchère actuelle + 1">
-	<form action="./DetailEnchere"
-		method="post">
+		required="required" value="<%=(art.getPrixVente() < art.getMiseAPrix())? art.getMiseAPrix(): (art.getPrixVente()+1)%>">
+	
 	<input type="submit" name="encherir" value="Enchérir" />
 	</form>
 

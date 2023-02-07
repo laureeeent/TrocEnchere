@@ -11,6 +11,7 @@ import java.util.List;
 
 import fr.eni.javaee.bo.ArticleVendu;
 import fr.eni.javaee.bo.Enchere;
+import fr.eni.javaee.bo.Retrait;
 import fr.eni.javaee.bo.Utilisateur;
 import fr.eni.javaee.exceptions.BusinessException;
 
@@ -19,6 +20,31 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 	private static final String SELECT_BY_ID = "SELECT e.no_article,montant_enchere,e.no_utilisateur,date_enchere FROM ENCHERES as e RIGHT OUTER JOIN ARTICLES_VENDUS as a ON e.no_article = a.no_article WHERE a.no_article = ?;";
 	private static final String INSERT = "INSERT INTO ENCHERES (no_utilisateur,no_article,date_enchere,montant_enchere)"
 			+"VALUES(?,?,?,?)";
+	private static final String DELETE = "DELETE FROM ENCHERES WHERE no_article=?;";
+	
+	@Override
+	public void delete(Enchere enchere ) throws BusinessException {
+		if (enchere == null) {
+			BusinessException be = new BusinessException();
+			be.ajouterCodeErreur(CodeResultatDAL.DELETE_OBJET_NULL);
+		}
+
+		try (Connection conx = ConnectionProvider.getConnection()) {
+			conx.setAutoCommit(false);
+			PreparedStatement pst = conx.prepareStatement(DELETE);
+
+			pst.setInt(1, enchere.getNoEnchere());
+
+			pst.executeUpdate();
+
+			conx.commit();
+			pst.close();
+		} catch (SQLException e) {
+			System.out.println("Echec de la suppresion de l'enchère " + enchere.toString() + " en base.");
+			e.printStackTrace();
+		}
+
+	}
 	
 	@Override
 	public void insert(Enchere enchere) throws BusinessException {
