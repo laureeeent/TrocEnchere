@@ -13,7 +13,7 @@
 					<ul>
 						<li><a href="#">Enchères</a></li>
 						<li><a href="ServletNouvelleVente">Vendre un article</a></li>
-						<li><a href="ServletAfficherCompte">Mon profil ( ${utilisateur.getPseudo()})</a></li>
+						<li><a href="ServletAfficherCompte">Mon profil ( ${utilisateur.getPseudo()} : ${utilisateur.getCredit()} crédits )</a></li>
 						<li><a href="ServletDeconnexion">Déconnexion</a></li>
 					</ul>
 				</c:if>

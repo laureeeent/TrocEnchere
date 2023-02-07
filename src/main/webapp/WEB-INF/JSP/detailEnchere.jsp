@@ -35,7 +35,7 @@ ArticleVendu art = (ArticleVendu) session.getAttribute("articleById");
 	<form action="./DetailEnchere"
 		method="post">
 	<input type="text" hidden="none" name="noArticle" value="${articleById.getNoArticle()}">
-	<input type="text" hidden="none" name="no_ancien_encherisseur" value="${articleById.getEnchere().getAcheteur().getNoUtilisateur()}">
+	<input type="text" hidden="none" name="no_ancien_encherisseur" value="${articleById.getEnchere() != null ? articleById.getEnchere().getAcheteur().getNoUtilisateur() : 0 }">
 	<label id="description"> Description :</label><input type="text" value="${articleById.getDescription()}" name="description" readonly="readonly"><br>
 	<label id="categorie"> Catégorie : </label><input type="text" value="${articleById.getCategorieArticle().getLibelle()}" name="categorie" readonly="readonly"><br>
 	<label id="finEnchere"> Fin de l'enchère : </label><input type="text" value="${articleById.getDateFinEncheres()}" name="finEnchere" readonly="readonly"><br>
@@ -47,8 +47,8 @@ ArticleVendu art = (ArticleVendu) session.getAttribute("articleById");
 	<label id="label_rue"> Rue : </label><input type="text" value="${articleById.getVendeur().getRue()}" name="label_rue" readonly="readonly"><br>
 	<label id="label_code_postal"> Code postal : </label><input type="text" value="${articleById.getVendeur().getCodePostal()}" name="input_code_postal" readonly="readonly">
 	<label id="label_ville"> Ville : </label><input type="text" value="${articleById.getVendeur().getVille()}" name="input_ville" readonly="readonly"><br>
-	<label id="vendeur"> Vendeur : </label><input type="text" value="${art.getVendeur().getPseudo()}" name="vendeur" readonly="readonly"><br>
-	<label>Nom_pseudo</label><input name="var_pseudo" value="nom_pseudo" type="hidden">
+	<label id="label_vendeur"> Vendeur : </label><input type="text" value="${art.getVendeur().getPseudo()}" name="vendeur" readonly="readonly"><br>
+	<label id="label_pseudo"> Pseudo : </label><input name="var_pseudo" value="nom_pseudo" type="hidden">
 
 
 	<h4>Ma proposition :</h4>
@@ -63,9 +63,6 @@ ArticleVendu art = (ArticleVendu) session.getAttribute("articleById");
 	</c:if>
 	<input type="submit" name="encherir" value="Enchérir" />
 	</form>
-
-
-
 
 </body>
 </html>
