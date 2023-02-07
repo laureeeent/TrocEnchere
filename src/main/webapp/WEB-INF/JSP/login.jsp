@@ -23,9 +23,7 @@
 <body>
 
 	<header id="h_principal">
-		<div id="entete">
-			<p id="nom_site">TROCENCHERE</p>
-		</div>
+<%@include file="fragment/div_id_entete.jsp"%>
 		<div id="titre_page">
 			<h1>Espace de connexion</h1>
 		</div>
