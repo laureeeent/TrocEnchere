@@ -41,7 +41,7 @@ public class EnchereManager {
 		utilisateurManager.modifierUtilisateur(nouvelEncherisseur);
 		utilisateurManager.modifierUtilisateur(ancienEncherisseur);
 
-
+		System.out.println("On est ici");
 		supprimerEnchere(ancienneEnchere);
 		nouvelleEnchere = new Enchere(article.getNoArticle(), dateEnchere, enchereEnCours, nouvelEncherisseur, article);
 		enchereDAO.insert(nouvelleEnchere);

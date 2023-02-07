@@ -31,9 +31,9 @@ public class AfficherArticle extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String id_article = request.getParameter("id");
+		
 
-		int numArt =  Integer.parseInt(id_article);
+		int numArt =  Integer.parseInt(request.getParameter("id"));
 		HttpSession session = request.getSession();
 		Utilisateur user = (Utilisateur) session.getAttribute("utilisateur");;
 		if (user != null){
