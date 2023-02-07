@@ -52,7 +52,7 @@ ArticleVendu art = (ArticleVendu) session.getAttribute("articleById");
 
 
 	<h4>Ma proposition :</h4>
-	<c:if test="${utilisateur.getCredit() < articleById.getMiseAPrix()}">
+	<c:if test="${utilisateur.getCredit() <= articleById.getMiseAPrix()}">
 		<p style="color:red;">Crédit insuffisant! Veuillez contacter notre organisme financier pour augmenter votre Crédit disponible, afin de participer à l'enchère.</p>
 	</c:if>
 	<c:if test="${utilisateur.getCredit() > articleById.getMiseAPrix()}">
