@@ -25,7 +25,7 @@ public class ArticleManager {
 			return this.articleVenduDAO.selectAll() ;
 		}
 		
-		public ArticleVendu selectionnerByID (int id)throws BusinessException {
+		public ArticleVendu selectionnerByID (int id) throws BusinessException {
 			ArticleVendu article = null;
 			try {
 				article= articleVenduDAO.selectById(id);

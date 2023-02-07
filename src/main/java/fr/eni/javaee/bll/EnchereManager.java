@@ -83,8 +83,8 @@ public class EnchereManager {
 
 		Enchere enchere = null;
 
+		
 		enchere = this.enchereDAO.selectById(noArticle);
-
 		return enchere;
 
 	}

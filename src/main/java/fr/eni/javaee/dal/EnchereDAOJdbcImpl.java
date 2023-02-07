@@ -35,6 +35,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 
 			pst.setInt(1, enchere.getNoEnchere());
 
+
 			pst.executeUpdate();
 
 			conx.commit();
