@@ -2,17 +2,7 @@
 	pageEncoding="UTF-8" import="fr.eni.javaee.bo.*"
 	import="java.util.List" import="java.util.ArrayList"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%
-Utilisateur user = (Utilisateur) session.getAttribute("utilisateur");
-ArticleVendu art = (ArticleVendu) session.getAttribute("articleById");
-/*  Enchere enchere= null; */ 
 
-/* art.getNoArticle(); */
-/* Utilisateur vendeur=art.getVendeur();  */
-/*  Utilisateur ancienEncherisseur =enchere.getAcheteur(); */
-
-
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,8 +30,10 @@ ArticleVendu art = (ArticleVendu) session.getAttribute("articleById");
 	<label id="categorie"> Catégorie : </label><input type="text" value="${articleById.getCategorieArticle().getLibelle()}" name="categorie" readonly="readonly"><br>
 	<label id="finEnchere"> Fin de l'enchère : </label><input type="text" value="${articleById.getDateFinEncheres()}" name="finEnchere" readonly="readonly"><br>
 
+
 	<h4>Meilleure offre : </h4>
 	<input type="text" value="${articleById.getEnchere()!= null ? articleById.getEnchere().getMontant_enchere():0}" name="meilleure_offre" readonly="readonly"> par <input type="text" value="${articleById.getEnchere() != null ? articleById.getEnchere().getAcheteur().getPseudo() :  "Aucun acheteur" }" name="meilleureOffre" readonly="readonly">
+
 	<label id="mise_a_prix"> Mise à prix :</label><input type="text" value="${articleById.getMiseAPrix()}" name="mise_a_prix" readonly="readonly"><br>
 	<h4>Retrait :</h4>
 	<label id="label_rue"> Rue : </label><input type="text" value="${articleById.getVendeur().getRue()}" name="label_rue" readonly="readonly"><br>

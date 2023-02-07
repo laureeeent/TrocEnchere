@@ -88,6 +88,26 @@ public class ArticleVendu {
 		this.image = image;
 		this.noArticle = no_article;
 	}
+	
+	
+	
+	public ArticleVendu(int noArticle, String nomArticle, String description, LocalDateTime dateDebutEncheres,
+			LocalDateTime dateFinEncheres, int miseAPrix, int prixVente, String etatVente, Utilisateur vendeur,Enchere enchere,
+			Categorie categorieArticle, String image) {
+		super();
+		this.noArticle = noArticle;
+		this.nomArticle = nomArticle;
+		this.description = description;
+		this.dateDebutEncheres = dateDebutEncheres;
+		this.dateFinEncheres = dateFinEncheres;
+		this.miseAPrix = miseAPrix;
+		this.prixVente = prixVente;
+		this.etatVente = etatVente;
+		this.vendeur = vendeur;
+		this.enchere=enchere;
+		this.categorieArticle = categorieArticle;
+		this.image = image;
+	}
 	// - - - - - - - - - - - - - - - - - - getters & setters - - - - - - - - - - - -
 
 
