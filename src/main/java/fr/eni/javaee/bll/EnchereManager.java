@@ -39,6 +39,7 @@ public class EnchereManager {
 
 			utilisateurManager.modifierUtilisateur(nouvelEncherisseur);
 			utilisateurManager.modifierUtilisateur(ancienEncherisseur);
+			articleManager.modifierPrixArticle(article);
 
 			supprimerEnchere(ancienneEnchere);
 			nouvelleEnchere = new Enchere(article.getNoArticle(), dateEnchere, enchereEnCours, nouvelEncherisseur,
@@ -64,15 +65,12 @@ public class EnchereManager {
 			article = articleManager.selectionnerByID(noArticle);
 			nouvelEncherisseur.setCredit(nouvelEncherisseur.getCredit() - enchereEnCours);
 			utilisateurManager.modifierUtilisateur(nouvelEncherisseur);
+			articleManager.modifierPrixArticle(article);
 			enchere = new Enchere(article.getNoArticle(), dateEnchere, enchereEnCours, nouvelEncherisseur, article);
 			enchereDAO.insert(enchere);
 		} catch (BusinessException e) {
 			e.printStackTrace();
 		}
-
-	
-
-	
 	}
 
 	public void supprimerEnchere(Enchere enchere) throws BusinessException {
