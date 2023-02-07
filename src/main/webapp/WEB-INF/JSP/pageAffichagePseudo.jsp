@@ -9,6 +9,9 @@
 <title>Profil de (mettre le nom du pseudo que l'on consulte)</title>
 </head>
 <body>
+<header id="h_principal">
+	<%@include file="fragment/div_id_entete.jsp"%>
+</header>
 			<c:if test="${utilisateur != null}">
 				<div>
 					<p id="lignePseudo">Pseudo :       ${utilisateur.getPseudo() }</p>

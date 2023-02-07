@@ -21,6 +21,9 @@ ArticleVendu art = (ArticleVendu) session.getAttribute("articleById");
 	enchère</title>
 </head>
 <body>
+<header id="h_principal">
+	<%@include file="fragment/div_id_entete.jsp"%>
+</header>
 	<c:if test="${listeMessagesErreur!=null}">
 		<p style="color:red;">Erreur, votre enchère n'a pas été enregistrée :</p>
 		<c:forEach var="c" items="${listeMessagesErreur}">

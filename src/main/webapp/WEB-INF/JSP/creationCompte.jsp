@@ -27,7 +27,9 @@
 <title>Création d'un compte sur TrocEnchère</title>
 </head>
 <body>
-
+<header id="h_principal">
+	<%@include file="fragment/div_id_entete.jsp"%>
+</header>
 	<c:if test="${listeMessagesErreur!=null}">
 		<p style="color: red;">Erreur, le compte n'a pas pu être crée :</p>
 		<c:forEach var="c" items="${listeMessagesErreur}">

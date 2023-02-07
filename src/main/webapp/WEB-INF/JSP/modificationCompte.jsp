@@ -34,6 +34,9 @@ Utilisateur user = (Utilisateur) session.getAttribute("utilisateur");
 <title>Modification du compte de ${ utilisateur.getPseudo()}</title>
 </head>
 <body>
+<header id="h_principal">
+	<%@include file="fragment/div_id_entete.jsp"%>
+</header>
 
 	<c:if test="${listeMessagesErreur != null }">
 		<p style="color: red;">Erreur, le compte n'a pas pu être modifié :</p>

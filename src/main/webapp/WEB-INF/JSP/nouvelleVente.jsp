@@ -23,6 +23,9 @@
 <title>Nouvelle vente ${utilisateur != null ? utilisateur.getPseudo() : "" }</title>
 </head>
 <body>
+<header id="h_principal">
+	<%@include file="fragment/div_id_entete.jsp"%>
+</header>
 	<h2>Nouvelle vente</h2>
 	<form action="./ServletNouvelleVente" method="post">
 		<label id="label_article">Article : </label><input type="text" name="input_article"><br>
