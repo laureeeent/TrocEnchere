@@ -7,6 +7,9 @@
 <title>Erreur de connexion</title>
 </head>
 <body>
+<!-- <header id="h_principal">
+
+</header> -->
 	<h3>Vous êtes déconnecté, veuillez vous reconnecter</h3>
 	<br>
 	<form action="./ServletConnecter" method="get">

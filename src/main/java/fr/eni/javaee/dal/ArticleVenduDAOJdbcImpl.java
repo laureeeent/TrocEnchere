@@ -23,7 +23,6 @@ import fr.eni.javaee.bo.Utilisateur;
 import fr.eni.javaee.exceptions.BusinessException;
 
 public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
-	private static final String VALEUR_DEFAUT_STRING = "Aucune information";
 	private static final int VALEUR_DEFAUT_INT = 0;
 	
 	private static final String INSERT = "INSERT INTO ARTICLES_VENDUS"
@@ -32,13 +31,19 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 	
 	private static final String SELECT_BY_ID = "SELECT * FROM ARTICLES_VENDUS WHERE no_article=?;";
 
-	private static final String SELECT_ARTICLE_ENCHERE_BY_ETAT = "SELECT nom_article, prix_initial, date_fin_enchere, pseudo,montant_enchere,etat_vente,image, a.no_article FROM ARTICLES_VENDUS as a LEFT OUTER JOIN ENCHERES as e ON a.no_article = e.no_article	INNER JOIN UTILISATEURS as u on a.no_utilisateur=u.no_utilisateur WHERE etat_vente= ?;"
-			+ ""
-			+ "";
+	private static final String SELECT_ARTICLE_ENCHERE_BY_ETAT = "SELECT nom_article, prix_initial, date_fin_enchere, pseudo,montant_enchere, etat_vente,image, a.no_article"
+						+ "FROM ARTICLES_VENDUS as a LEFT OUTER JOIN ENCHERES as e ON a.no_article = e.no_article"
+						+ "INNER JOIN UTILISATEURS as u on a.no_utilisateur=u.no_utilisateur"
+						+ "WHERE etat_vente= ?;";
+	
 	private static final String UPDATE_MONTANT_ENCHERE = "UPDATE ARTICLES_VENDUS set prix_vente=? WHERE no_article=? "	;
+	private static final String UPDATE = " UPDATE ARTICLES_VENDUS SET nom_article=?, description=?, date_debut_enchere=?, date_fin_enchere=?,"
+						+ "prix_initial=?, no_categorie=?, etat_vente=?, image=?;";
 	private static final LocalDateTime VALEUR_DEFAUT_DATE = LocalDateTime.of(1900, 01, 01, 00, 00, 00, 00);
 	private static final Enchere VALEUR_DEFAUT_ENCHERE = new Enchere(0);
 	private static final Utilisateur VALEUR_DEFAUT_UTILISATEUR = new Utilisateur("Pas de pseudo");
+
+	private static final String VALEUR_DEFAUT_STRING = "";
 	
 	
 
@@ -48,6 +53,8 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			BusinessException be = new BusinessException();
 			be.ajouterCodeErreur(CodeResultatDAL.INSERT_OBJET_NULL);
 		}
+		
+		RetraitDAOJdbcImpl retraitDAOJdbcImpl = new RetraitDAOJdbcImpl();
 		
 		try ( Connection conx = ConnectionProvider.getConnection() ) {
 			conx.setAutoCommit(false);
@@ -60,6 +67,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			pst.setInt(5, data.getMiseAPrix());
 			pst.setNull(6, 0);
 			pst.setInt(7, data.getVendeur().getNoUtilisateur());
+			System.out.println(data.getCategorieArticle());
 			pst.setInt(8, data.getCategorieArticle().getNoCategorie());
 			
 			pst.executeUpdate();
@@ -72,6 +80,13 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			pst.close();
 			conx.commit();
 			
+			data.getLieuRetrait().setNoArticleVendu(data.getNoArticle());
+			retraitDAOJdbcImpl.insert(data.getLieuRetrait());
+			
+
+			
+
+			
 		} catch (SQLException se) {
 			System.out.println("L'insertion en base où article vendu = "+data.toString()+" a échoué");
 			se.printStackTrace();
@@ -83,6 +98,41 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 	public void delete(ArticleVendu data) throws BusinessException {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void update(ArticleVendu data) throws BusinessException {
+		if (data==null) {
+			BusinessException be = new BusinessException();
+			be.ajouterCodeErreur(CodeResultatDAL.UPDATE_OBJET_NULL);
+		}
+		
+		RetraitDAOJdbcImpl retraitDAOJdbcImpl = new RetraitDAOJdbcImpl();
+		//nom_article=?, description=?, date_debut_enchere=?, date_fin_enchere=?,"
+		//+ "prix_initial=?, no_categorie=?, etat_vente=?, image=?;
+		try ( Connection conx = ConnectionProvider.getConnection() ) {
+			conx.setAutoCommit(false);
+			PreparedStatement pst = conx.prepareStatement(UPDATE);
+			
+			pst.setString(1, data.getNomArticle());
+			pst.setString(2, data.getDescription());
+			pst.setTimestamp(3, Timestamp.valueOf(data.getDateDebutEncheres()));
+			pst.setTimestamp(4, Timestamp.valueOf(data.getDateFinEncheres()));
+			pst.setInt(5, data.getMiseAPrix());
+			pst.setInt(6, data.getCategorieArticle().getNoCategorie());
+			pst.setString(7, data.getEtatVente());
+			pst.setString(8, data.getImage());
+			
+			pst.executeQuery();
+			
+			pst.close();
+			conx.commit();
+			
+			retraitDAOJdbcImpl.insert(data.getLieuRetrait());
+			
+		} catch (SQLException e) {
+			System.out.println("La mise à jour de l'article = "+data+" en base a échoué.");
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -105,8 +155,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 		} catch (SQLException e) {
 			System.out.println("Echec de la mise a jour de l'enchère de : "+data.getNomArticle()+"");
 			e.printStackTrace();
-		}
-			
+		}	
 	}
 		
 
@@ -207,10 +256,6 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 							rs.getInt("no_article")
 						);
 
-				
-				
-				
-				
 				if (art.getEnchere()== null) {
 					art.setEnchere(VALEUR_DEFAUT_ENCHERE);
 			
@@ -219,30 +264,6 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 					art.setImage(VALEUR_DEFAUT_STRING);
 			
 				}
-				
-//				if (rs.getString("nom_article")== null) {
-//					rs.getString(VALEUR_DEFAUT_STRING);
-//				}
-//				if (rs.getInt("prix_initial") == 0 ) {
-//					rs.getInt(VALEUR_DEFAUT_INT);
-//				}
-//				if (date_fin == null) {
-//					date_fin = VALEUR_DEFAUT_DATE;
-//				}
-//				if (user== null) {
-//					user = VALEUR_DEFAUT_UTILISATEUR;
-//				}
-//				if (ench== null) {
-//					ench= VALEUR_DEFAUT_ENCHERE;
-//				}
-//				if (rs.getString("etat_vente")== null) {
-//					rs.getString(VALEUR_DEFAUT_STRING);
-//				}
-//				if (rs.getString("image")== null) {
-//					rs.getString(VALEUR_DEFAUT_STRING);
-//				}
-
-			
 				res.add(art);
 	
 			}

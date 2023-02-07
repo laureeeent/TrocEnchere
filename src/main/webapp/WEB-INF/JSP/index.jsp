@@ -21,29 +21,9 @@
 	//Utilisateur user = (Utilisateur) session.getAttribute("utilisateur");
 	%>
 	<header id="h_principal">
-		<div id="entete">
-			<p id="nom_site">TROCENCHERE</p>
 
+		<%@include file="fragment/div_id_entete.jsp"%>
 
-			<nav id="menu_nav_utilisateur">
-				<c:if test="${utilisateur == null }">
-					<ul>
-						<li><a href="ServletConnecter">S'inscrire - Se connecter</a></li>
-					</ul>
-				</c:if>
-				
-				<c:if test="${utilisateur != null }">
-					<ul>
-						<li><a href="#">Enchères</a></li>
-						<li><a href="ServletNouvelleVente">Vendre un article</a></li>
-						<li><a href="ServletAfficherCompte">Mon profil ( ${utilisateur.getPseudo()})</a></li>
-						<li><a href="ServletDeconnexion">Déconnexion</a></li>
-					</ul>
-				</c:if>
-
-
-			</nav>
-		</div>
 		<div id="titre_page">
 			<h1>Liste des enchères</h1>
 		</div>
@@ -61,13 +41,44 @@
 						<select name="categorie">
 							<c:if test="${listeCategories != null }">
 								<c:forEach var="c" items="${listeCategories}">
-									<option value="${c.getLibelle()}"> ${c.getLibelle() }</option>
+									<option value="${c.getLibelle()}">${c.getLibelle() }</option>
 								</c:forEach>
 							</c:if>
 						</select>
 					</div>
 					<div class="footer_filtres">
 						<div class="liste_options">
+							<fieldset>
+								<legend>Selectioner Achats ou Mes ventes:</legend>
+
+								<input type="radio" id="achats" name="choix" value="achats"
+									checked> <label for="achats">Achats</label>
+								<c:if test="achat"></c:if>
+								<div class="sous_achats">
+									<input type="checkbox" id="enchere" name="EC" checked>
+									<label for="EC">enchères ouvertes</label> <input
+										type="checkbox" id="enchere" name="mes_encheres"> <label
+										for="mes_encheres">mes enchères</label> <input type="checkbox"
+										id="enchere" name="mes_encheres_remportees"> <label
+										for="mes_encheres_remportees">mes enchères remportées</label>
+								</div>
+
+
+								<input type="radio" id="mes_ventes" name="choix"
+									value="mes_ventes"> <label for="mes_ventes">Mes
+									ventes</label>
+								<div class="sous_ventes">
+									<input type="checkbox" id="ventes" name="ventes_EC" checked>
+									<label for="ventes_EC">mes ventes en cours</label> <input
+										type="checkbox" id="ventes" name="ventes_CR"> <label
+										for="ventes_CR">ventes non débutées</label> <input
+										type="checkbox" id="ventes" name="VD"> <label
+										for="VD">ventes terminées</label>
+								</div>
+
+							</fieldset>
+						</div>
+
 						<%-- 					<% if (user != null){%>
 							<ul>
 								<% for( Enchere enchere : encheres) { %>
@@ -75,42 +86,57 @@
 								<%}}%>
 							
 							 </ul>  --%>
-						</div>
-					</div>
-				</div>
-				<div id="filtres_right">
-					<div id="btn_valide_filtres">
-						<input type="submit" name="rechercher" value="Rechercher">
 					</div>
 				</div>
 			</form>
 		</div>
+
+		<div id="filtres_right">
+			<div id="btn_valide_filtres">
+				<input type="submit" name="rechercher" value="Rechercher">
+			</div>
+		</div>
+
 	</header>
 	<main id="m_principal">
 		<div id="conteneur_articles">
-		<% List<ArticleVendu> liste_EnchereEC = (ArrayList<ArticleVendu>)request.getAttribute("listeArticles");
-		 if (liste_EnchereEC != null){
-			for (ArticleVendu article : liste_EnchereEC){%>
-			
-			<form action="AfficherArticle" method="get" name="id">
-				
-					<div id="conteneur_article">
-						<div class="img_conteneur_article">
-							<img alt="#" src="#">
+			<c:if test="${listeArticles != null}">
+				<c:forEach var="article" items="${listeArticles}">
+					<form action="AfficherArticle" method="get" name="id">
+
+						<div id="conteneur_article">
+							<div class="img_conteneur_article">
+								<img alt="#" src="${article.getImage()}" width="300"
+									height="200">
+							</div>
+							<div class="texte_conteneur_article">
+								<input type="text" hidden="none" name="id"
+									value="${article.getNoArticle()}">
+								<p class="designation_article">${article.getNomArticle()}</p>
+								<p class="prix_initial">
+									Prix initial:
+									<c:out value="${article.getMiseAPrix()}"></c:out>
+								</p>
+								<p class="prix_encheres">
+									Prix enchère:
+									<c:out value="${article.getEnchere().getMontant_enchere()}"></c:out>
+								</p>
+								<p class="date_fin_enchere_article">
+									Fin de l'enchère :
+									<c:out value="${article.getDateFinEncheres()}"></c:out>
+								</p>
+								<p class="vendeur_enchere_article">
+									Vendeur: <a href="ServletAfficherCompte"><c:out
+											value="${article.getVendeur().getPseudo()}"></c:out></a>
+								</p>
+								<input type="submit" name="select_article"
+									value="Voir l'enchère">
+							</div>
 						</div>
-						<div class="texte_conteneur_article">
-							 <input type="text" hidden="none" name="id" value="<%= article.getNoArticle() %>">
-							<p class="designation_article"><%= article.getNomArticle() %></p>
-							<p class="prix_initial">Prix initial: <%=  article.getMiseAPrix() %></p>
-							<p class="prix_encheres">Prix enchère: <%=  article.getEnchere().getMontant_enchere() %></p>
-							<p class="date_fin_enchere_article">Fin de l'enchère : <%= article.getDateFinEncheres() %></p>
-							<p class="vendeur_enchere_article">Vendeur: <a href="ServletAfficherCompte"><%=article.getVendeur().getPseudo() %></a> </p>
-							<input type="submit" name="select_article" value="Voir l'enchère" >
-						</div>
-					</div>
-			
-			</form>
-		<% }}%>
+
+					</form>
+				</c:forEach>
+			</c:if>
 		</div>
 	</main>
 	<footer id="f_principal"></footer>
