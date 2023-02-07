@@ -49,7 +49,7 @@
 	</c:if>
 	<c:if test="${utilisateur.getCredit() > articleById.getMiseAPrix()}">
 	<input id="enchereEnCours" type="number"
-		min="${articleById.getPrixVente() < articleById.getMiseAPrix() ? articleById.getMiseAPrix(): articleById.getPrixVente()+1}"
+		min="${articleById.getEnchere().getMontant_enchere() < articleById.getMiseAPrix() ? articleById.getMiseAPrix(): articleById.getEnchere().getMontant_enchere()+1}"
 		max="${utilisateur.getCredit()}" name="enchereEnCours"
 		required="required" value="">
 	</c:if>

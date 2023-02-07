@@ -21,6 +21,8 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 	private static final String INSERT = "INSERT INTO ENCHERES (no_utilisateur,no_article,date_enchere,montant_enchere)"
 			+"VALUES(?,?,?,?)";
 	private static final String DELETE = "DELETE FROM ENCHERES WHERE no_article=?;";
+	private static final String UPDATE_ENCHERE = "UPDATE ENCHERES" +
+			"set no_utilisateur=?,date_enchere=?,montant_enchere=? WHERE no_article=?; ";
 	
 	@Override
 	public void delete(Enchere enchere ) throws BusinessException {
@@ -141,6 +143,31 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 	public List<Enchere> selectAll() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void update(Enchere enchere) {
+		if (enchere == null) {
+			BusinessException be = new BusinessException();
+			be.ajouterCodeErreur(CodeResultatDAL.UPDATE_OBJET_NULL);
+		}
+
+		try (Connection conx = ConnectionProvider.getConnection()) {
+			conx.setAutoCommit(false);
+			PreparedStatement pst = conx.prepareStatement(UPDATE_ENCHERE);
+
+			pst.setInt(1, enchere.getAcheteur().getNoUtilisateur());
+			pst.setTimestamp(2, java.sql.Timestamp.valueOf(enchere.getDateEnchère()));
+			pst.setInt(3, enchere.getMontant_enchere());
+			
+			pst.executeUpdate();
+
+			pst.close();
+			conx.commit();
+		} catch (SQLException e) {
+			System.out.println("Echec de la mise a jour de l'enchère portant sur l'article" + enchere.getVente().getNomArticle() + "");
+			e.printStackTrace();
+		}
 	}
 
 }
