@@ -18,7 +18,7 @@
 </head>
 <body>
 	<%
-	Utilisateur user = (Utilisateur) session.getAttribute("utilisateur");
+	//Utilisateur user = (Utilisateur) session.getAttribute("utilisateur");
 	%>
 	<header id="h_principal">
 		<div id="entete">
@@ -26,20 +26,21 @@
 
 
 			<nav id="menu_nav_utilisateur">
-				<%if (user == null) {%>
+				<c:if test="${utilisateur == null }">
 					<ul>
 						<li><a href="ServletConnecter">S'inscrire - Se connecter</a></li>
 					</ul>
-				<%}%>
-				<% if (user != null) { %>
+				</c:if>
+				
+				<c:if test="${utilisateur != null }">
 					<ul>
 						<li><a href="#">Enchères</a></li>
 						<li><a href="ServletNouvelleVente">Vendre un article</a></li>
-						<li><a href="ServletAfficherCompte">Mon profil ( <%= user.getPseudo() %> )</a></li>
+						<li><a href="ServletAfficherCompte">Mon profil ( ${utilisateur.getPseudo()})</a></li>
 						<li><a href="ServletDeconnexion">Déconnexion</a></li>
 					</ul>
-				
-				<%}%>
+				</c:if>
+
 
 			</nav>
 		</div>
@@ -58,16 +59,11 @@
 					<div class="main_filtres">
 						<h3>Catégorie:</h3>
 						<select name="categorie">
-							<%
-							List<Categorie> listeCategories = (ArrayList<Categorie>) request.getAttribute("listeCategories");
-							if (listeCategories!=null){
-							for (Categorie s : listeCategories) {
-							%>
-								<option value="<%=s.getLibelle()%>"><%=s.getLibelle()%></option>
-							<%
-								}
-							}
-							%>
+							<c:if test="${listeCategories != null }">
+								<c:forEach var="c" items="${listeCategories}">
+									<option value="${c.getLibelle()}"> ${c.getLibelle() }</option>
+								</c:forEach>
+							</c:if>
 						</select>
 					</div>
 					<div class="footer_filtres">
