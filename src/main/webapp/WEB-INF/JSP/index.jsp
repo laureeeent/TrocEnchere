@@ -40,7 +40,7 @@
 						<li><a href="ServletDeconnexion">Déconnexion</a></li>
 					</ul>
 				</c:if>
-
+				 
 
 			</nav>
 		</div>

@@ -13,13 +13,35 @@ import fr.eni.javaee.exceptions.BusinessException;
 public class RetraitDAOJdbcImpl implements RetraitDAO {
 	
 	private static final String SELECT_BY_ID = "SELECT * FROM RETRAITS WHERE no_article=?;";
-	private static final String INSERT = "INSERT INTO RETRAITS rue,code_postal,ville VALUES (?,?,?);";
+	private static final String INSERT = "INSERT INTO RETRAITS (no_article, rue, code_postal, ville) VALUES (?,?,?,?);";
 	private static final String UPDATE = "UPDATE RETRAITS set rue=?, code_postal=?, ville=? WHERE no_article=?;";
 	private static final String DELETE = "DELETE FROM RETRAITS WHERE no_article=?;";
 
 	@Override
 	public void insert(Retrait retrait) throws BusinessException {
+		if (retrait == null) {
+			BusinessException be = new BusinessException();
+			be.ajouterCodeErreur(CodeResultatDAL.INSERT_OBJET_NULL);
+		}
 		
+		try ( Connection conx = ConnectionProvider.getConnection() ) {
+			conx.setAutoCommit(false);
+			PreparedStatement pst = conx.prepareStatement(INSERT);
+			
+			pst.setInt(1, retrait.getNoArticleVendu());
+			pst.setString(2, retrait.getRue());
+			pst.setString(3, retrait.getCodePostal());
+			pst.setString(4, retrait.getVille());
+			
+			pst.executeUpdate();
+			
+			pst.close();
+			conx.commit();
+			
+		} catch (SQLException e) {
+			System.out.println("L'insertion en base de l'objet retrait = "+retrait+" a échoué.");
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -111,5 +133,6 @@ public class RetraitDAOJdbcImpl implements RetraitDAO {
 		}
 
 	}
+	
 
 }
