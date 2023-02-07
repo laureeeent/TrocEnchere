@@ -27,6 +27,7 @@
 <title>Création d'un compte sur TrocEnchère</title>
 </head>
 <body>
+
 	<c:if test="${listeMessagesErreur!=null}">
 		<p style="color: red;">Erreur, le compte n'a pas pu être crée :</p>
 		<c:forEach var="c" items="${listeMessagesErreur}">
@@ -35,6 +36,7 @@
 			</p>
 		</c:forEach>
 	</c:if>
+
 	<div class="retourAccueil">
 		<a href="ServletRedirectionAccueil"><input type="button"
 			value="TrocEnchère - Retour accueil" /></a>

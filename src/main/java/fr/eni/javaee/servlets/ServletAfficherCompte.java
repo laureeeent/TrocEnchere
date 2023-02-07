@@ -8,6 +8,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import fr.eni.javaee.bo.Utilisateur;
 //import javax.servlet.http.HttpSession;
 //
 //import fr.eni.javaee.bll.UtilisateurManager;
@@ -41,7 +44,16 @@ public class ServletAfficherCompte extends HttpServlet {
 //			}
 //			e.printStackTrace();
 //		}
-		RequestDispatcher rs = request.getRequestDispatcher("./WEB-INF/JSP/pageAffichagePseudo.jsp");
+		RequestDispatcher rs = null;
+		HttpSession session = request.getSession();
+		Utilisateur user = (Utilisateur) session.getAttribute("utilisateur");
+		
+		if (user == null) {
+			rs = request.getRequestDispatcher("/WEB-INF/JSP/erreurConnexionUtilisateur.jsp");
+			rs.forward(request, response);
+		}
+		
+		rs = request.getRequestDispatcher("./WEB-INF/JSP/pageAffichagePseudo.jsp");
 		rs.forward(request, response);
 	}
 
