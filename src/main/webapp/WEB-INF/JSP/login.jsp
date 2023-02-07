@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,7 +21,6 @@
 <script src="JS/index.js"></script>
 </head>
 <body>
-	<% String message = (String) request.getAttribute("messageErreur"); %>
 
 	<header id="h_principal">
 		<div id="entete">
@@ -48,12 +48,11 @@
 							id="souvenir">Se souvenir de moi</label><a href="#">Mot de
 							passe oublié</a>
 					</div>
-					<% 
-						if (message != null) {
-							%><p style="color: red"><%=message%></p><%
-						}
-							
-					%>
+
+					<c:if test="${messageErreur != null }">
+						<p style="color: red">${messageErreur}</p>
+					</c:if>
+					
 				</div>
 			</form>
 			<form action="AjoutCompte" method="get">

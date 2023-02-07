@@ -35,9 +35,9 @@
 		%>
 				<p style="color:red;">Erreur, le compte n'a pas pu être crée :</p>
 		<%
-				for(String messageErreur:listeMessagesErreur)
+				for(String c : listeMessagesErreur)
 				{
-		%>		<p>><%out.println(messageErreur);%></p>
+		%>		<p><%out.println(c);%></p>
 		<%		
 				}
 			}
