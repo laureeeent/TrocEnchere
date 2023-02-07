@@ -26,6 +26,7 @@ public class EnchereManager {
 
 		Enchere nouvelleEnchere = null;
 		Enchere ancienneEnchere = selectionnerEnchereParArticle(noArticle);
+		System.out.println(ancienneEnchere);
 		Utilisateur nouvelEncherisseur = user;
 		Utilisateur ancienEncherisseur = null;
 		ArticleVendu article = null;
