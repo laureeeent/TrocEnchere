@@ -24,6 +24,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 	
 	@Override
 	public void delete(Enchere enchere ) throws BusinessException {
+		System.out.println("C'est passé ici");
 		if (enchere == null) {
 			BusinessException be = new BusinessException();
 			be.ajouterCodeErreur(CodeResultatDAL.DELETE_OBJET_NULL);
@@ -36,6 +37,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 			pst.setInt(1, enchere.getNoEnchere());
 
 			pst.executeUpdate();
+			
 
 			conx.commit();
 			pst.close();

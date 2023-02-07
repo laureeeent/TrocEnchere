@@ -38,6 +38,7 @@ public class EnchereManager {
 			ancienEncherisseur.setCredit(ancienEncherisseur.getCredit() + ancienPrix);
 			nouvelEncherisseur.setCredit(nouvelEncherisseur.getCredit() - enchereEnCours);
 
+
 			utilisateurManager.modifierUtilisateur(nouvelEncherisseur);
 			utilisateurManager.modifierUtilisateur(ancienEncherisseur);
 			articleManager.modifierPrixArticle(article);
