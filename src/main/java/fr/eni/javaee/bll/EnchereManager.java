@@ -6,22 +6,28 @@ import fr.eni.javaee.bo.ArticleVendu;
 import fr.eni.javaee.bo.Enchere;
 import fr.eni.javaee.bo.Retrait;
 import fr.eni.javaee.bo.Utilisateur;
+import fr.eni.javaee.dal.DAOFactory;
 import fr.eni.javaee.dal.EnchereDAO;
+import fr.eni.javaee.dal.EnchereDAOJdbcImpl;
 import fr.eni.javaee.exceptions.BusinessException;
 
 public class EnchereManager {
 	
 	private EnchereDAO enchereDAO = null;
 	
+
+	public EnchereManager() {
+		enchereDAO = DAOFactory.getEnchereDAO();
+	}
+	
 	
 	public void ajouterEnchere(int noArticle, int enchereEnCours, Utilisateur user, int noAncienEncherisseur, int ancienPrix)
 					throws BusinessException {
 		ArticleManager articleManager = new ArticleManager();
 		UtilisateurManager utilisateurManager = new UtilisateurManager();
-		EnchereManager  enchereManager = new EnchereManager();
 		
 		Enchere nouvelleEnchere = null;
-		Enchere ancienneEnchere = enchereManager.selectionnerEnchereParArticle(noArticle);
+		Enchere ancienneEnchere = selectionnerEnchereParArticle(noArticle);
 		Utilisateur nouvelEncherisseur  = user;
 		Utilisateur ancienEncherisseur = null;
 		ArticleVendu article = null;
@@ -35,7 +41,8 @@ public class EnchereManager {
 		utilisateurManager.modifierUtilisateur(nouvelEncherisseur);
 		utilisateurManager.modifierUtilisateur(ancienEncherisseur);
 
-		enchereManager.supprimerEnchere(ancienneEnchere);
+
+		supprimerEnchere(ancienneEnchere);
 		nouvelleEnchere = new Enchere(article.getNoArticle(), dateEnchere, enchereEnCours, nouvelEncherisseur, article);
 		enchereDAO.insert(nouvelleEnchere);
 
@@ -58,7 +65,7 @@ public class EnchereManager {
 		
 
 		enchere = new Enchere(article.getNoArticle(), dateEnchere, enchereEnCours, nouvelEncherisseur, article);
-		System.out.println(article.getNomArticle()+ dateEnchere+ enchereEnCours+ nouvelEncherisseur.getPseudo()+ article.getNomArticle());
+
 		enchereDAO.insert(enchere);
 	
 	}
