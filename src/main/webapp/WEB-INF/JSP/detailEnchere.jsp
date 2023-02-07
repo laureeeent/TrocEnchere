@@ -35,6 +35,7 @@ ArticleVendu art = (ArticleVendu) session.getAttribute("articleById");
 	<form action="./DetailEnchere"
 		method="post">
 	<input type="text" hidden="none" name="noArticle" value="${articleById.getNoArticle()}">
+	<input type="text" hidden="none" name="no_ancien_encherisseur" value="${articleById.getEnchere().getAcheteur().getNoUtilisateur()}">
 	<label id="description"> Description :</label><input type="text" value="${articleById.getDescription()}" name="description" readonly="readonly"><br>
 	<label id="categorie"> Catégorie : </label><input type="text" value="${articleById.getCategorieArticle().getLibelle()}" name="categorie" readonly="readonly"><br>
 	<label id="finEnchere"> Fin de l'enchère : </label><input type="text" value="${articleById.getDateFinEncheres()}" name="finEnchere" readonly="readonly"><br>
