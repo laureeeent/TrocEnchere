@@ -193,11 +193,18 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 				
 				PreparedStatement pstEnchere = conx.prepareStatement(SELECT_BY_ID_ENCHERES);
 				pstEnchere.setInt(1, res.getNoArticle());
-				if (rs.next()) {
-					LocalDateTime dateEnchere = rs.getTimestamp("date_enchere").toLocalDateTime();
-					Enchere enchere = new Enchere(user, res, dateEnchere, rs.getInt("montant_enchere"));
+				pstEnchere.executeQuery();
+				ResultSet rs2 = pstEnchere.getResultSet();
+				//Si on trouve une enchère avec no_article=res.no_article
+				if (rs2.next()) {
+					LocalTime dateEnchereTime = rs2.getTime(3).toLocalTime();
+					LocalDate dateEnchereDate = rs2.getDate(3).toLocalDate();
+					LocalDateTime dateEnchere = LocalDateTime.of(dateEnchereDate, dateEnchereTime);
+					Utilisateur acheteur = util.selectById(rs2.getInt("no_utilisateur"));
+					Enchere enchere = new Enchere( res.getNoArticle(), dateEnchere, rs2.getInt("montant_enchere"), acheteur, res);
 					res.setEnchere(enchere);
 				}
+				
 				
 				pst.close();
 			}

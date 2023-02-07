@@ -41,7 +41,7 @@ ArticleVendu art = (ArticleVendu) session.getAttribute("articleById");
 	<label id="finEnchere"> Fin de l'enchère : </label><input type="text" value="${articleById.getDateFinEncheres()}" name="finEnchere" readonly="readonly"><br>
 
 	<h4>Meilleure offre :</h4>
-	<input type="text" value="${articleById.getPrixVente()}" name="meilleure_offre" readonly="readonly"> par <input type="text" value="${articleById.getEnchere() != null ? articleById.getEnchere().getAcheteur().getPseudo() :  "Aucun acheteur" }" name="meilleure_offre" readonly="readonly">
+	<input type="text" value="${articleById.getEnchere() != null ? articleById.getEnchere().getMontant_enchere() : 0}" name="meilleure_offre" readonly="readonly"> par <input type="text" value="${articleById.getEnchere() != null ? articleById.getEnchere().getAcheteur().getPseudo() :  "Aucun acheteur" }" name="meilleure_offre" readonly="readonly">
 	<label id="mise_a_prix"> Mise à prix :</label><input type="text" value="${articleById.getMiseAPrix()}" name="mise_a_prix" readonly="readonly"><br>
 	<h4>Retrait :</h4>
 	<label id="label_rue"> Rue : </label><input type="text" value="${articleById.getVendeur().getRue()}" name="label_rue" readonly="readonly"><br>

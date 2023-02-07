@@ -28,7 +28,7 @@ public class ArticleManager {
 		public ArticleVendu selectionnerByID (int id)throws BusinessException {
 			ArticleVendu article = null;
 			try {
-			article= articleVenduDAO.selectById(id);
+				article= articleVenduDAO.selectById(id);
 			}
 			catch (BusinessException be) {
 				be.printStackTrace();

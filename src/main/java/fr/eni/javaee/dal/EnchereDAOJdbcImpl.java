@@ -61,7 +61,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 		
 			pst.setInt(1, enchere.getAcheteur().getNoUtilisateur());
 			pst.setInt(2, enchere.getVente().getNoArticle());
-			pst.setTimestamp(3, java.sql.Timestamp.valueOf(enchere.getDateEnchère()));
+			pst.setTimestamp(3, java.sql.Timestamp.valueOf(enchere.getDateEnchere()));
 			pst.setInt(4,enchere.getMontant_enchere());
 			
 			pst.executeUpdate();

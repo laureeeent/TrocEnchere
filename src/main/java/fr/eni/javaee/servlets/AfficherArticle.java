@@ -34,6 +34,7 @@ public class AfficherArticle extends HttpServlet {
 		
 
 		int numArt =  Integer.parseInt(request.getParameter("id"));
+		System.out.println("numart = "+numArt);
 		HttpSession session = request.getSession();
 		Utilisateur user = (Utilisateur) session.getAttribute("utilisateur");;
 		if (user != null){
@@ -44,11 +45,12 @@ public class AfficherArticle extends HttpServlet {
 			ArticleVendu artById = null;
 			try {
 				artById = articleManager.selectionnerByID(numArt);
+				System.out.println(artById.getEnchere().getAcheteur().getPseudo());
 			} catch (BusinessException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			session.setAttribute("articleById", artById);
+			request.setAttribute("articleById", artById);
 			
 			rs.forward(request, response);
 		}else {
