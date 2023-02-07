@@ -27,17 +27,21 @@ public class EnchereManager {
 		ArticleVendu article = null;
 		LocalDateTime dateEnchere = LocalDateTime.now();
 	
-		article = articleManager.selectionnerByID(noArticle);
-		ancienEncherisseur = utilisateurManager.selectionnerUtilisateurParID(noAncienEncherisseur);
-		ancienEncherisseur.setCredit(ancienEncherisseur.getCredit()+ancienPrix);
-		nouvelEncherisseur.setCredit(nouvelEncherisseur.getCredit() - enchereEnCours);
+		try {
+			article = articleManager.selectionnerByID(noArticle);
+			ancienEncherisseur = utilisateurManager.selectionnerUtilisateurParID(noAncienEncherisseur);
+			ancienEncherisseur.setCredit(ancienEncherisseur.getCredit()+ancienPrix);
+			nouvelEncherisseur.setCredit(nouvelEncherisseur.getCredit() - enchereEnCours);
 
-		utilisateurManager.modifierUtilisateur(nouvelEncherisseur);
-		utilisateurManager.modifierUtilisateur(ancienEncherisseur);
+			utilisateurManager.modifierUtilisateur(nouvelEncherisseur);
+			utilisateurManager.modifierUtilisateur(ancienEncherisseur);
 
-		enchereManager.supprimerEnchere(ancienneEnchere);
-		nouvelleEnchere = new Enchere(article.getNoArticle(), dateEnchere, enchereEnCours, nouvelEncherisseur, article);
-		enchereDAO.insert(nouvelleEnchere);
+			enchereManager.supprimerEnchere(ancienneEnchere);
+			nouvelleEnchere = new Enchere(article.getNoArticle(), dateEnchere, enchereEnCours, nouvelEncherisseur, article);
+			enchereDAO.insert(nouvelleEnchere);
+		} catch (BusinessException e) {
+			e.printStackTrace();
+		}
 
 	}
 	
@@ -51,15 +55,19 @@ public class EnchereManager {
 		ArticleVendu article = null;
 		LocalDateTime dateEnchere = LocalDateTime.now();
 	
-		article = articleManager.selectionnerByID(noArticle);
-		nouvelEncherisseur.setCredit(nouvelEncherisseur.getCredit() - enchereEnCours);
+		try {
+			article = articleManager.selectionnerByID(noArticle);
+			nouvelEncherisseur.setCredit(nouvelEncherisseur.getCredit() - enchereEnCours);
 
-		utilisateurManager.modifierUtilisateur(nouvelEncherisseur);
-		
+			utilisateurManager.modifierUtilisateur(nouvelEncherisseur);
+			
 
-		enchere = new Enchere(article.getNoArticle(), dateEnchere, enchereEnCours, nouvelEncherisseur, article);
-		System.out.println(article.getNomArticle()+ dateEnchere+ enchereEnCours+ nouvelEncherisseur.getPseudo()+ article.getNomArticle());
-		enchereDAO.insert(enchere);
+			enchere = new Enchere(article.getNoArticle(), dateEnchere, enchereEnCours, nouvelEncherisseur, article);
+			System.out.println(article.getNomArticle()+ dateEnchere+ enchereEnCours+ nouvelEncherisseur.getPseudo()+ article.getNomArticle());
+			enchereDAO.insert(enchere);
+		} catch (BusinessException e) {
+			e.printStackTrace();
+		}
 	
 	}
 	
