@@ -47,7 +47,6 @@
 		
 		<p>${messageVente != null ? messageVente : "" }</p>
 		
-	
 		
 		<button type="submit" name="boutton_form" value="enregistrer">Enregistrer</button>
 		<button type="submit" name="boutton_form" value="annuler">Annuler</button>
