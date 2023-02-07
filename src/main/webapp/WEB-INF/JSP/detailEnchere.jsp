@@ -32,10 +32,14 @@ ArticleVendu art = (ArticleVendu) session.getAttribute("articleById");
 	</c:if>
 	<h2>Détails enchère</h2>
 
+	<form action="./DetailEnchere"
+		method="post">
 	<input type="text" hidden="none" name="noArticle" value="${articleById.getNoArticle()}">
+	<input type="text" hidden="none" name="no_ancien_encherisseur" value="${articleById.getEnchere().getAcheteur().getNoUtilisateur()}">
 	<label id="description"> Description :</label><input type="text" value="${articleById.getDescription()}" name="description" readonly="readonly"><br>
 	<label id="categorie"> Catégorie : </label><input type="text" value="${articleById.getCategorieArticle().getLibelle()}" name="categorie" readonly="readonly"><br>
 	<label id="finEnchere"> Fin de l'enchère : </label><input type="text" value="${articleById.getDateFinEncheres()}" name="finEnchere" readonly="readonly"><br>
+
 	<h4>Meilleure offre :</h4>
 	<input type="text" value="${articleById.getPrixVente()}" name="meilleure_offre" readonly="readonly"> par <input type="text" value="${articleById.getEnchere() != null ? articleById.getEnchere().getAcheteur().getPseudo() :  "Aucun acheteur" }" name="meilleure_offre" readonly="readonly">
 	<label id="mise_a_prix"> Mise à prix :</label><input type="text" value="${articleById.getMiseAPrix()}" name="mise_a_prix" readonly="readonly"><br>
@@ -55,12 +59,8 @@ ArticleVendu art = (ArticleVendu) session.getAttribute("articleById");
 	<input id="enchereEnCours" type="number"
 		min="${articleById.getPrixVente() < articleById.getMiseAPrix() ? articleById.getMiseAPrix(): articleById.getPrixVente()+1}"
 		max="${utilisateur.getCredit()}" name="enchereEnCours"
-		required="required" value="montant de l'enchère actuelle + 1">
-
+		required="required" value="">
 	</c:if>
-	<form action="./DetailEnchere"
-		method="post">
-
 	<input type="submit" name="encherir" value="Enchérir" />
 	</form>
 

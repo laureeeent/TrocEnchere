@@ -12,6 +12,8 @@ public interface EnchereDAO {
 	public List<Enchere>selectAll() ;
 
 	void insert(Enchere enchere) throws BusinessException;
+
+	void delete(Enchere enchere) throws BusinessException;
 	
 	
 	
