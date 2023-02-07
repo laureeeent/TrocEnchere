@@ -30,9 +30,16 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			+ " VALUES(?,?,?,?,?,?,?,?,DEFAULT,null) ";
 
 	private static final String SELECT_BY_ID = "SELECT * FROM ARTICLES_VENDUS WHERE no_article=?;";
+	private static final String SELECT_BY_ID_ENCHERES = "SELECT * FROM ENCHERES WHERE no_article=?;"; 
 
 
-	private static final String SELECT_ARTICLE_ENCHERE_BY_ETAT = "SELECT nom_article, prix_initial, date_fin_enchere, pseudo,montant_enchere, etat_vente,image, a.no_article FROM ARTICLES_VENDUS as a LEFT OUTER JOIN ENCHERES as e ON a.no_article = e.no_article INNER JOIN UTILISATEURS as u on a.no_utilisateur=u.no_utilisateur WHERE etat_vente= ?;";
+
+	private static final String SELECT_ARTICLE_ENCHERE_BY_ETAT = "SELECT nom_article, prix_initial, date_fin_enchere, pseudo,montant_enchere, etat_vente,image, a.no_article "
+			+ "FROM ARTICLES_VENDUS as a LEFT OUTER JOIN ENCHERES as e ON a.no_article = e.no_article "
+			+ "INNER JOIN UTILISATEURS as u on a.no_utilisateur=u.no_utilisateur WHERE etat_vente= ?;";
+	
+	
+
 
 	private static final String UPDATE_MONTANT_ENCHERE = "UPDATE ARTICLES_VENDUS set prix_vente=? WHERE no_article=? ";
 	private static final String UPDATE = " UPDATE ARTICLES_VENDUS SET nom_article=?, description=?, date_debut_enchere=?, date_fin_enchere=?,"
@@ -177,15 +184,25 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 				UtilisateurDAOJdbcImpl util = new UtilisateurDAOJdbcImpl();
 				Utilisateur user = util.selectById(rs.getInt("no_utilisateur"));
 				
-				EnchereDAOJdbcImpl e = new EnchereDAOJdbcImpl();
-				Enchere ench = e.selectById(rs.getInt("no_article"));
-
 				CategorieDAOJdbcImpl c = new CategorieDAOJdbcImpl();
 				Categorie cat = c.selectById(rs.getInt("no_categorie"));
 
+
 				res = new ArticleVendu(rs.getInt("no_article"), rs.getString("nom_article"),
 						rs.getString("description"), date_debut, date_fin, rs.getInt("prix_initial"),
-						rs.getInt("prix_vente"), rs.getString("etat_vente"), user, ench, cat, rs.getString("image"));
+
+						rs.getInt("prix_vente"), rs.getString("etat_vente"), user, cat, rs.getString("image"));
+				
+				PreparedStatement pstEnchere = conx.prepareStatement(SELECT_BY_ID_ENCHERES);
+				pstEnchere.setInt(1, res.getNoArticle());
+				if (rs.next()) {
+					LocalDateTime dateEnchere = rs.getTimestamp("date_enchere").toLocalDateTime();
+					Enchere enchere = new Enchere(user, res, dateEnchere, rs.getInt("montant_enchere"));
+					res.setEnchere(enchere);
+				}
+				
+				pst.close();
+
 			}
 
 		} catch (SQLException e) {
