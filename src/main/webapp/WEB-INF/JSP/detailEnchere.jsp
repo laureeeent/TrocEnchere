@@ -31,6 +31,7 @@ ArticleVendu art = (ArticleVendu) session.getAttribute("articleById");
 		</c:forEach>
 	</c:if>
 	<h2>Détails enchère</h2>
+
 	<input type="text" hidden="none" name="noArticle" value="${articleById.getNoArticle()}">
 	<label id="description"> Description :</label><input type="text" value="${articleById.getDescription()}" name="description" readonly="readonly"><br>
 	<label id="categorie"> Catégorie : </label><input type="text" value="${articleById.getCategorieArticle().getLibelle()}" name="categorie" readonly="readonly"><br>
@@ -55,9 +56,11 @@ ArticleVendu art = (ArticleVendu) session.getAttribute("articleById");
 		min="${articleById.getPrixVente() < articleById.getMiseAPrix() ? articleById.getMiseAPrix(): articleById.getPrixVente()+1}"
 		max="${utilisateur.getCredit()}" name="enchereEnCours"
 		required="required" value="montant de l'enchère actuelle + 1">
+
 	</c:if>
 	<form action="./DetailEnchere"
 		method="post">
+
 	<input type="submit" name="encherir" value="Enchérir" />
 	</form>
 

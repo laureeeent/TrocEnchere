@@ -21,7 +21,9 @@
 	//Utilisateur user = (Utilisateur) session.getAttribute("utilisateur");
 	%>
 	<header id="h_principal">
+
 		<%@include file="fragment/div_id_entete.jsp"%>
+
 		<div id="titre_page">
 			<h1>Liste des enchères</h1>
 		</div>

@@ -73,8 +73,7 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 				resultat= new Categorie(
 						rs.getInt("no_categorie"),
 						rs.getString("libelle")
-						);
-						
+						);						
 			}
 			
 			rs.close();
