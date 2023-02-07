@@ -44,6 +44,8 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 	private static final Utilisateur VALEUR_DEFAUT_UTILISATEUR = new Utilisateur("Pas de pseudo");
 
 	private static final String VALEUR_DEFAUT_STRING = "";
+
+	private static final String SELECT_BY_ID_ENCHERES = "SELECT * FROM ENCHERES WHERE no_article = ?";
 	
 	
 
@@ -190,6 +192,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 				CategorieDAOJdbcImpl e = new CategorieDAOJdbcImpl();
 				Categorie cat = e.selectById(rs.getInt("no_categorie"));
 				
+
 				res = new ArticleVendu(
 							rs.getInt("no_article"),
 							rs.getString("nom_article"),
@@ -203,6 +206,25 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 							cat,
 							rs.getString("image")
 						);
+
+				PreparedStatement pstEnchere = conx.prepareStatement(SELECT_BY_ID_ENCHERES);
+				pstEnchere.setInt(1, res.getNoArticle());
+				pstEnchere.executeQuery();
+				ResultSet rs2 = pstEnchere.getResultSet();
+				//Si on trouve une enchère avec no_article=res.no_article
+				if (rs2.next()) {
+					LocalTime dateEnchereTime = rs2.getTime(3).toLocalTime();
+					LocalDate dateEnchereDate = rs2.getDate(3).toLocalDate();
+					LocalDateTime dateEnchere = LocalDateTime.of(dateEnchereDate, dateEnchereTime);
+					Utilisateur acheteur = util.selectById(rs2.getInt("no_utilisateur"));
+					Enchere enchere = new Enchere( res.getNoArticle(), dateEnchere, rs2.getInt("montant_enchere"), acheteur, res);
+					res.setEnchere(enchere);
+				}
+				
+				
+				pst.close();
+
+
 			}
 			
 		} catch (SQLException e) {

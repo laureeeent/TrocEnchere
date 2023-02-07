@@ -31,13 +31,14 @@
 	<label id="finEnchere"> Fin de l'enchère : </label><input type="text" value="${articleById.getDateFinEncheres()}" name="finEnchere" readonly="readonly"><br>
 
 	<h4>Meilleure offre :</h4>
-	<input type="text" value="${articleById.getEnchere().getMontant_enchere()}" name="meilleure_offre" readonly="readonly"> par <input type="text" value="${articleById.getEnchere() != null ? articleById.getEnchere().getAcheteur().getPseudo() :  "Aucun acheteur" }" name="meilleure_offre" readonly="readonly">
+	<input type="text" value="${articleById.getEnchere() != null ? articleById.getEnchere().getMontant_enchere() : 0}" name="meilleure_offre" readonly="readonly"> par <input type="text" value="${articleById.getEnchere() != null ? articleById.getEnchere().getAcheteur().getPseudo() :  "Aucun acheteur" }" name="meilleure_offre" readonly="readonly">
+
 	<label id="mise_a_prix"> Mise à prix :</label><input type="text" value="${articleById.getMiseAPrix()}" name="mise_a_prix" readonly="readonly"><br>
 	<h4>Retrait :</h4>
 	<label id="label_rue"> Rue : </label><input type="text" value="${articleById.getVendeur().getRue()}" name="label_rue" readonly="readonly"><br>
 	<label id="label_code_postal"> Code postal : </label><input type="text" value="${articleById.getVendeur().getCodePostal()}" name="input_code_postal" readonly="readonly">
 	<label id="label_ville"> Ville : </label><input type="text" value="${articleById.getVendeur().getVille()}" name="input_ville" readonly="readonly"><br>
-	<label id="label_vendeur"> Vendeur : </label><input type="text" value="${art.getVendeur().getPseudo()}" name="vendeur" readonly="readonly"><br>
+	<label id="label_vendeur"> Vendeur : </label><input type="text" value="${articleById.getVendeur().getPseudo()}" name="vendeur" readonly="readonly"><br>
 	<label id="label_pseudo"> Pseudo : </label><input name="var_pseudo" value="nom_pseudo" type="hidden">
 
 
