@@ -43,8 +43,8 @@ ArticleVendu art = (ArticleVendu) session.getAttribute("articleById");
 	<label id="label_rue"> Rue : </label><input type="text" value="${articleById.getVendeur().getRue()}" name="label_rue" readonly="readonly"><br>
 	<label id="label_code_postal"> Code postal : </label><input type="text" value="${articleById.getVendeur().getCodePostal()}" name="input_code_postal" readonly="readonly">
 	<label id="label_ville"> Ville : </label><input type="text" value="${articleById.getVendeur().getVille()}" name="input_ville" readonly="readonly"><br>
-	<label id="vendeur"> Vendeur : </label><input type="text" value="${art.getVendeur().getPseudo()}" name="vendeur" readonly="readonly"><br>
-	<label>Nom_pseudo</label><input name="var_pseudo" value="nom_pseudo" type="hidden">
+	<label id="label_vendeur"> Vendeur : </label><input type="text" value="${art.getVendeur().getPseudo()}" name="vendeur" readonly="readonly"><br>
+	<label id="label_pseudo"> Pseudo : </label><input name="var_pseudo" value="nom_pseudo" type="hidden">
 
 
 	<h4>Ma proposition :</h4>
@@ -63,9 +63,6 @@ ArticleVendu art = (ArticleVendu) session.getAttribute("articleById");
 
 	<input type="submit" name="encherir" value="Enchérir" />
 	</form>
-
-
-
 
 </body>
 </html>
