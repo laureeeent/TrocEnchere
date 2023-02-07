@@ -47,10 +47,15 @@ ArticleVendu art = (ArticleVendu) session.getAttribute("articleById");
 
 
 	<h4>Ma proposition :</h4>
+	<c:if test="${utilisateur.getCredit() < articleById.getMiseAPrix()}">
+		<p style="color:red;">Crédit insuffisant! Veuillez contacter notre organisme financier pour augmenter votre Crédit disponible, afin de participer à l'enchère.</p>
+	</c:if>
+	<c:if test="${utilisateur.getCredit() > articleById.getMiseAPrix()}">
 	<input id="enchereEnCours" type="number"
 		min="${articleById.getPrixVente() < articleById.getMiseAPrix() ? articleById.getMiseAPrix(): articleById.getPrixVente()+1}"
 		max="${utilisateur.getCredit()}" name="enchereEnCours"
 		required="required" value="montant de l'enchère actuelle + 1">
+	</c:if>
 	<form action="./DetailEnchere"
 		method="post">
 	<input type="submit" name="encherir" value="Enchérir" />

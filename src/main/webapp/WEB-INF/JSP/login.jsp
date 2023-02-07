@@ -23,7 +23,7 @@
 <body>
 
 	<header id="h_principal">
-<%@include file="fragment/div_id_entete.jsp"%>
+
 		<div id="titre_page">
 			<h1>Espace de connexion</h1>
 		</div>
