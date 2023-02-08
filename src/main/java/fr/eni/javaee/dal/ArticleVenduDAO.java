@@ -3,6 +3,7 @@ package fr.eni.javaee.dal;
 import java.util.List;
 
 import fr.eni.javaee.bo.ArticleVendu;
+import fr.eni.javaee.bo.Utilisateur;
 import fr.eni.javaee.exceptions.BusinessException;
 
 public interface ArticleVenduDAO {
@@ -20,5 +21,7 @@ public interface ArticleVenduDAO {
 	public List<ArticleVendu> selectAll();
 
 	List<ArticleVendu> selectByEtat(String etat) throws BusinessException;
+
+	List<ArticleVendu> selectEnchereUser(Utilisateur user, String filtre) throws BusinessException;
 
 }

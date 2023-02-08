@@ -30,20 +30,31 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 						+ " VALUES(?,?,?,?,?,?,?,?,DEFAULT,null) ";
 	
 	private static final String SELECT_BY_ID = "SELECT * FROM ARTICLES_VENDUS WHERE no_article=?;";
-
-	private static final String SELECT_ARTICLE_ENCHERE_BY_ETAT = "SELECT nom_article, prix_initial, date_fin_enchere, pseudo,montant_enchere, etat_vente,image, a.no_article FROM ARTICLES_VENDUS as a LEFT OUTER JOIN ENCHERES as e ON a.no_article = e.no_article INNER JOIN UTILISATEURS as u on a.no_utilisateur=u.no_utilisateur WHERE etat_vente= ?;";
+	private static final String SELECT_ARTICLE_ENCHERE_BY_ETAT = "SELECT nom_article, prix_initial, date_fin_enchere, pseudo,montant_enchere, etat_vente,image,"
+						+ " a.no_article FROM ARTICLES_VENDUS as a LEFT OUTER JOIN ENCHERES as e ON a.no_article = e.no_article INNER JOIN UTILISATEURS as u on a.no_utilisateur=u.no_utilisateur "
+						+ "WHERE etat_vente= ?;";
+	private static final String SELECT_BY_ID_ENCHERES = "SELECT * FROM ENCHERES WHERE no_article = ?";
+	private static final String SELECT_ENCHERES_OUVERTES_USER = "SELECT nom_article, description, prix_initial, date_debut_enchere, date_fin_enchere, pseudo, e.no_utilisateur AS no_acheteur, a.no_utilisateur AS no_vendeur, montant_enchere, no_categorie, etat_vente,image,"
+			+ " a.no_article FROM ARTICLES_VENDUS as a INNER JOIN ENCHERES as e ON a.no_article = e.no_article INNER JOIN UTILISATEURS as u on a.no_utilisateur=u.no_utilisateur "
+			+ "WHERE etat_vente= 'EC' AND e.no_utilisateur = ?;";
+	private static final String SELECT_ENCHERES_REMPORTEES_USER = "SELECT nom_article, description, prix_initial, date_debut_enchere, date_fin_enchere, pseudo, e.no_utilisateur AS no_acheteur, a.no_utilisateur AS no_vendeur, montant_enchere, etat_vente, no_categorie, image,"
+			+ " a.no_article FROM ARTICLES_VENDUS as a INNER JOIN ENCHERES as e ON a.no_article = e.no_article INNER JOIN UTILISATEURS as u on a.no_utilisateur=u.no_utilisateur "
+			+ "WHERE (etat_vente= 'VD' OR etat_vente='RT') AND e.no_utilisateur=?;";
+	
 	
 	private static final String UPDATE_MONTANT_ENCHERE = "UPDATE ARTICLES_VENDUS set prix_vente=? WHERE no_article=? "	;
 	private static final String UPDATE = " UPDATE ARTICLES_VENDUS SET nom_article=?, description=?, date_debut_enchere=?, date_fin_enchere=?,"
 						+ "prix_initial=?, no_categorie=?, etat_vente=?, image=?;";
+
+	
+	
+	
+	
+	
 	private static final LocalDateTime VALEUR_DEFAUT_DATE = LocalDateTime.of(1900, 01, 01, 00, 00, 00, 00);
 	private static final Enchere VALEUR_DEFAUT_ENCHERE = new Enchere(0);
 	private static final Utilisateur VALEUR_DEFAUT_UTILISATEUR = new Utilisateur("Pas de pseudo");
-
 	private static final String VALEUR_DEFAUT_STRING = "";
-
-	private static final String SELECT_BY_ID_ENCHERES = "SELECT * FROM ENCHERES WHERE no_article = ?";
-	
 	
 
 	@Override
@@ -233,6 +244,90 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 		}
 		return res;
 	}
+	
+	@Override
+	public List<ArticleVendu> selectEnchereUser(Utilisateur user, String filtre) throws BusinessException {
+		if (user == null ) {
+			BusinessException be = new BusinessException();
+			be.ajouterCodeErreur(CodeResultatDAL.SELECT_ID_INCORRECT);
+		}
+		String requete = "";
+		if (filtre.equals("EC")) {
+			requete = SELECT_ENCHERES_OUVERTES_USER;
+		}
+		else if (filtre.equals("remportee")) {
+			requete = SELECT_ENCHERES_REMPORTEES_USER;
+			
+		}
+		
+		List<ArticleVendu> listeArticle = new ArrayList<ArticleVendu>();
+		
+		try ( Connection conx = ConnectionProvider.getConnection() ) {
+			
+			PreparedStatement pst = conx.prepareStatement(requete);
+			pst.setInt(1, user.getNoUtilisateur());
+			System.out.println("requete ="+requete);
+			pst.executeQuery();
+			ResultSet rs = pst.getResultSet();
+			while (rs.next()) {
+				System.out.println("Y'a des choses");
+				ArticleVendu art = null;
+				
+				LocalDate date_debut_date = rs.getDate("date_debut_enchere").toLocalDate();
+				LocalTime date_debut_time = rs.getTime("date_debut_enchere").toLocalTime();
+				LocalDateTime date_debut = LocalDateTime.of(date_debut_date, date_debut_time);
+				
+				LocalDate date_fin_date = rs.getDate("date_fin_enchere").toLocalDate();
+				LocalTime date_fin_time = rs.getTime("date_fin_enchere").toLocalTime();
+				LocalDateTime date_fin = LocalDateTime.of(date_fin_date, date_fin_time);
+			
+				UtilisateurDAOJdbcImpl util = new UtilisateurDAOJdbcImpl();
+				Utilisateur vendeur = util.selectByPseudo(rs.getString("pseudo"));
+				CategorieDAOJdbcImpl e = new CategorieDAOJdbcImpl();
+				Categorie cat = e.selectById(rs.getInt("no_categorie"));
+				
+
+				art = new ArticleVendu(
+							rs.getInt("no_article"),
+							rs.getString("nom_article"),
+							rs.getString("description"),
+							date_debut,
+							date_fin,
+							rs.getInt("prix_initial"),
+							rs.getInt("montant_enchere"),
+							rs.getString("etat_vente"),
+							vendeur,
+							cat,
+							rs.getString("image")
+						);
+				System.out.println("art = "+art);
+
+				PreparedStatement pstEnchere = conx.prepareStatement(SELECT_BY_ID_ENCHERES);
+				pstEnchere.setInt(1, art.getNoArticle());
+				pstEnchere.executeQuery();
+				ResultSet rs2 = pstEnchere.getResultSet();
+				//Si on trouve une enchère avec no_article=art.no_article
+				
+				if (rs2.next()) {
+					LocalTime dateEnchereTime = rs2.getTime(3).toLocalTime();
+					LocalDate dateEnchereDate = rs2.getDate(3).toLocalDate();
+					LocalDateTime dateEnchere = LocalDateTime.of(dateEnchereDate, dateEnchereTime);
+					Enchere enchere = new Enchere( art.getNoArticle(), dateEnchere, rs2.getInt("montant_enchere"), user, art);
+					
+					art.setEnchere(enchere);
+				}
+				listeArticle.add(art);
+			}
+			
+			pst.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return listeArticle;
+	}
+	
+	
 
 	@Override
 	public List<ArticleVendu> selectAll() {

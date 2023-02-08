@@ -48,6 +48,10 @@ public class ArticleManager {
 			return null;
 		}
 		
+		public List<ArticleVendu> selectionnerEnchereUser(Utilisateur user, String filtre) throws BusinessException {
+			return articleVenduDAO.selectEnchereUser(user, filtre);
+		}
+		
 		public void ajouterArticle(ArticleVendu article) throws BusinessException {
 			articleVenduDAO.insert(article);
 			
