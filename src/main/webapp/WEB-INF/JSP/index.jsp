@@ -53,7 +53,7 @@
 								<input type="radio" id="achats" name="choix" value="achats"
 									checked> <label for="achats">Achats</label>
 								<c:if test="achat"></c:if>
-<<<<<<< HEAD
+
 								<div class="sous_achats">
 									<input type="checkbox" id="enchere" name="EC" value="1" checked>
 									<label for="EC">enchères ouvertes</label>
@@ -63,15 +63,7 @@
 									
 									<input type="checkbox" id="enchere" name="mes_encheres_remportees" value="1">
 									<label for="mes_encheres_remportees">mes enchères remportées</label>
-=======
-								<div class="sous_achats" id="achat">
-									<input type="checkbox" id="enchere" name="EC" checked>
-									<label for="EC">enchères ouvertes</label> <input
-										type="checkbox" id="enchere" name="mes_encheres"> <label
-										for="mes_encheres">mes enchères</label> <input type="checkbox"
-										id="enchere" name="mes_encheres_remportees"> <label
-										for="mes_encheres_remportees">mes enchères remportées</label>
->>>>>>> branch 'main' of https://github.com/laureeeent/TrocEnchere.git
+
 								</div>
 
 

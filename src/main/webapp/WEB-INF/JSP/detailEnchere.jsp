@@ -30,7 +30,7 @@
 			value="${articleById.getNoArticle()}"> <input type="text"
 			hidden="none" name="no_ancien_encherisseur"
 			value="${articleById.getEnchere() != null ? articleById.getEnchere().getAcheteur().getNoUtilisateur() : 0 }">
-			
+
 		<c:choose>
 			<c:when test="${articleById.getEtatVente().equals('EC')}">
 			<label id="categorie">	Catégorie : ${articleById.getCategorieArticle().getLibelle()} </label> <input type="text"
@@ -42,9 +42,9 @@
 			readonly="readonly" hidden="none"><br>
 			
 			<h4>Meilleure offre :</h4>
-				<label> ${articleById.getEnchere() != null ? articleById.getEnchere().getMontant_enchere() : 0} </label>
+				<label> ${articleById.getEnchere() != null ? articleById.getEnchere().getMontantEnchere() : 0} </label>
 				<input type="text"
-					value="${articleById.getEnchere() != null ? articleById.getEnchere().getMontant_enchere() : 0}"
+					value="${articleById.getEnchere() != null ? articleById.getEnchere().getMontantEnchere() : 0}"
 					name="meilleure_offre" readonly="readonly"  hidden="none" > par 
 					<label> ${articleById.getEnchere() != null ? articleById.getEnchere().getAcheteur().getPseudo() :  "
 					Aucun acheteur" }</label>
@@ -58,24 +58,24 @@
 				
 				<h4>Ma proposition :</h4>
 				<c:if
-					test="${utilisateur.getCredit() <= articleById.getMiseAPrix() or utilisateur.getCredit() <= articleById.getEnchere().getMontant_enchere()}">
+					test="${utilisateur.getCredit() <= articleById.getMiseAPrix() or utilisateur.getCredit() <= articleById.getEnchere().getMontantEnchere()}">
 					<p style="color: red;">Crédit insuffisant! Veuillez contacter
 						notre organisme financier pour augmenter votre Crédit disponible,
 						afin de participer à l'enchère.</p>
 				</c:if>
 				<c:if test="${utilisateur.getCredit() > articleById.getMiseAPrix()}">
 					<input id="enchereEnCours" type="number"
-						min="${articleById.getEnchere().getMontant_enchere() < articleById.getMiseAPrix() ? articleById.getMiseAPrix(): articleById.getEnchere().getMontant_enchere()+1}"
+						min="${articleById.getEnchere().getMontantEnchere() < articleById.getMiseAPrix() ? articleById.getMiseAPrix(): articleById.getEnchere().getMontantEnchere()+1}"
 						max="${utilisateur.getCredit()}" name="enchereEnCours"
 						required="required"
-						placeholder="${articleById.getEnchere().getMontant_enchere() < articleById.getMiseAPrix() ? articleById.getMiseAPrix(): articleById.getEnchere().getMontant_enchere()+1}">
+						placeholder="${articleById.getEnchere().getMontantEnchere() < articleById.getMiseAPrix() ? articleById.getMiseAPrix(): articleById.getEnchere().getMontantEnchere()+1}">
 					<input id="encherir" type="submit" name="encherir" value="Enchérir" />
 				</c:if>
 			</c:when>
 			<c:otherwise>
 				<h4>Enchère terminée :</h4>
 				<label id="mise_a_prix"> Mise à prix : ${articleById.getMiseAPrix()}</label><br>
-				<label id="meilleureOffre"> Dernière enchère de $ : ${articleById.getEnchere() != null ? articleById.getEnchere().getMontant_enchere() : 0} faite par ${articleById.getEnchere() != null ? articleById.getEnchere().getAcheteur().getPseudo() :  "Aucun acheteur" }</label>
+				<label id="meilleureOffre"> Dernière enchère de $ : ${articleById.getEnchere() != null ? articleById.getEnchere().getMontantEnchere() : 0} faite par ${articleById.getEnchere() != null ? articleById.getEnchere().getAcheteur().getPseudo() :  "Aucun acheteur" }</label>
 			</c:otherwise>
 			</c:choose>
 			<c:choose>
