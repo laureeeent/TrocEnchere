@@ -31,28 +31,25 @@ public class AfficherArticle extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-
 		String id_article = request.getParameter("id");
-		int numArt =  Integer.parseInt(id_article);
-		System.out.println("num: "+ numArt);
 
+		int numArt =  Integer.parseInt(id_article);
 		HttpSession session = request.getSession();
 		Utilisateur user = (Utilisateur) session.getAttribute("utilisateur");;
 		if (user != null){
-			RequestDispatcher rs = request.getRequestDispatcher("./WEB-INF/JSP/detailEnchere.jsp");		
+			RequestDispatcher rs = request.getRequestDispatcher("./WEB-INF/JSP/detailEnchere.jsp");
+			session.setAttribute("utilisateur", user);
 			
 			ArticleManager articleManager = new ArticleManager();
 			ArticleVendu artById = null;
 			try {
 				artById = articleManager.selectionnerByID(numArt);
-				System.out.println("article :" +artById);
 			} catch (BusinessException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			request.setAttribute("articleById", artById);
-			System.out.println(artById);
+			session.setAttribute("articleById", artById);
+			
 			rs.forward(request, response);
 		}else {
 			RequestDispatcher rs = request.getRequestDispatcher("ServletConnecter");
