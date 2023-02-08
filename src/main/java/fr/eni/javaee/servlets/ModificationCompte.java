@@ -33,7 +33,10 @@ public class ModificationCompte extends HttpServlet {
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		if (request.getSession()==null) {
+			RequestDispatcher rd = request.getRequestDispatcher("ServletRedirectionAccueil");
+			rd.forward(request, response);
+		}
 		HttpSession session = request.getSession();
 		
 		Utilisateur user = (Utilisateur) session.getAttribute("utilisateur");
@@ -131,10 +134,7 @@ public class ModificationCompte extends HttpServlet {
 					
 		}  
 			if (submit.equals(submitDelete)) {
-				utilisateurManager.supprimerUtilisateur(user);
-				Utilisateur userNull = null;
-				session.setAttribute("utilisateur", userNull);
-				RequestDispatcher rd = request.getRequestDispatcher("ServletRedirectionAccueil");
+				RequestDispatcher rd = request.getRequestDispatcher("SupprimerCompte");
 				rd.forward(request, response);
 		}
 	}

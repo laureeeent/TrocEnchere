@@ -57,7 +57,7 @@
 	</form>
 	
 	<p>En confirmant cette mise en vente, vous vous engagez dès que le début de l'enchère a commencé. <br>
-		Vous ne pouvez ni supprimer l'article, ni supprimer votre compte jusqu'à la fin de l'enchère et au retrait de l'article.</p>
+		Vous ne pouvez ni supprimer l'article, ni supprimer votre compte jusqu'à la fin de l'enchère et au retrait de l'article. <a href="ServletRedirectionConditionsGénérales">Voir les conditions générales</a></p>
 	
 	
 </body>
