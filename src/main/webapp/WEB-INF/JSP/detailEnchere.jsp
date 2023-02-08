@@ -33,8 +33,7 @@
 			
 
 
-	<h4>Meilleure offre :</h4>
-	<input type="text" value="${articleById.getEnchere() != null ? articleById.getEnchere().getMontantEnchere() : 0}" name="meilleure_offre" readonly="readonly"> par <input type="text" value="${articleById.getEnchere() != null ? articleById.getEnchere().getAcheteur().getPseudo() :  "Aucun acheteur" }" name="meilleure_offre" readonly="readonly">
+	
 
 		<c:choose>
 			<c:when test="${articleById.getEtatVente().equals('EC')}">
@@ -47,9 +46,9 @@
 			readonly="readonly" hidden="none"><br>
 			
 			<h4>Meilleure offre :</h4>
-				<label> ${articleById.getEnchere() != null ? articleById.getEnchere().getMontant_enchere() : 0} </label>
+				<label> ${articleById.getEnchere() != null ? articleById.getEnchere().getMontantEnchere() : 0} </label>
 				<input type="text"
-					value="${articleById.getEnchere() != null ? articleById.getEnchere().getMontant_enchere() : 0}"
+					value="${articleById.getEnchere() != null ? articleById.getEnchere().getMontantEnchere() : 0}"
 					name="meilleure_offre" readonly="readonly"  hidden="none" > par 
 					<label> ${articleById.getEnchere() != null ? articleById.getEnchere().getAcheteur().getPseudo() :  "
 					Aucun acheteur" }</label>
@@ -63,24 +62,24 @@
 				
 				<h4>Ma proposition :</h4>
 				<c:if
-					test="${utilisateur.getCredit() <= articleById.getMiseAPrix() or utilisateur.getCredit() <= articleById.getEnchere().getMontant_enchere()}">
+					test="${utilisateur.getCredit() <= articleById.getMiseAPrix() or utilisateur.getCredit() <= articleById.getEnchere().getMontantEnchere()}">
 					<p style="color: red;">Crédit insuffisant! Veuillez contacter
 						notre organisme financier pour augmenter votre Crédit disponible,
 						afin de participer à l'enchère.</p>
 				</c:if>
 				<c:if test="${utilisateur.getCredit() > articleById.getMiseAPrix()}">
 					<input id="enchereEnCours" type="number"
-						min="${articleById.getEnchere().getMontant_enchere() < articleById.getMiseAPrix() ? articleById.getMiseAPrix(): articleById.getEnchere().getMontant_enchere()+1}"
+						min="${articleById.getEnchere().getMontantEnchere() < articleById.getMiseAPrix() ? articleById.getMiseAPrix(): articleById.getEnchere().getMontantEnchere()+1}"
 						max="${utilisateur.getCredit()}" name="enchereEnCours"
 						required="required"
-						placeholder="${articleById.getEnchere().getMontant_enchere() < articleById.getMiseAPrix() ? articleById.getMiseAPrix(): articleById.getEnchere().getMontant_enchere()+1}">
+						placeholder="${articleById.getEnchere().getMontantEnchere() < articleById.getMiseAPrix() ? articleById.getMiseAPrix(): articleById.getEnchere().getMontantEnchere()+1}">
 					<input id="encherir" type="submit" name="encherir" value="Enchérir" />
 				</c:if>
 			</c:when>
 			<c:otherwise>
 				<h4>Enchère terminée :</h4>
 				<label id="mise_a_prix"> Mise à prix : ${articleById.getMiseAPrix()}</label><br>
-				<label id="meilleureOffre"> Dernière enchère de $ : ${articleById.getEnchere() != null ? articleById.getEnchere().getMontant_enchere() : 0} faite par ${articleById.getEnchere() != null ? articleById.getEnchere().getAcheteur().getPseudo() :  "Aucun acheteur" }</label>
+				<label id="meilleureOffre"> Dernière enchère de $ : ${articleById.getEnchere() != null ? articleById.getEnchere().getMontantEnchere() : 0} faite par ${articleById.getEnchere() != null ? articleById.getEnchere().getAcheteur().getPseudo() :  "Aucun acheteur" }</label>
 			</c:otherwise>
 			</c:choose>
 			<c:choose>
@@ -106,27 +105,7 @@
 			
 		</c:choose>
 
-	<label id="mise_a_prix"> Mise à prix :</label><input type="text" value="${articleById.getMiseAPrix()}" name="mise_a_prix" readonly="readonly"><br>
-	<h4>Retrait :</h4>
-	<label id="label_rue"> Rue : </label><input type="text" value="${articleById.getVendeur().getRue()}" name="label_rue" readonly="readonly"><br>
-	<label id="label_code_postal"> Code postal : </label><input type="text" value="${articleById.getVendeur().getCodePostal()}" name="input_code_postal" readonly="readonly">
-	<label id="label_ville"> Ville : </label><input type="text" value="${articleById.getVendeur().getVille()}" name="input_ville" readonly="readonly"><br>
-	<label id="label_vendeur"> Vendeur : </label><input type="text" value="${articleById.getVendeur().getPseudo()}" name="vendeur" readonly="readonly"><br>
-	<label id="label_pseudo"> Pseudo : </label><input name="var_pseudo" value="nom_pseudo" type="hidden">
-
-
-	<h4>Ma proposition :</h4>
-	<c:if test="${utilisateur.getCredit() <= articleById.getMiseAPrix() or utilisateur.getCredit() < articleById.getEnchere().getMontantEnchere()}">
-		<p style="color:red;">Crédit insuffisant!<br>Vous avez actuellement :${utilisateur.getCredit()}<br>La valeur minimun de l'enchère est de : ${articleById.getEnchere().getMontant_enchere() < articleById.getMiseAPrix() ? articleById.getMiseAPrix(): articleById.getEnchere().getMontant_enchere()+1} <br>Veuillez contacter notre organisme financier pour augmenter votre Crédit disponible, afin de participer à l'enchère.</p>
-	</c:if>
-	<c:if test="${utilisateur.getCredit() > articleById.getMiseAPrix()}">
-	<input id="enchereEnCours" type="number"
-		min="${articleById.getEnchere().getMontantEnchere() < articleById.getMiseAPrix() or articleById.getEnchere().getMontantEnchere()== null ? articleById.getMiseAPrix(): articleById.getEnchere().getMontantEnchere()+1}"
-		max="${utilisateur.getCredit()}" name="enchereEnCours"
-		required="required" placeholder="${articleById.getEnchere().getMontantEnchere() < articleById.getMiseAPrix() or articleById.getEnchere().getMontantEnchere()== null  ? articleById.getMiseAPrix(): articleById.getEnchere().getMontantEnchere()+1}">
-	</c:if>
-	<input type="submit" name="encherir" value="Enchérir" />
-
+	
 	</form>
 
 </body>
