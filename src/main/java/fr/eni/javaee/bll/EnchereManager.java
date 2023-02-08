@@ -43,7 +43,10 @@ public class EnchereManager {
 			utilisateurManager.modifierUtilisateur(ancienEncherisseur);
 			articleManager.modifierPrixArticle(article);
 
+			System.out.println("ancienneEnchere avant suppression : "+ancienneEnchere);
 			supprimerEnchere(ancienneEnchere);
+			ancienneEnchere = selectionnerEnchereParArticle(noArticle);
+			System.out.println("ancienneEnchere après suppression : "+ancienneEnchere);
 			nouvelleEnchere = new Enchere(article.getNoArticle(), dateEnchere, enchereEnCours, nouvelEncherisseur,
 					article);
 			enchereDAO.insert(nouvelleEnchere);
@@ -84,7 +87,7 @@ public class EnchereManager {
 		Enchere enchere = null;
 
 		
-		enchere = this.enchereDAO.selectById(noArticle);
+		enchere = enchereDAO.selectById(noArticle);
 		return enchere;
 
 	}

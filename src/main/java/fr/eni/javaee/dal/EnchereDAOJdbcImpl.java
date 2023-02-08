@@ -124,10 +124,11 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 				ArticleVendu article = art_vendu.selectById(rs.getInt("no_article"));
 				
 				res = new Enchere(
-							user,
-							article,
+							rs.getInt("no_article"),
 							date_enchere,
-							rs.getInt("montant_enchere")
+							rs.getInt("montant_enchere"),
+							user,
+							article
 						);
 				
 			}
