@@ -50,7 +50,7 @@
 	<input id="enchereEnCours" type="number"
 		min="${articleById.getEnchere().getMontant_enchere() < articleById.getMiseAPrix() ? articleById.getMiseAPrix(): articleById.getEnchere().getMontant_enchere()+1}"
 		max="${utilisateur.getCredit()}" name="enchereEnCours"
-		required="required" value="">
+		required="required" placeholder="${articleById.getEnchere().getMontant_enchere() < articleById.getMiseAPrix() ? articleById.getMiseAPrix(): articleById.getEnchere().getMontant_enchere()+1}">
 	</c:if>
 	<input type="submit" name="encherir" value="Enchérir" />
 	</form>
