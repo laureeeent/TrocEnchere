@@ -66,10 +66,10 @@
 				<c:choose>
 				<c:when test="${utilisateur.getCredit() > articleById.getMiseAPrix() and articleById.getEnchere().getAcheteur().getNoUtilisateur()!= utilisateur.getNoUtilisateur()}">
 					<input id="enchereEnCours" type="number"
-						min="${articleById.getEnchere().getMontant_enchere() < articleById.getMiseAPrix() or articleById.getEnchere().getMontant_enchere()== null ? articleById.getMiseAPrix(): articleById.getEnchere().getMontant_enchere()+1}"
+						min="${articleById.getEnchere().getMontantEnchere() < articleById.getMiseAPrix() or articleById.getEnchere().getMontantEnchere()== null ? articleById.getMiseAPrix(): articleById.getEnchere().getMontantEnchere()+1}"
 						max="${utilisateur.getCredit()}" name="enchereEnCours"
 						required="required"
-						placeholder="${articleById.getEnchere().getMontant_enchere() < articleById.getMiseAPrix() or articleById.getEnchere().getMontant_enchere()== null ? articleById.getMiseAPrix(): articleById.getEnchere().getMontant_enchere()+1}">
+						placeholder="${articleById.getEnchere().getMontantEnchere() < articleById.getMiseAPrix() or articleById.getEnchere().getMontantEnchere()== null ? articleById.getMiseAPrix(): articleById.getEnchere().getMontantEnchere()+1}">
 					<input id="encherir" type="submit" name="encherir" value="Enchérir" />
 				</c:when>
 				<c:otherwise>
