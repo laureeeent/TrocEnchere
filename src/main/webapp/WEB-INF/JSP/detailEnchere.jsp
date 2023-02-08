@@ -80,7 +80,7 @@
 			</c:otherwise>
 			</c:choose>
 			<c:choose>
-				<c:when test="${articleById.getEnchere().getAcheteur().getNoUtilisateur()==utilisateur.getNoUtilisateur()}">
+				<c:when test="${articleById.getEnchere().getAcheteur().getNoUtilisateur()==utilisateur.getNoUtilisateur() and articleById.getEtatVente().equals('VD') }">
 				<h4>Adresse du retrait :</h4>
 				<label id="label_rue"> ${articleById.getVendeur().getRue()} </label>
 				<input type="text" value="${articleById.getVendeur().getRue()}"
