@@ -84,16 +84,17 @@
 			</c:choose>
 			<c:choose>
 				<c:when test="${articleById.getEnchere().getAcheteur().getNoUtilisateur()==utilisateur.getNoUtilisateur() and articleById.getEtatVente().equals('VD') }">
+				<h2>Félicitations ! L'article est à vous et vous attend</h2>
 				<h4>Adresse du retrait :</h4>
 				<label id="label_rue"> ${articleById.getVendeur().getRue()} </label>
 				<input type="text" value="${articleById.getVendeur().getRue()}"
 					name="label_rue" readonly="readonly" hidden="none">
 				<br>
-				<label id="label_code_postal"> Code postal : ${articleById.getVendeur().getCodePostal()} </label>
+				<label id="label_code_postal">${articleById.getVendeur().getCodePostal()} </label>
 				<input type="text"
 					value="${articleById.getVendeur().getCodePostal()}"
 					name="input_code_postal" readonly="readonly" hidden="none">
-				<label id="label_ville"> Ville : ${articleById.getVendeur().getVille()}</label>
+				<label id="label_ville"> ${articleById.getVendeur().getVille()}</label>
 				<input type="text" value="${articleById.getVendeur().getVille()}"
 					name="input_ville" readonly="readonly" hidden="none">
 				<br>
