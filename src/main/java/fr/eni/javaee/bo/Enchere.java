@@ -7,7 +7,7 @@ public class Enchere {
 	// - - - - - - - - - - - - - - attributs - - - - - - - - - - - - - -
 	private int noEnchere; // égal à noArticle, sa clé pirmaire en base
 	private LocalDateTime dateEnchere;
-	private int montant_enchere;
+	private int montantEnchere;
 	private Utilisateur acheteur;
 	private ArticleVendu article;
 
@@ -17,7 +17,7 @@ public class Enchere {
 		super();
 		this.noEnchere = noEnchere;
 		this.dateEnchere = dateEnchere;
-		this.montant_enchere = montant_enchere;
+		this.montantEnchere = montant_enchere;
 		this.acheteur = acheteur;
 		this.article = vente;
 	}
@@ -32,7 +32,7 @@ public class Enchere {
 		this.article = article;
 		this.acheteur = utilisateur;
 
-		this.montant_enchere = montant_enchere;
+		this.montantEnchere = montant_enchere;
 		
 	}
 	
@@ -42,7 +42,7 @@ public class Enchere {
 		super();
 		this.noEnchere = noEnchere;
 		this.dateEnchere = dateEnchere;
-		this.montant_enchere = montant_enchere;
+		this.montantEnchere = montant_enchere;
 		this.acheteur = acheteur;
 	}
 
@@ -53,7 +53,7 @@ public class Enchere {
 
 
 	public Enchere(int montant) {
-		this.montant_enchere=montant;
+		this.montantEnchere=montant;
 	}
 
 
@@ -65,12 +65,12 @@ public class Enchere {
 		this.dateEnchere = dateEnchere;
 	}
 
-	public int getMontant_enchere() {
-		return montant_enchere;
+	public int getMontantEnchere() {
+		return montantEnchere;
 	}
 
-	public void setMontant_enchere(int montant_enchere) {
-		this.montant_enchere = montant_enchere;
+	public void setMontantEnchere(int montantEnchere) {
+		this.montantEnchere = montantEnchere;
 	}
 
 	public Utilisateur getAcheteur() {
@@ -105,7 +105,7 @@ public class Enchere {
 
 	@Override
 	public String toString() {
-		return "Enchere [dateEnchere=" + dateEnchere + ", montant_enchere=" + montant_enchere + ", acheteur=" + acheteur
+		return "Enchere [dateEnchere=" + dateEnchere + ", montant_enchere=" + montantEnchere + ", acheteur=" + acheteur
 				+ " ]";
 	}
 

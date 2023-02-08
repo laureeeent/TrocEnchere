@@ -48,7 +48,7 @@ public class EnchereManager {
 					article);
 			enchereDAO.insert(nouvelleEnchere);
 			
-			article.setPrixVente(nouvelleEnchere.getMontant_enchere());
+			article.setPrixVente(nouvelleEnchere.getMontantEnchere());
 			articleManager.modifierPrixArticle(article);
 		} catch (BusinessException e) {
 			e.printStackTrace();

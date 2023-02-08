@@ -11,11 +11,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.eni.javaee.bll.ArticleManager;
 import fr.eni.javaee.bll.CategorieManager;
 import fr.eni.javaee.bo.ArticleVendu;
 import fr.eni.javaee.bo.Categorie;
+import fr.eni.javaee.bo.Utilisateur;
 
 /**
  * Servlet implementation class ServletRedirectionAccueil
@@ -37,6 +39,8 @@ public class ServletRedirectionAccueil extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		Utilisateur user = (Utilisateur) session.getAttribute("utilisateur");
 		
 		CategorieManager categorieManager = new CategorieManager();
 		List<Categorie> listeCategories = categorieManager.selectionnerToutesLesCategories();
@@ -45,6 +49,10 @@ public class ServletRedirectionAccueil extends HttpServlet {
 		ArticleManager articleManager = new ArticleManager();
 		List<ArticleVendu> liste_EnchereEC = articleManager.selectionnerByEtat("EC");
 		request.setAttribute("listeArticles", liste_EnchereEC);
+		
+		List<ArticleVendu> listeEncheresFinies = articleManager.selectionnerByEtat("VD");
+		request.setAttribute("listeEncheresFinies", listeEncheresFinies);
+		
 
 
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JSP/index.jsp");
