@@ -52,6 +52,7 @@ public class ServletAfficherCompte extends HttpServlet {
 		
 		if (user != null) {
 				if (user.getPseudo().equals(param_pseudo)) {
+					request.setAttribute("param_pseudo",param_pseudo);
 					rs = request.getRequestDispatcher("./WEB-INF/JSP/pageAffichagePseudo.jsp");
 					rs.forward(request, response);
 					System.out.println("c'est le meme gars normalement");
@@ -87,10 +88,13 @@ public class ServletAfficherCompte extends HttpServlet {
 			rs = request.getRequestDispatcher("/WEB-INF/JSP/erreurConnexionUtilisateur.jsp");
 			rs.forward(request, response);
 		}
+		if (pseudo==null) {
 		System.out.println("pas de pseudo donc meme gars afficher");
 		request.setAttribute("pseudo", pseudo);
 		rs = request.getRequestDispatcher("./WEB-INF/JSP/pageAffichagePseudo.jsp");
 		rs.forward(request, response);
+		}
+
 	}
 
 	/**
