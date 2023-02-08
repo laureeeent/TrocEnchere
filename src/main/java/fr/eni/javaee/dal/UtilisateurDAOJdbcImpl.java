@@ -136,7 +136,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	}
 
 	@Override
-	public void delete(Utilisateur data) throws BusinessException {
+	public boolean delete(Utilisateur data) throws BusinessException {
 		if (data == null) {
 			BusinessException be = new BusinessException();
 			be.ajouterCodeErreur(CodeResultatDAL.DELETE_OBJET_NULL);
@@ -152,10 +152,13 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 
 			conx.commit();
 			pst.close();
+			return true;
 		} catch (SQLException e) {
 			System.out.println("Echec de la suppresion de l'utilisateur " + data.toString() + " en base.");
 			e.printStackTrace();
+			return false;
 		}
+		
 
 	}
 

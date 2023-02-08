@@ -11,7 +11,7 @@ public interface UtilisateurDAO {
 	
 	public void update(Utilisateur data) throws BusinessException ; 
 	
-	public void delete(Utilisateur data) throws BusinessException ;
+	public boolean delete(Utilisateur data) throws BusinessException ;
 	
 	public Utilisateur selectById(int id) throws BusinessException ;
 	

@@ -135,13 +135,18 @@ public class UtilisateurManager {
 		}
 	}
 	
-	public void supprimerUtilisateur(Utilisateur user) {
+	public Utilisateur supprimerUtilisateur(Utilisateur user) {
 		try {
-			utilisateurDAO.delete(user);
+			Boolean valeur = utilisateurDAO.delete(user);
+			if (valeur==true) {
+				user = null;
+			}
+			
 		}
 		catch (BusinessException be) {
 			be.printStackTrace();
 		}
+		return user;
 	}
 	
 	
