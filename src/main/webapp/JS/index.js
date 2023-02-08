@@ -103,3 +103,18 @@
 		console.log('mot de passe invisible');
 	});
 });
+
+let achats = document.getElementById("achats");
+let achat = document.getElementById("achat");
+achats.addEventListener("mouseover", () => {achat.style.display = "block";});
+achats.addEventListener("mouseout", () => {achat.style.display = "none";});
+
+achats.onmouseover = aff;
+function aff(){
+  achat.style.display = "block";
+}
+achats.onmouseout = cac;
+function cac(){
+  achat.style.display = "none";
+}
+    

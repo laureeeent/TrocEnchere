@@ -13,6 +13,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script src="JS/index.js"></script>
 <title>TrocEnchère</title>
 <link rel="stylesheet" href="css/style.css">
 </head>
@@ -52,6 +53,7 @@
 								<input type="radio" id="achats" name="choix" value="achats"
 									checked> <label for="achats">Achats</label>
 								<c:if test="achat"></c:if>
+<<<<<<< HEAD
 								<div class="sous_achats">
 									<input type="checkbox" id="enchere" name="EC" value="1" checked>
 									<label for="EC">enchères ouvertes</label>
@@ -61,13 +63,22 @@
 									
 									<input type="checkbox" id="enchere" name="mes_encheres_remportees" value="1">
 									<label for="mes_encheres_remportees">mes enchères remportées</label>
+=======
+								<div class="sous_achats" id="achat">
+									<input type="checkbox" id="enchere" name="EC" checked>
+									<label for="EC">enchères ouvertes</label> <input
+										type="checkbox" id="enchere" name="mes_encheres"> <label
+										for="mes_encheres">mes enchères</label> <input type="checkbox"
+										id="enchere" name="mes_encheres_remportees"> <label
+										for="mes_encheres_remportees">mes enchères remportées</label>
+>>>>>>> branch 'main' of https://github.com/laureeeent/TrocEnchere.git
 								</div>
 
 
 								<input type="radio" id="mes_ventes" name="choix"
 									value="mes_ventes"> <label for="mes_ventes">Mes
 									ventes</label>
-								<div class="sous_ventes">
+								<div class="sous_ventes" id="vente">
 									<input type="checkbox" id="ventes" name="ventes_EC" checked>
 									<label for="ventes_EC">mes ventes en cours</label> 
 									
@@ -133,6 +144,7 @@
 				</c:forEach>
 			</c:if>
 		</div>
+
 		
 		<div id=listes_achats>
 			<c:if test="${listeArticlesEC != null }">
@@ -252,6 +264,7 @@
 		</div>
 		
 		
+
 	</main>
 	<footer id="f_principal"></footer>
 </body>
