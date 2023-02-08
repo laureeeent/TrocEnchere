@@ -26,7 +26,6 @@ public class EnchereManager {
 
 		Enchere nouvelleEnchere = null;
 		Enchere ancienneEnchere = selectionnerEnchereParArticle(noArticle);
-		System.out.println(ancienneEnchere);
 		Utilisateur nouvelEncherisseur = user;
 		Utilisateur ancienEncherisseur = null;
 		ArticleVendu article = null;
@@ -39,19 +38,18 @@ public class EnchereManager {
 			ancienEncherisseur.setCredit(ancienEncherisseur.getCredit() + ancienPrix);
 			nouvelEncherisseur.setCredit(nouvelEncherisseur.getCredit() - enchereEnCours);
 
-
+			
 			utilisateurManager.modifierUtilisateur(nouvelEncherisseur);
 			utilisateurManager.modifierUtilisateur(ancienEncherisseur);
-			articleManager.modifierPrixArticle(article);
 			
 			
-			System.out.println("ancienneEnchere avant suppression : "+ancienneEnchere);
 			supprimerEnchere(ancienneEnchere);
-			ancienneEnchere = selectionnerEnchereParArticle(noArticle);
-			System.out.println("ancienneEnchere après suppression : "+ancienneEnchere);
 			nouvelleEnchere = new Enchere(article.getNoArticle(), dateEnchere, enchereEnCours, nouvelEncherisseur,
 					article);
 			enchereDAO.insert(nouvelleEnchere);
+			
+			article.setPrixVente(nouvelleEnchere.getMontant_enchere());
+			articleManager.modifierPrixArticle(article);
 		} catch (BusinessException e) {
 			e.printStackTrace();
 		}

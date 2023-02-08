@@ -57,7 +57,6 @@ public class DetailEnchere extends HttpServlet {
 			int ancienPrix = Integer.parseInt(request.getParameter("meilleure_offre"));
 			int enchereEnCours = Integer.parseInt(request.getParameter("enchereEnCours"));
 			int noAncienEncherisseur = Integer.parseInt(request.getParameter("no_ancien_encherisseur"));
-			System.out.println(noArticle + " "+ enchereEnCours + " "+user.getPseudo());
 
 			List<String> listeMessagesErreur = new ArrayList<>();
 
