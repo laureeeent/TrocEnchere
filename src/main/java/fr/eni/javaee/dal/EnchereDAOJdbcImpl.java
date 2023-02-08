@@ -38,8 +38,8 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 
 			pst.setInt(1, enchere.getNoEnchere());
 
-			pst.executeUpdate();
 			
+			pst.executeUpdate();
 
 			conx.commit();
 			pst.close();
@@ -125,10 +125,11 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 				ArticleVendu article = art_vendu.selectById(rs.getInt("no_article"));
 				
 				res = new Enchere(
-							user,
-							article,
+							rs.getInt("no_article"),
 							date_enchere,
-							rs.getInt("montant_enchere")
+							rs.getInt("montant_enchere"),
+							user,
+							article
 						);
 				
 			}

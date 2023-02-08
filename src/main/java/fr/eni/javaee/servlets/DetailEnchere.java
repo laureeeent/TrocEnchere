@@ -50,43 +50,51 @@ public class DetailEnchere extends HttpServlet {
 		HttpSession session = request.getSession();
 		Utilisateur user = (Utilisateur) session.getAttribute("utilisateur");
 		EnchereManager enchereManager = new EnchereManager();
+		
+		if (user != null) {
+			
+			int noArticle = Integer.parseInt(request.getParameter("noArticle"));
+			int ancienPrix = Integer.parseInt(request.getParameter("meilleure_offre"));
+			int enchereEnCours = Integer.parseInt(request.getParameter("enchereEnCours"));
+			int noAncienEncherisseur = Integer.parseInt(request.getParameter("no_ancien_encherisseur"));
+			System.out.println(noArticle + " "+ enchereEnCours + " "+user.getPseudo());
 
-		int noArticle = Integer.parseInt(request.getParameter("noArticle"));
-		int ancienPrix = Integer.parseInt(request.getParameter("meilleure_offre"));
-		int enchereEnCours = Integer.parseInt(request.getParameter("enchereEnCours"));
-		int noAncienEncherisseur = Integer.parseInt(request.getParameter("no_ancien_encherisseur"));
-		System.out.println(noArticle + " "+ enchereEnCours + " "+user.getPseudo());
+			List<String> listeMessagesErreur = new ArrayList<>();
 
-		List<String> listeMessagesErreur = new ArrayList<>();
-
-		// contrôler si l'enchérisseur a suffisamment de crédit
-		if (user.getCredit() < enchereEnCours) {
-			listeMessagesErreur.add(MessagesErreurServlets.ERREUR_CREDIT_INSUFFISANT);
-		}
-
-		if (listeMessagesErreur.size() > 0) {
-			request.setAttribute("listeMessagesErreur", listeMessagesErreur);
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JSP/detailEnchere.jsp"); // TODO afficher la
-																									// liste erreur sur
-																									// la JSP
-			rd.forward(request, response);
-		} else {
-			try {
-				if (noAncienEncherisseur == 0) {
-					enchereManager.ajouterEnchere(noArticle, enchereEnCours, user);
-				} else {
-					enchereManager.ajouterEnchere(noArticle, enchereEnCours, user, noAncienEncherisseur, ancienPrix);
-				}
-			} catch (BusinessException e) {
-				for (int code : e.getCodeErreurs()) {
-					System.out.println("code erreur : " + code);
-				}
-				e.printStackTrace();
+			// contrôler si l'enchérisseur a suffisamment de crédit
+			if (user.getCredit() < enchereEnCours) {
+				listeMessagesErreur.add(MessagesErreurServlets.ERREUR_CREDIT_INSUFFISANT);
 			}
 
-		}
-		RequestDispatcher rd = request.getRequestDispatcher("ServletRedirectionAccueil");
-		rd.forward(request, response);
+			if (listeMessagesErreur.size() > 0) {
+				request.setAttribute("listeMessagesErreur", listeMessagesErreur);
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JSP/detailEnchere.jsp"); // TODO afficher la
+																										// liste erreur sur
+																										// la JSP
+				rd.forward(request, response);
+			} else {
+				try {
+					if (noAncienEncherisseur == 0) {
+						enchereManager.ajouterEnchere(noArticle, enchereEnCours, user);
+					} else {
+						enchereManager.ajouterEnchere(noArticle, enchereEnCours, user, noAncienEncherisseur, ancienPrix);
+					}
+				} catch (BusinessException e) {
+					for (int code : e.getCodeErreurs()) {
+						System.out.println("code erreur : " + code);
+					}
+					e.printStackTrace();
+				}
 
+			}
+			
+			RequestDispatcher rd = request.getRequestDispatcher("ServletRedirectionAccueil");
+			rd.forward(request, response);
+		}
+		// L'utilisateur n'est pas connecté quand il tente d'accèder à l'enchère
+		else {
+			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/JSP/erreurConnexionUtilisateur.jsp");
+			rd.forward(request, response);
+		}
 	}
 }
