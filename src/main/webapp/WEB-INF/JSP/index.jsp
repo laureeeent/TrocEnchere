@@ -123,9 +123,8 @@
 									Fin de l'enchère :
 									<c:out value="${article.getDateFinEncheres()}"></c:out>
 								</p>
-								<p class="vendeur_enchere_article">
-									Vendeur: <a href="ServletAfficherCompte"><c:out
-											value="${article.getVendeur().getPseudo()}"></c:out></a>
+								<p class="vendeur_enchere_article" >
+									Vendeur: <input type="submit" name="select_article" value="${article.getVendeur().getPseudo()}">
 								</p>
 								<input type="submit" name="select_article"
 									value="Voir l'enchère">

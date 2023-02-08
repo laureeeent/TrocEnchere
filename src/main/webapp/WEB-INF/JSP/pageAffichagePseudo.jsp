@@ -12,23 +12,40 @@
 <header id="h_principal">
 	<%@include file="fragment/div_id_entete.jsp"%>
 </header>
-			<c:if test="${utilisateur != null}">
-				<div>
-					<p id="lignePseudo">Pseudo :       ${utilisateur.getPseudo() }</p>
-					<p id="ligneNom">Nom :       ${utilisateur.getNom() }</p>
-					<p id="lignePrenom">Prenom :       ${utilisateur.getPrenom() }</p>
-					<p id="ligneEmail">Email :       ${utilisateur.getEmail() }</p>
-					<p id="ligneTelephone">Téléphone :       ${utilisateur.getTelephone() }</p>
-					<p id="ligneRue">Rue :       ${utilisateur.getRue() }</p>
-					<p id="ligneCodePostal">Code postal :       ${utilisateur.getCodePostal() }</p>
-					<p id="ligneVille">Ville :       ${utilisateur.getVille() }</p>
-				</div>
-			</c:if>
+			<c:choose>
+				 <c:when test="${utilisateur != null && utilisateur.equals(param_pseudo) || autre_profil == null}">
+					<div>
+	
+						<p id="lignePseudo">Pseudo :       ${utilisateur.getPseudo() }</p>
+						<p id="ligneNom">Nom :       ${utilisateur.getNom() }</p>
+						<p id="lignePrenom">Prenom :       ${utilisateur.getPrenom() }</p>
+						<p id="ligneEmail">Email :       ${utilisateur.getEmail() }</p>
+						<p id="ligneTelephone">Téléphone :       ${utilisateur.getTelephone() }</p>
+						<p id="ligneRue">Rue :       ${utilisateur.getRue() }</p>
+						<p id="ligneCodePostal">Code postal :       ${utilisateur.getCodePostal() }</p>
+						<p id="ligneVille">Ville :       ${utilisateur.getVille() }</p>
+						<a href="./ModificationCompte"><input type="button" value="Modifier mon compte"></a>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<c:if test="${autre_profil != null}">
+						<div>
+		
+							<p id="lignePseudo">Pseudo :       ${autre_profil.getPseudo() }</p>
+							<p id="ligneNom">Nom :       ${autre_profil.getNom() }</p>
+							<p id="lignePrenom">Prenom :       ${autre_profil.getPrenom() }</p>
+							<p id="ligneEmail">Email :       ${autre_profil.getEmail() }</p>
+							<p id="ligneTelephone">Téléphone :       ${autre_profil.getTelephone() }</p>
+							<p id="ligneRue">Rue :       ${autre_profil.getRue() }</p>
+							<p id="ligneCodePostal">Code postal :       ${autre_profil.getCodePostal() }</p>
+							<p id="ligneVille">Ville :       ${autre_profil.getVille() }</p>
+		
+						</div>
+					</c:if>
+				</c:otherwise>
+			</c:choose>
+<%@include file="fragment/bouttonRetourAccueil.jsp" %>
 
-		<form action="ServletRedirectionAccueil" method="get">
-			<button type="submit" ><h3>Retour Acceuil</h3></button>
-		</form>
-		<a href="./ModificationCompte"><input type="button" value="Modifier mon compte"></a>
 
 </body>
 </html>
