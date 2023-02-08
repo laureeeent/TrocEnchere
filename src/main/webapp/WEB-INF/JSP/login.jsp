@@ -35,7 +35,7 @@
 					<label id="id">Identifiant: </label><input id="id"
 						name="identifiant" type="text" required="required"  title="Votre Pseudo ou votre E-mail entre 3 et 40 caractères"><label
 						id="motdepasse">Mot de Passe: </label><input id="mdp" name="mot_de_passe"
-						type="password" required="required" pattern="[A-Za-z0-9]{3,40}">
+						type="password" required="required" pattern="[A-Za-z0-9]{3,40}" title="le mot de passe doit contenir entre 8 et 30 caractères alphanumériques. Caractères spéciaux non autorisés.">
 				</div>
 				<div id="connexion_form">
 					<div class="connexion_form_left">

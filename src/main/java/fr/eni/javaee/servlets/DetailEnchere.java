@@ -1,7 +1,7 @@
 package fr.eni.javaee.servlets;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,11 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import fr.eni.javaee.bll.ArticleManager;
 import fr.eni.javaee.bll.EnchereManager;
-import fr.eni.javaee.bll.UtilisateurManager;
-import fr.eni.javaee.bo.ArticleVendu;
-import fr.eni.javaee.bo.Enchere;
 import fr.eni.javaee.bo.Utilisateur;
 import fr.eni.javaee.exceptions.BusinessException;
 
@@ -86,7 +82,6 @@ public class DetailEnchere extends HttpServlet {
 				}
 
 			}
-			
 			RequestDispatcher rd = request.getRequestDispatcher("ServletRedirectionAccueil");
 			rd.forward(request, response);
 		}

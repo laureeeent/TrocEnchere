@@ -18,8 +18,8 @@ h1 {
 }
 .hideShowPassword-toggle {
   background-color: transparent;
-  background-image: url('../images/wink.png'); /* fallback */
-  background-image: url('../images/wink.svg'), none;
+  background-image: url('../WEB-INF/image/mdp.jpg'); /* fallback */
+  background-image: url('../WEB-INF/image/mdp.jpg'), none;
   background-position: 0 center;
   background-repeat: no-repeat;
   border: 2px solid transparent;
