@@ -35,6 +35,17 @@ public class Enchere {
 		this.montant_enchere = montant_enchere;
 		
 	}
+	
+	
+	
+	public Enchere(int noEnchere, LocalDateTime dateEnchere, int montant_enchere, Utilisateur acheteur) {
+		super();
+		this.noEnchere = noEnchere;
+		this.dateEnchere = dateEnchere;
+		this.montant_enchere = montant_enchere;
+		this.acheteur = acheteur;
+	}
+
 	// - - - - - - - - - - - - - - - - - - getters & setters - - - - - - -
 
 

@@ -31,6 +31,7 @@ public class EnchereManager {
 		Utilisateur ancienEncherisseur = null;
 		ArticleVendu article = null;
 		LocalDateTime dateEnchere = LocalDateTime.now();
+		System.out.println(dateEnchere);
 
 		try {
 			article = articleManager.selectionnerByID(noArticle);
@@ -43,8 +44,7 @@ public class EnchereManager {
 			utilisateurManager.modifierUtilisateur(ancienEncherisseur);
 			articleManager.modifierPrixArticle(article);
 			
-			nouvelleEnchere = new Enchere(ancienneEnchere.getVente().getNoArticle(), dateEnchere, enchereEnCours, nouvelEncherisseur,
-					article);
+			nouvelleEnchere = new Enchere(ancienneEnchere.getVente().getNoArticle(), dateEnchere, enchereEnCours, nouvelEncherisseur);
 			enchereDAO.update(nouvelleEnchere);
 
 //			supprimerEnchere(ancienneEnchere);

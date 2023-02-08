@@ -22,7 +22,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 			+"VALUES(?,?,?,?)";
 	private static final String DELETE = "DELETE FROM ENCHERES WHERE no_article=?;";
 	private static final String UPDATE_ENCHERE = "UPDATE ENCHERES" +
-			"set no_utilisateur=?,date_enchere=?,montant_enchere=? WHERE no_article=?; ";
+			"set no_utilisateur=?,no_article=?,date_enchere=?,montant_enchere=? WHERE no_article=?; ";
 	
 	@Override
 	public void delete(Enchere enchere ) throws BusinessException {
@@ -157,8 +157,9 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 			PreparedStatement pst = conx.prepareStatement(UPDATE_ENCHERE);
 
 			pst.setInt(1, enchere.getAcheteur().getNoUtilisateur());
-			pst.setTimestamp(2, java.sql.Timestamp.valueOf(enchere.getDateEnchère()));
-			pst.setInt(3, enchere.getMontant_enchere());
+			pst.setInt(2, enchere.getNoEnchere());
+			pst.setTimestamp(3, java.sql.Timestamp.valueOf(enchere.getDateEnchere()));
+			pst.setInt(4, enchere.getMontant_enchere());
 			
 			pst.executeUpdate();
 
