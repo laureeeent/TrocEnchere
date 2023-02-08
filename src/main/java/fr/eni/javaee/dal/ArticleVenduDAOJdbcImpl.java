@@ -145,7 +145,10 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			conx.setAutoCommit(false);
 			PreparedStatement pst = conx.prepareStatement(UPDATE_MONTANT_ENCHERE);
 			
+			System.out.println("article à modifier : noarticle="+data.getNoArticle()+" prixVente actuel="+data.getPrixVente());
+			
 			pst.setInt(1, data.getPrixVente());
+			pst.setInt(2, data.getNoArticle());
 			
 			pst.executeUpdate();
 			
