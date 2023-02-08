@@ -63,14 +63,19 @@
 						notre organisme financier pour augmenter votre Crédit disponible,
 						afin de participer à l'enchère.</p>
 				</c:if>
-				<c:if test="${utilisateur.getCredit() > articleById.getMiseAPrix()}">
+				<c:choose>
+				<c:when test="${utilisateur.getCredit() > articleById.getMiseAPrix() and articleById.getEnchere().getAcheteur().getNoUtilisateur()!= utilisateur.getNoUtilisateur()}">
 					<input id="enchereEnCours" type="number"
 						min="${articleById.getEnchere().getMontantEnchere() < articleById.getMiseAPrix() ? articleById.getMiseAPrix(): articleById.getEnchere().getMontantEnchere()+1}"
 						max="${utilisateur.getCredit()}" name="enchereEnCours"
 						required="required"
 						placeholder="${articleById.getEnchere().getMontantEnchere() < articleById.getMiseAPrix() ? articleById.getMiseAPrix(): articleById.getEnchere().getMontantEnchere()+1}">
 					<input id="encherir" type="submit" name="encherir" value="Enchérir" />
-				</c:if>
+				</c:when>
+				<c:otherwise>
+				<p style="color: red;">Votre enchère actuelle est la plus haute pour cet article. Vous ne pouvez pas surenchérir pour le moment.</p>
+				</c:otherwise>
+				</c:choose>
 			</c:when>
 			<c:otherwise>
 				<h4>Enchère terminée :</h4>
