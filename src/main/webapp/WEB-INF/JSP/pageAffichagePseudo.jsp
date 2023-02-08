@@ -35,10 +35,7 @@
 							<p id="ligneNom">Nom :       ${autre_profil.getNom() }</p>
 							<p id="lignePrenom">Prenom :       ${autre_profil.getPrenom() }</p>
 							<p id="ligneEmail">Email :       ${autre_profil.getEmail() }</p>
-							<p id="ligneTelephone">Téléphone :       ${autre_profil.getTelephone() }</p>
-							<p id="ligneRue">Rue :       ${autre_profil.getRue() }</p>
-							<p id="ligneCodePostal">Code postal :       ${autre_profil.getCodePostal() }</p>
-							<p id="ligneVille">Ville :       ${autre_profil.getVille() }</p>
+
 		
 						</div>
 					</c:if>

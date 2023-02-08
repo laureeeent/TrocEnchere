@@ -36,7 +36,7 @@ public class AfficherArticle extends HttpServlet {
 		int numArt =  Integer.parseInt(id_article);
 		HttpSession session = request.getSession();
 		Utilisateur user = (Utilisateur) session.getAttribute("utilisateur");
-		if (submit != "Voir l'enchère") {
+		if (!submit.equals("Voir l'enchère")) {
 			session.setAttribute("utilisateur", user);
 			request.setAttribute("param_pseudo", submit);
 			RequestDispatcher rs = request.getRequestDispatcher("ServletAfficherCompte");
