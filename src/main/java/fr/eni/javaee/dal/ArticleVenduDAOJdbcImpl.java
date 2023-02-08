@@ -41,6 +41,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			+ " a.no_article FROM ARTICLES_VENDUS as a INNER JOIN ENCHERES as e ON a.no_article = e.no_article INNER JOIN UTILISATEURS as u on a.no_utilisateur=u.no_utilisateur "
 			+ "WHERE (etat_vente= 'VD' OR etat_vente='RT') AND e.no_utilisateur=?;";
 	
+	private static final String SELECT_VENTES_USER_EC = "SELECT * FROM ARTICLES_VENDUS WHERE no_utilisateur=? AND etat_vente='EC';";
 	
 	private static final String UPDATE_MONTANT_ENCHERE = "UPDATE ARTICLES_VENDUS set prix_vente=? WHERE no_article=? "	;
 	private static final String UPDATE = " UPDATE ARTICLES_VENDUS SET nom_article=?, description=?, date_debut_enchere=?, date_fin_enchere=?,"
@@ -266,11 +267,9 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			
 			PreparedStatement pst = conx.prepareStatement(requete);
 			pst.setInt(1, user.getNoUtilisateur());
-			System.out.println("requete ="+requete);
 			pst.executeQuery();
 			ResultSet rs = pst.getResultSet();
 			while (rs.next()) {
-				System.out.println("Y'a des choses");
 				ArticleVendu art = null;
 				
 				LocalDate date_debut_date = rs.getDate("date_debut_enchere").toLocalDate();
@@ -300,7 +299,6 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 							cat,
 							rs.getString("image")
 						);
-				System.out.println("art = "+art);
 
 				PreparedStatement pstEnchere = conx.prepareStatement(SELECT_BY_ID_ENCHERES);
 				pstEnchere.setInt(1, art.getNoArticle());
@@ -321,7 +319,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			
 			pst.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			System.out.println("La selection des enchères de l'utilisateur "+user+" en base a échoué.");
 			e.printStackTrace();
 		}
 		return listeArticle;
@@ -334,6 +332,82 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Override
+	public List<ArticleVendu> selectVentesUserEC(Utilisateur user) throws BusinessException {
+		if (user == null) {
+			BusinessException be = new BusinessException();
+			be.ajouterCodeErreur(CodeResultatDAL.SELECT_ID_INCORRECT);
+		}
+		
+		List<ArticleVendu> listeArticles = new ArrayList<ArticleVendu>();
+		
+		try ( Connection conx = ConnectionProvider.getConnection() ) {
+			PreparedStatement pst = conx.prepareStatement(SELECT_VENTES_USER_EC);
+			pst.setInt(1, user.getNoUtilisateur());
+			
+			pst.executeQuery();
+			ResultSet rs = pst.getResultSet();
+			
+			while (rs.next()) {
+				ArticleVendu art = null;
+				
+				LocalDate date_debut_date = rs.getDate("date_debut_enchere").toLocalDate();
+				LocalTime date_debut_time = rs.getTime("date_debut_enchere").toLocalTime();
+				LocalDateTime date_debut = LocalDateTime.of(date_debut_date, date_debut_time);
+				
+				LocalDate date_fin_date = rs.getDate("date_fin_enchere").toLocalDate();
+				LocalTime date_fin_time = rs.getTime("date_fin_enchere").toLocalTime();
+				LocalDateTime date_fin = LocalDateTime.of(date_fin_date, date_fin_time);
+				
+				UtilisateurDAOJdbcImpl util = new UtilisateurDAOJdbcImpl();
+			
+				
+				CategorieDAOJdbcImpl e = new CategorieDAOJdbcImpl();
+				Categorie cat = e.selectById(rs.getInt("no_categorie"));
+				
+
+				art = new ArticleVendu(
+							rs.getInt("no_article"),
+							rs.getString("nom_article"),
+							rs.getString("description"),
+							date_debut,
+							date_fin,
+							rs.getInt("prix_initial"),
+							rs.getInt("prix_vente"),
+							rs.getString("etat_vente"),
+							user,
+							cat,
+							rs.getString("image")
+						);
+
+				PreparedStatement pstEnchere = conx.prepareStatement(SELECT_BY_ID_ENCHERES);
+				pstEnchere.setInt(1, art.getNoArticle());
+				pstEnchere.executeQuery();
+				ResultSet rs2 = pstEnchere.getResultSet();
+				//Si on trouve une enchère avec no_article=res.no_article
+				if (rs2.next()) {
+					LocalTime dateEnchereTime = rs2.getTime(3).toLocalTime();
+					LocalDate dateEnchereDate = rs2.getDate(3).toLocalDate();
+					LocalDateTime dateEnchere = LocalDateTime.of(dateEnchereDate, dateEnchereTime);
+					
+					Utilisateur acheteur = util.selectById(rs2.getInt("no_utilisateur"));
+					
+					Enchere enchere = new Enchere( art.getNoArticle(), dateEnchere, rs2.getInt("montant_enchere"), acheteur, art);
+					
+					art.setEnchere(enchere);
+				}
+				listeArticles.add(art);
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("La selection des ventes en cours de l'utilisateur "+user+" en base a échoué.");
+			e.printStackTrace();
+		}
+		
+		return listeArticles;
+	}
+	
 	@Override
 	public List<ArticleVendu> selectByEtat(String etat) throws BusinessException {
 		if (etat == null) {

@@ -48,6 +48,10 @@ public class ArticleManager {
 			return null;
 		}
 		
+		public List<ArticleVendu> selectionnerVentesUserEC(Utilisateur user) throws BusinessException {
+			return articleVenduDAO.selectVentesUserEC(user);
+		}
+		
 		public List<ArticleVendu> selectionnerEnchereUser(Utilisateur user, String filtre) throws BusinessException {
 			return articleVenduDAO.selectEnchereUser(user, filtre);
 		}

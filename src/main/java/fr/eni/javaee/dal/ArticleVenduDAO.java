@@ -24,4 +24,6 @@ public interface ArticleVenduDAO {
 
 	List<ArticleVendu> selectEnchereUser(Utilisateur user, String filtre) throws BusinessException;
 
+	List<ArticleVendu> selectVentesUserEC(Utilisateur user) throws BusinessException;
+
 }
