@@ -8,7 +8,7 @@
 <div id="conteneur_articles">
 <c:if test="${listeArticles != null}">
 	<c:forEach var="article" items="${listeArticles}">
-		<form action="AfficherArticle" method="get" name="id">
+		
 			<div id="conteneur_article">
 				<div class="img_conteneur_article">
 					<c:if test="${article.getNoArticle()== articleById.getNoArticle()}">
@@ -16,7 +16,7 @@
 					</c:if>
 				</div>	
 			</div>
-		</form>
+		
 	</c:forEach>
 	</c:if>
 </div>
