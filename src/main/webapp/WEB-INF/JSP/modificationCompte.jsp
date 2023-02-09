@@ -37,7 +37,7 @@ Utilisateur user = (Utilisateur) session.getAttribute("utilisateur");
 <header id="h_principal">
 	<%@include file="fragment/div_id_entete.jsp"%>
 </header>
-
+	<main id="m_principal">
 	<c:if test="${listeMessagesErreur != null }">
 		<p style="color: red;">Erreur, le compte n'a pas pu être modifié :</p>
 	</c:if>
@@ -48,7 +48,7 @@ Utilisateur user = (Utilisateur) session.getAttribute("utilisateur");
 
 	<h1>Profil de ${utilisateur.getPseudo()}</h1>
 
-	<form action="./ModificationCompte"
+	<form id="ajouter_compte" action="./ModificationCompte"
 		method="post">
 		<div class="saisie">
 			<label for="pseudo">Pseudo : </label> <input type="text" id="pseudo"
@@ -119,6 +119,6 @@ Utilisateur user = (Utilisateur) session.getAttribute("utilisateur");
 		</div>
 	</form>
 
-
+</main>
 </body>
 </html>

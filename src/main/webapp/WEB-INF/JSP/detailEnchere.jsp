@@ -33,7 +33,7 @@
 	<c:choose>
 		<c:when test="${utilisateur.getNoUtilisateur()==null}">
 			<%@include file="fragment/infoDeBaseEnchere.jsp"%>
-			<p style="color: red;">Pour pouvoir enchérir sur cet article, <strong><a href="AjoutCompte">créez vous un compte </a></strong>(100 crédits offerts à l'inscription) !</p>
+			<p style="color: red;">Pour pouvoir enchérir sur cet article, <strong><a href="AjoutCompte">créez vous un compte </a></strong>(100 crédits offerts à l'inscription), ou <strong><a href="ServletConnecter">connectez-vous </a></strong> !</p>
 			
 		</c:when>
 		<c:otherwise>
@@ -97,6 +97,6 @@
 		</c:otherwise>
 	</c:choose>
 </form>
-
+<%@include file="fragment/footer.jsp"%>
 </body>
 </html>
