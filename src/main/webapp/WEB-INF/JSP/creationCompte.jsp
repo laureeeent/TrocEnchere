@@ -39,11 +39,6 @@
 		</c:forEach>
 	</c:if>
 
-	<div class="retourAccueil">
-		<a href="ServletRedirectionAccueil"><input type="button"
-			value="TrocEnchère - Retour accueil" /></a>
-	</div>
-
 	<h1>Mon Profil</h1>
 
 	<form action="<%=request.getContextPath()%>/AjoutCompte" method="post">
