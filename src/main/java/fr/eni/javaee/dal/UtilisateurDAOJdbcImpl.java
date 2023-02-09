@@ -253,7 +253,6 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		}
 
 		Utilisateur resultat = null;
-		System.out.println("vous êtes passé ici");
 		try (Connection conx = ConnectionProvider.getConnection()) {
 			conx.setAutoCommit(false);
 			PreparedStatement pst = conx.prepareStatement(SELECT_BY_EMAIL);

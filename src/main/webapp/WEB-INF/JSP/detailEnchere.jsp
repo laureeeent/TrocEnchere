@@ -44,12 +44,12 @@
 				
 				<h4>Ma proposition :</h4>
 				<c:if
-					test="${utilisateur.getCredit() < articleById.getMiseAPrix() or utilisateur.getCredit() <= articleById.getEnchere().getMontantEnchere()}">
+					test="${ (utilisateur.getCredit() < articleById.getMiseAPrix() or utilisateur.getCredit() <= articleById.getEnchere().getMontantEnchere() ) and utilisateur.getNoUtilisateur() != articleById.getEnchere().getAcheteur().getNoUtilisateur()}">
 					<p style="color: red;">Crédit insuffisant ! Pour augmenter votre crédit n'hésitez pas à <strong> <a href="ServletNouvelleVente">vendre des articles !</a></strong></p>
 					
 				</c:if>
 				<c:choose>
-				<c:when test="${utilisateur.getCredit() >= articleById.getMiseAPrix() and articleById.getEnchere().getAcheteur().getNoUtilisateur()!= utilisateur.getNoUtilisateur()}">
+				<c:when test="${utilisateur.getCredit() >= articleById.getMiseAPrix() and utilisateur.getCredit() > articleById.getEnchere().getMontantEnchere() and articleById.getEnchere().getAcheteur().getNoUtilisateur()!= utilisateur.getNoUtilisateur()}">
 					<input id="enchereEnCours" type="number"
 						min="${articleById.getEnchere().getMontantEnchere() < articleById.getMiseAPrix() or articleById.getEnchere().getMontantEnchere()== null ? articleById.getMiseAPrix(): articleById.getEnchere().getMontantEnchere()+1}"
 						max="${utilisateur.getCredit()}" name="enchereEnCours"

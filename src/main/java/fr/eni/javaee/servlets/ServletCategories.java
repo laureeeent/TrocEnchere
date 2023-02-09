@@ -28,7 +28,7 @@ public class ServletCategories extends HttpServlet {
 		CategorieManager listeCategories = new CategorieManager();
 		request.setAttribute("listeCategories", listeCategories.selectionnerToutesLesCategories());
 		if (listeCategories.selectionnerToutesLesCategories().isEmpty()) {
-			System.out.println("c'est la merde");
+			
 		}
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JSP/index.jsp");
 		rd.forward(request, response);
