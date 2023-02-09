@@ -39,6 +39,7 @@
 						<h3>Catégorie:</h3>
 						<select name="categorie">
 							<c:if test="${listeCategories != null }">
+								<option value="toutesCategories">Toutes les catégories</option>
 								<c:forEach var="c" items="${listeCategories}">
 									<option value="${c.getLibelle()}">${c.getLibelle() }</option>
 								</c:forEach>
@@ -165,8 +166,8 @@
 									<c:out value="${article.getDateFinEncheres()}"></c:out>
 								</p>
 								<p class="vendeur_enchere_article">
-									Vendeur: <a href="ServletAfficherCompte"><c:out
-											value="${article.getVendeur().getPseudo()}"></c:out></a>
+									Vendeur: <input type="submit" name="select_article"
+												value="${article.getVendeur().getPseudo()}">
 								</p>
 								<input type="submit" name="select_article"
 									value="Voir l'enchère">
@@ -203,8 +204,8 @@
 									<c:out value="${article.getDateFinEncheres()}"></c:out>
 								</p>
 								<p class="vendeur_enchere_article">
-									Vendeur: <a href="ServletAfficherCompte"><c:out
-											value="${article.getVendeur().getPseudo()}"></c:out></a>
+									Vendeur: <input type="submit" name="select_article"
+												value="${article.getVendeur().getPseudo()}">
 								</p>
 								<input type="submit" name="select_article"
 									value="Voir l'enchère">
@@ -242,8 +243,8 @@
 									<c:out value="${article.getDateFinEncheres()}"></c:out>
 								</p>
 								<p class="vendeur_enchere_article">
-									Vendeur: <a href="ServletAfficherCompte"><c:out
-											value="${article.getVendeur().getPseudo()}"></c:out></a>
+									Vendeur: <input type="submit" name="select_article"
+												value="${article.getVendeur().getPseudo()}">
 								</p>
 								<input type="submit" name="select_article"
 									value="Voir l'enchère">
@@ -282,8 +283,8 @@
 									<c:out value="${article.getDateFinEncheres()}"></c:out>
 								</p>
 								<p class="vendeur_enchere_article">
-									Vendeur: <a href="ServletAfficherCompte"><c:out
-											value="${article.getVendeur().getPseudo()}"></c:out></a>
+									Vendeur: <input type="submit" name="select_article"
+												value="${article.getVendeur().getPseudo()}">
 								</p>
 								<input type="submit" name="select_article"
 									value="Voir l'enchère">
@@ -320,8 +321,8 @@
 									<c:out value="${article.getDateFinEncheres()}"></c:out>
 								</p>
 								<p class="vendeur_enchere_article">
-									Vendeur: <a href="ServletAfficherCompte"><c:out
-											value="${article.getVendeur().getPseudo()}"></c:out></a>
+									Vendeur: <input type="submit" name="select_article"
+												value="${article.getVendeur().getPseudo()}">
 								</p>
 								<input type="submit" name="select_article"
 									value="Voir l'enchère">
@@ -358,8 +359,8 @@
 									<c:out value="${article.getDateFinEncheres()}"></c:out>
 								</p>
 								<p class="vendeur_enchere_article">
-									Vendeur: <a href="ServletAfficherCompte"><c:out
-											value="${article.getVendeur().getPseudo()}"></c:out></a>
+									Vendeur: <input type="submit" name="select_article"
+												value="${article.getVendeur().getPseudo()}">
 								</p>
 								<input type="submit" name="select_article"
 									value="Voir l'enchère">

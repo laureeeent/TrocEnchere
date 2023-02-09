@@ -47,10 +47,10 @@ public class ServletRedirectionAccueil extends HttpServlet {
 		request.setAttribute("listeCategories", listeCategories);
 
 		ArticleManager articleManager = new ArticleManager();
-		List<ArticleVendu> liste_EnchereEC = articleManager.selectionnerByEtat("EC");
+		List<ArticleVendu> liste_EnchereEC = articleManager.selectionnerByEtat("EC", 0);
 		request.setAttribute("listeArticles", liste_EnchereEC);
 		
-		List<ArticleVendu> listeEncheresFinies = articleManager.selectionnerByEtat("VD");
+		List<ArticleVendu> listeEncheresFinies = articleManager.selectionnerByEtat("VD", 0);
 		request.setAttribute("listeEncheresFinies", listeEncheresFinies);
 		
 

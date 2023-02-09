@@ -37,10 +37,10 @@ public class ArticleManager {
 		}
 
 
-		public List<ArticleVendu> selectionnerByEtat (String etat) {
+		public List<ArticleVendu> selectionnerByEtat (String etat, int noCategorie) {
 		
 			try {
-				return this.articleVenduDAO.selectByEtat(etat);
+				return this.articleVenduDAO.selectByEtat(etat, noCategorie);
 			} catch (BusinessException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -52,8 +52,8 @@ public class ArticleManager {
 			return articleVenduDAO.selectVentesUserEC(user);
 		}
 		
-		public List<ArticleVendu> selectionnerEnchereUser(Utilisateur user, String filtre) throws BusinessException {
-			return articleVenduDAO.selectEnchereUser(user, filtre);
+		public List<ArticleVendu> selectionnerEnchereUser(Utilisateur user, String filtre, int noCategorie) throws BusinessException {
+			return articleVenduDAO.selectEnchereUser(user, filtre, noCategorie);
 		}
 		
 		public void ajouterArticle(ArticleVendu article) throws BusinessException {
