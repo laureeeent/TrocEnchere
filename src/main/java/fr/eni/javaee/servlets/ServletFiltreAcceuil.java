@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import fr.eni.javaee.bll.ArticleManager;
 import fr.eni.javaee.bll.CategorieManager;
 import fr.eni.javaee.bo.ArticleVendu;
+import fr.eni.javaee.bo.Categorie;
 import fr.eni.javaee.bo.Utilisateur;
 import fr.eni.javaee.exceptions.BusinessException;
 
@@ -30,7 +31,7 @@ public class ServletFiltreAcceuil extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		String categorie = request.getParameter("categorie");
+		String categorieStr = request.getParameter("categorie");
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JSP/index.jsp");
 		
 		Utilisateur user = (Utilisateur) session.getAttribute("utilisateur");
@@ -50,16 +51,23 @@ public class ServletFiltreAcceuil extends HttpServlet {
 				String filtreUserEnchereEC = request.getParameter("mes_encheres");
 				String filtreUserEnchereRemportee = request.getParameter("mes_encheres_remportees");
 				try {
+					int noCategorie = 0;
+					
+					if ( !(categorieStr.equals("toutesCategories")) ) {
+						noCategorie = categorieManager.selectionnerParLibelle(categorieStr).getNoCategorie();
+					}
+					
+					
 					if (filtreEC != null ) {
 						
-						request.setAttribute("listeArticlesEC", articleManager.selectionnerByEtat("EC"));
+						request.setAttribute("listeArticlesEC", articleManager.selectionnerByEtat("EC", noCategorie));
 						
 					}
 					if (filtreUserEnchereEC != null ) {
-						request.setAttribute("listeArticlesEnchereUser", articleManager.selectionnerEnchereUser(user, "EC"));
+						request.setAttribute("listeArticlesEnchereUser", articleManager.selectionnerEnchereUser(user, "EC", noCategorie));
 					}
 					if (filtreUserEnchereRemportee != null) {
-						request.setAttribute("listeArticlesEnchereUserRemportee", articleManager.selectionnerEnchereUser(user, "remportee"));
+						request.setAttribute("listeArticlesEnchereUserRemportee", articleManager.selectionnerEnchereUser(user, "remportee", noCategorie));
 					}
 				} catch (BusinessException e) {
 					// TODO Auto-generated catch block
@@ -74,15 +82,20 @@ public class ServletFiltreAcceuil extends HttpServlet {
 				String filtresVentesVDRT = request.getParameter("VD");
 					
 				try {
+					int noCategorie = 0;
+					if ( !(categorieStr.equals("toutesCategories")) ) {
+						noCategorie = categorieManager.selectionnerParLibelle(categorieStr).getNoCategorie();
+					}
+					
 					if (filtreVentesECUser != null) {
 						request.setAttribute("listeVentesUserEC", articleManager.selectionnerVentesUserEC(user));
 					}
 					if (filtresVentesCR != null) {
-						request.setAttribute("listeVentesCR", articleManager.selectionnerByEtat("CR"));
+						request.setAttribute("listeVentesCR", articleManager.selectionnerByEtat("CR", noCategorie));
 					}
 					if (filtresVentesVDRT != null) {
-						List<ArticleVendu> listeArticlesVD = articleManager.selectionnerByEtat("VD");
-						List<ArticleVendu> listeArticlesRT = articleManager.selectionnerByEtat("RT");
+						List<ArticleVendu> listeArticlesVD = articleManager.selectionnerByEtat("VD", noCategorie);
+						List<ArticleVendu> listeArticlesRT = articleManager.selectionnerByEtat("RT", noCategorie);
 						List<ArticleVendu> listeArticlesVendu = new ArrayList<ArticleVendu>();
 						listeArticlesVendu.addAll(listeArticlesVD);
 						listeArticlesVendu.addAll(listeArticlesRT);
