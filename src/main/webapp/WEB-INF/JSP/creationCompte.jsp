@@ -43,8 +43,6 @@
 
 
 
-
-
 	<form id="ajouter_compte" action="<%=request.getContextPath()%>/AjoutCompte" method="post">
 		<div class="saisie">
 			<label for="pseudo">Pseudo : </label> <input type="text" id="pseudo"

@@ -30,16 +30,25 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 						+ " VALUES(?,?,?,?,?,?,?,?,DEFAULT,null) ";
 	
 	private static final String SELECT_BY_ID = "SELECT * FROM ARTICLES_VENDUS WHERE no_article=?;";
-	private static final String SELECT_ARTICLE_ENCHERE_BY_ETAT = "SELECT nom_article, prix_initial, date_fin_enchere, pseudo,montant_enchere, etat_vente,image,"
+	private static final String SELECT_ARTICLE_ENCHERE_BY_ETAT = "SELECT nom_article, prix_initial, date_fin_enchere, pseudo,montant_enchere, etat_vente,image, no_categorie,"
 						+ " a.no_article FROM ARTICLES_VENDUS as a LEFT OUTER JOIN ENCHERES as e ON a.no_article = e.no_article INNER JOIN UTILISATEURS as u on a.no_utilisateur=u.no_utilisateur "
-						+ "WHERE etat_vente= ?;";
+						+ "WHERE etat_vente= ?";
+	private static final String SELECT_ARTICLE_ENCHERE_BY_ETAT_CATEGORIE = "SELECT nom_article, prix_initial, date_fin_enchere, pseudo,montant_enchere, etat_vente,image, no_categorie,"
+						+ " a.no_article FROM ARTICLES_VENDUS as a LEFT OUTER JOIN ENCHERES as e ON a.no_article = e.no_article INNER JOIN UTILISATEURS as u on a.no_utilisateur=u.no_utilisateur "
+						+ "WHERE etat_vente= ? and no_categorie=?;";
 	private static final String SELECT_BY_ID_ENCHERES = "SELECT * FROM ENCHERES WHERE no_article = ?";
 	private static final String SELECT_ENCHERES_OUVERTES_USER = "SELECT nom_article, description, prix_initial, date_debut_enchere, date_fin_enchere, pseudo, e.no_utilisateur AS no_acheteur, a.no_utilisateur AS no_vendeur, montant_enchere, no_categorie, etat_vente,image,"
 			+ " a.no_article FROM ARTICLES_VENDUS as a INNER JOIN ENCHERES as e ON a.no_article = e.no_article INNER JOIN UTILISATEURS as u on a.no_utilisateur=u.no_utilisateur "
 			+ "WHERE etat_vente= 'EC' AND e.no_utilisateur = ?;";
+	private static final String SELECT_ENCHERES_OUVERTES_USER_CATEGORIE = "SELECT nom_article, description, prix_initial, date_debut_enchere, date_fin_enchere, pseudo, e.no_utilisateur AS no_acheteur, a.no_utilisateur AS no_vendeur, montant_enchere, no_categorie, etat_vente,image,"
+			+ " a.no_article FROM ARTICLES_VENDUS as a INNER JOIN ENCHERES as e ON a.no_article = e.no_article INNER JOIN UTILISATEURS as u on a.no_utilisateur=u.no_utilisateur "
+			+ "WHERE etat_vente= 'EC' AND e.no_utilisateur = ? AND no_categorie = ?;";
 	private static final String SELECT_ENCHERES_REMPORTEES_USER = "SELECT nom_article, description, prix_initial, date_debut_enchere, date_fin_enchere, pseudo, e.no_utilisateur AS no_acheteur, a.no_utilisateur AS no_vendeur, montant_enchere, etat_vente, no_categorie, image,"
 			+ " a.no_article FROM ARTICLES_VENDUS as a INNER JOIN ENCHERES as e ON a.no_article = e.no_article INNER JOIN UTILISATEURS as u on a.no_utilisateur=u.no_utilisateur "
 			+ "WHERE (etat_vente= 'VD' OR etat_vente='RT') AND e.no_utilisateur=?;";
+	private static final String SELECT_ENCHERES_REMPORTEES_USER_CATEGORIE = "SELECT nom_article, description, prix_initial, date_debut_enchere, date_fin_enchere, pseudo, e.no_utilisateur AS no_acheteur, a.no_utilisateur AS no_vendeur, montant_enchere, etat_vente, no_categorie, image,"
+			+ " a.no_article FROM ARTICLES_VENDUS as a INNER JOIN ENCHERES as e ON a.no_article = e.no_article INNER JOIN UTILISATEURS as u on a.no_utilisateur=u.no_utilisateur "
+			+ "WHERE (etat_vente= 'VD' OR etat_vente='RT') AND e.no_utilisateur=? AND no_categorie=?;";
 	
 	private static final String SELECT_VENTES_USER_EC = "SELECT * FROM ARTICLES_VENDUS WHERE no_utilisateur=? AND etat_vente='EC';";
 	
@@ -247,18 +256,23 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 	}
 	
 	@Override
-	public List<ArticleVendu> selectEnchereUser(Utilisateur user, String filtre) throws BusinessException {
+	public List<ArticleVendu> selectEnchereUser(Utilisateur user, String filtre, int noCategorie) throws BusinessException {
 		if (user == null ) {
 			BusinessException be = new BusinessException();
 			be.ajouterCodeErreur(CodeResultatDAL.SELECT_ID_INCORRECT);
 		}
 		String requete = "";
-		if (filtre.equals("EC")) {
+		if (filtre.equals("EC") && noCategorie <= 0) {
 			requete = SELECT_ENCHERES_OUVERTES_USER;
 		}
-		else if (filtre.equals("remportee")) {
+		else if (filtre.equals("EC") && noCategorie > 0) {
+			requete = SELECT_ENCHERES_OUVERTES_USER_CATEGORIE;
+		}
+		else if (filtre.equals("remportee") && noCategorie <=0) {
 			requete = SELECT_ENCHERES_REMPORTEES_USER;
-			
+		}
+		else if (filtre.equals("remportee") && noCategorie >0) {
+			requete = SELECT_ENCHERES_REMPORTEES_USER_CATEGORIE;
 		}
 		
 		List<ArticleVendu> listeArticle = new ArrayList<ArticleVendu>();
@@ -267,6 +281,10 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			
 			PreparedStatement pst = conx.prepareStatement(requete);
 			pst.setInt(1, user.getNoUtilisateur());
+			if (noCategorie > 0) {
+				pst.setInt(2, noCategorie);
+			}
+			
 			pst.executeQuery();
 			ResultSet rs = pst.getResultSet();
 			while (rs.next()) {
@@ -409,7 +427,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 	}
 	
 	@Override
-	public List<ArticleVendu> selectByEtat(String etat) throws BusinessException {
+	public List<ArticleVendu> selectByEtat(String etat, int noCategorie) throws BusinessException {
 		if (etat == null) {
 			BusinessException be = new BusinessException();
 			be.ajouterCodeErreur(CodeResultatDAL.SELECT_ID_INCORRECT);
@@ -418,8 +436,18 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 		List<ArticleVendu>  res = new ArrayList<ArticleVendu>();
 		
 		try ( Connection conx = ConnectionProvider.getConnection() ) {
-			PreparedStatement pst = conx.prepareStatement(SELECT_ARTICLE_ENCHERE_BY_ETAT);
-			pst.setString(1, etat);
+			PreparedStatement pst = null;
+			if (noCategorie == 0) {
+				pst = conx.prepareStatement(SELECT_ARTICLE_ENCHERE_BY_ETAT);
+				pst.setString(1, etat);
+			}
+			else {
+				pst = conx.prepareStatement(SELECT_ARTICLE_ENCHERE_BY_ETAT_CATEGORIE);
+				pst.setString(1, etat);
+				pst.setInt(2, noCategorie);
+			}
+			
+			
 			
 			ResultSet rs = pst.executeQuery();
 			 // exploitation du resultat

@@ -13,7 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import fr.eni.javaee.bll.ArticleManager;
+import fr.eni.javaee.bll.CategorieManager;
 import fr.eni.javaee.bll.EnchereManager;
+import fr.eni.javaee.bo.ArticleVendu;
 import fr.eni.javaee.bo.Utilisateur;
 import fr.eni.javaee.exceptions.BusinessException;
 
@@ -27,6 +30,22 @@ public class DetailEnchere extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		ArticleManager articleManager = new ArticleManager();
+		CategorieManager categorieManager = new CategorieManager();
+		
+		String categorieStr = request.getParameter("categorie");
+		int noCategorie = 0;
+		if ( !(categorieStr.equals("toutesCategories") )) {
+			try {
+				noCategorie = categorieManager.selectionnerParLibelle(categorieStr).getNoCategorie();
+			} catch (BusinessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		List<ArticleVendu> liste_EnchereEC = articleManager.selectionnerByEtat("EC", noCategorie);
+		request.setAttribute("listeArticles", liste_EnchereEC);
 		RequestDispatcher rs = request.getRequestDispatcher("/WEB-INF/JSP/detailEnchere.jsp");
 		rs.forward(request, response);
 	}

@@ -21,6 +21,8 @@
 	<%
 	//Utilisateur user = (Utilisateur) session.getAttribute("utilisateur");
 	%>
+	
+
 	<header id="h_principal">
 		<%@include file="fragment/div_id_entete.jsp"%>
 		<div id="titre_page">
@@ -39,6 +41,7 @@
 						<h3>Catégorie:</h3>
 						<select name="categorie">
 							<c:if test="${listeCategories != null }">
+								<option value="toutesCategories">Toutes les catégories</option>
 								<c:forEach var="c" items="${listeCategories}">
 									<option value="${c.getLibelle()}">${c.getLibelle() }</option>
 								</c:forEach>
@@ -51,35 +54,60 @@
 								<legend>Selectioner Achats ou Mes ventes:</legend>
 
 								<input type="radio" id="achats" name="choix" value="achats"
-									checked> <label for="achats">Achats</label>
+									 onclick="griserVentes()" checked> <label for="achats">Achats</label>
 								<c:if test="achat"></c:if>
 
 								<div class="sous_achats">
-									<input type="checkbox" id="enchere" name="EC" value="1" checked>
+
+									<input type="checkbox" id="enchere1" name="EC" value="1" checked>
 									<label for="EC">enchères ouvertes</label>
 									
-									<input type="checkbox" id="enchere" name="mes_encheres" value="1">
+									<input type="checkbox" id="enchere2" name="mes_encheres" value="1" >
 									<label for="mes_encheres">mes enchères</label> 
 									
-									<input type="checkbox" id="enchere" name="mes_encheres_remportees" value="1">
+									<input type="checkbox" id="enchere3" name="mes_encheres_remportees" value="1"  >
 									<label for="mes_encheres_remportees">mes enchères remportées</label>
 
 								</div>
 
 
-								<input type="radio" id="mes_ventes" name="choix" value="mes_ventes">
+								<input type="radio" id="mes_ventes" name="choix" value="mes_ventes" onclick="griserAchat()">
 								<label for="mes_ventes">Mes ventes</label>
 								
 								<div class="sous_ventes" id="vente">
-									<input type="checkbox" id="ventes" name="ventes_EC" checked>
+									<input type="checkbox" id="ventes1" name="ventes_EC" checked>
 									<label for="ventes_EC">mes ventes en cours</label> 
 									
-									<input type="checkbox" id="ventes" name="ventes_CR">
+									<input type="checkbox" id="ventes2" name="ventes_CR">
 									<label for="ventes_CR">ventes non débutées</label>
 									
-									<input type="checkbox" id="ventes" name="VD">
+									<input type="checkbox" id="ventes3" name="VD">
 									<label for="VD">ventes terminées</label>
 								</div>
+
+								<script>
+								  function griserAchat(){
+										document.getElementById("enchere1").disabled = true;
+										document.getElementById("enchere2").disabled = true;
+										document.getElementById("enchere3").disabled = true;
+										document.getElementById("ventes1").disabled = false;
+										document.getElementById("ventes2").disabled = false;
+										document.getElementById("ventes3").disabled = false;
+								  }
+								  function griserVentes(){
+										document.getElementById("enchere1").disabled = false;
+										document.getElementById("enchere2").disabled = false;
+										document.getElementById("enchere3").disabled = false;
+										document.getElementById("ventes1").disabled = true;
+										document.getElementById("ventes2").disabled = true;
+										document.getElementById("ventes3").disabled = true;
+									  }
+								  function check(elementId, bool){
+									  document.getElement(elementId).checked = bool;
+								  }
+								</script>
+							
+
 
 							</fieldset>
 						</div>
@@ -165,8 +193,8 @@
 									<c:out value="${article.getDateFinEncheres()}"></c:out>
 								</p>
 								<p class="vendeur_enchere_article">
-									Vendeur: <a href="ServletAfficherCompte"><c:out
-											value="${article.getVendeur().getPseudo()}"></c:out></a>
+									Vendeur: <input type="submit" name="select_article"
+												value="${article.getVendeur().getPseudo()}">
 								</p>
 								<input type="submit" name="select_article"
 									value="Voir l'enchère">
@@ -202,8 +230,8 @@
 									<c:out value="${article.getDateFinEncheres()}"></c:out>
 								</p>
 								<p class="vendeur_enchere_article">
-									Vendeur: <a href="ServletAfficherCompte"><c:out
-											value="${article.getVendeur().getPseudo()}"></c:out></a>
+									Vendeur: <input type="submit" name="select_article"
+												value="${article.getVendeur().getPseudo()}">
 								</p>
 								<input type="submit" name="select_article"
 									value="Voir l'enchère">
@@ -240,8 +268,8 @@
 									<c:out value="${article.getDateFinEncheres()}"></c:out>
 								</p>
 								<p class="vendeur_enchere_article">
-									Vendeur: <a href="ServletAfficherCompte"><c:out
-											value="${article.getVendeur().getPseudo()}"></c:out></a>
+									Vendeur: <input type="submit" name="select_article"
+												value="${article.getVendeur().getPseudo()}">
 								</p>
 								<input type="submit" name="select_article"
 									value="Voir l'enchère">
@@ -251,6 +279,7 @@
 				</c:forEach>
 			</c:if>
 		</div>
+
 			
 			<div id="liste_ventes">
 				<c:if test="${listeVentesUserEC != null }">
@@ -286,6 +315,7 @@
 										value="Voir l'enchère">
 								</div>
 							</div>
+<<<<<<< HEAD
 						</form>
 					</c:forEach>
 				</c:if>
@@ -322,6 +352,7 @@
 									<input type="submit" name="select_article"
 										value="Voir l'enchère">
 								</div>
+
 							</div>
 						</form>
 					</c:forEach>
@@ -364,10 +395,14 @@
 					</c:forEach>
 				</c:if>
 			
+
 			</div>
+
 		
 		</div>
 	</main>
+
 		<%@include file="fragment/footer.jsp"%>
+
 </body>
 </html>
