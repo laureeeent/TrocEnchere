@@ -1,5 +1,5 @@
 		<div id="entete">
-			<a href="ServletRedirectionAccueil"><p id="nom_site">TROCENCHERE</p></a>
+			<p id="nom_site"><a href="ServletRedirectionAccueil">TROCENCHERE</a></p>
 
 
 			<nav id="menu_nav_utilisateur">

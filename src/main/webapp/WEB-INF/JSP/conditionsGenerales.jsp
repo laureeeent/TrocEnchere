@@ -1,14 +1,34 @@
+<%@page import="fr.eni.javaee.bo.ArticleVendu"%>
+<%@page import="fr.eni.javaee.bll.UtilisateurManager"%>
+<%@page import="fr.eni.javaee.bo.Utilisateur"%>
+<%@page import="fr.eni.javaee.bo.Enchere"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@page import="java.io.PrintWriter"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="fr.eni.javaee.bo.Categorie"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Conditions Générales</title>
+<script src="JS/index.js"></script>
+<title>TrocEnchère</title>
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-	<p>CONDITIONS GÉNÉRALES DES VENTES MOBILIÈRES
-PRÉAMBULE
+	<%
+	//Utilisateur user = (Utilisateur) session.getAttribute("utilisateur");
+	%>
+	<header id="h_principal">
+		<%@include file="fragment/div_id_entete.jsp"%>
+		<div id="titre_page">
+			<h2>CONDITIONS GÉNÉRALES DES VENTES MOBILIÈRES</h2>
+		</div>
+	</header>
+	<main id="m_principal">
+	<p>PRÉAMBULE
 Les ventes mobilières du Domaine concernent les biens mobiliers dont les organismes publics n’ont plus l’usage, les biens confisqués par la Justice, les véhicules réputés abandonnés dans les fourrières, les objets trouvés, ou les biens abandonnés par les patients des hôpitaux.
 
 Ces ventes sont assurées sur le territoire métropolitain, hors Corse, par la Direction nationale d’interventions domaniales (DNID) rattachée à la Direction de l’immobilier de l’État dépendant de la Direction générale des Finances publiques (DGFIP). Les ventes sont organisées par un réseau de 14 commissariats aux ventes (CAV) répartis sur l’ensemble du territoire métropolitain ou par les services de direction de la DNID.
@@ -602,5 +622,7 @@ function rtn() {
 }
 </script>
 		<%@include file="fragment/bouttonRetourAccueil.jsp"%>
+	</main>
+		<%@include file="fragment/footer.jsp"%>
 </body>
 </html>

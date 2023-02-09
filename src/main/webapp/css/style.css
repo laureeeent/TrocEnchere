@@ -3,27 +3,153 @@
 * {
 	margin: 0 auto;
 }
-
+body{
+	display: flex;
+	flex-flow:wrap row;
+}
+nav li a{
+	text-decoration: none;
+}
+nav li a:hover{
+	text-decoration: underline;
+	color: gold;
+}
+nav li {
+	list-style-type: none;
+}
+#h_principal{
+	width : 1200px;
+	display: flex;
+	padding: 10px;
+	justify-content: space-between;
+	flex-flow:wrap row;
+	
+}
+#entete{
+	width: 100%;
+	background-color: #fff1e6;
+	height: 100px;
+}
+#filtres{
+	width: 100%;
+}
+#filtres_left{
+	width: 50%;
+}
+#filtres_right{
+	display : flex;
+	width: 50%;
+	align-items: center;
+}
+.header_filtres{
+	width: 100%;
+}
+.main_filtres{
+	width: 100%;
+}
+.footer_filtres{
+	width: 100%;
+}
+.btn_rechercher{
+	height: 70px;
+	width: 250px;
+}
+#nom_site a{
+	text-decoration: none;
+}
+#nom_site a:hover{
+	text-decoration: underline;
+	color: gold;
+}
+#menu_nav_utilisateur{
+	display: flex;
+	justify-content: space-around;
+}
 #m_principal {
 	width: 800px;
+	flex-flow:wrap row;
+	justify-content: center;
+	padding: 100px 0px;
 }
-
+#conteneur_articles{
+	display: flex;
+	flex-flow: wrap row
+}
+form{
+	display: flex;
+	width: 100%;
+}
+.form_list_article{
+	display: flex;
+	width: 50%;
+	
+}
+.form_list_article2{
+	display: flex;
+	width: 50%;
+	
+}
+#conteneur_article{
+	width: 100%;
+	justify-content: space-around ;
+	margin: 5px 5px;
+	padding: 3px;
+}
+	.img_conteneur_article{
+	width: 300px;
+	height: 200px
+}
+input{
+	border-radius: 0.5em;
+}
+input:hover{
+	background-color: gold;
+}
+.btn_voir_enchere{
+	margin: 5px 0px;
+}
+#listes_achats{
+	display: flex;
+	width: 100%;
+	flex-flow: row wrap;
+}
+.titre_liste_h3{
+	margin: 10px 0px 50px 0px;
+	display: block;
+	width: 100%;
+	text-align: center;
+	font-size: 40px;
+}
 h1 {
 	font-size: 100px;
 }
-
+#f_principal{
+	width: 1200px;
+	display: flex;
+	background-color: #fff1e6;
+	flex-flow:wrap row;
+	height: 100px;
+	align-content: center;
+	text-decoration: none;
+}
+#f_principal a{
+	text-decoration: none;
+}
+#f_principal a:hover{
+	color: gold;
+}
 .infos {
 	color: green;
 	font-size: 30px;
 }
 .hideShowPassword-toggle {
-  background-color: transparent;
-  background-image: url('../WEB-INF/image/mdp.jpg'); /* fallback */
-  background-image: url('../WEB-INF/image/mdp.jpg'), none;
+  background-color: #ff8080;
+  background-image: url("image/mdp.jpg") ;/*fallback*/
+  background-image: url("image/mdp.jpg"), none;
   background-position: 0 center;
   background-repeat: no-repeat;
   border: 2px solid transparent;
-  border-radius: 0.25em;
+  border-radius: 0.5em;
   cursor: pointer;
   font-size: 100%;
   height: 44px;
@@ -42,5 +168,94 @@ h1 {
 .hideShowPassword-toggle:hover,
 .hideShowPassword-toggle:focus {
   border-color: #0088cc;
-  outline: transparent;
+  outline: #0088cc;
+}
+#conteneur_connexion_form{
+	width: 100%;
+	display: flex;
+	flex-flow: row wrap;
+}
+#h_form{
+	display:flex;
+	width: 100%;
+	flex-flow: wrap row;
+	padding: 20px 20px 0px 20px;
+}
+.indentifiant{
+	display : flex;
+
+	width: 100%;
+	margin: 3px 0px;
+}
+.indentifiant label{
+	width: 50%;
+	text-align: left;
+}.indentifiant input{
+	width: 50%;
+}
+.mot_de_passe{
+	display : flex;
+
+	width: 100%;
+	margin: 3px 0px;
+}
+.mot_de_passe label{
+	width: 50%;
+	text-align: left;
+}.mot_de_passe input{
+	width: 50%;
+}
+.btn_ajouter_compte{
+	margin: 20px 0px;
+}
+#connexion_form{
+	width: 100%;
+	display: flex;
+	padding: 20px 20px 0px 20px;
+}
+.connexion_form_left{
+	width: 50%;
+}
+.connexion_form_right{
+	width: 50%;
+	display: flex;
+	flex-flow: row wrap;
+}
+#se_connecter{
+	width: 50%;
+	display: flex;
+	flex-flow: row wrap;
+}
+#texte_souvenir{
+	width: 80%;
+}
+#ajouter_compte{
+	display: flex;
+	flex-flow: row wrap;
+	
+}
+.saisie{
+	display: flex;
+	width: 47%;
+	padding-bottom: 5px;
+
+}
+.saisie input{
+	width: 50%;
+
+}
+.saisie label{
+	width: 50%;
+
+}
+.btn_creer{
+	display: inline-block;
+	width: 100%;
+	text-align: center;
+	margin: 5px 0px;
+}
+.retourAccueil{
+		width: 100%;
+	text-align: center;
+	margin: 5px 0px;
 }

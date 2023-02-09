@@ -30,20 +30,24 @@
 	</header>
 	<main id="m_principal">
 		<div id="conteneur_connexion_form">
-			<form action="ServletConnecter" method="post">
+			<form id="se_connecter" action="ServletConnecter" method="post">
 				<div id="h_form">
-					<label id="id">Identifiant: </label><input id="id"
-						name="identifiant" type="text" required="required"  title="Votre Pseudo ou votre E-mail entre 3 et 40 caractères"><label
-						id="motdepasse">Mot de Passe: </label><input id="mdp" name="mot_de_passe"
-						type="password" required="required" pattern="[A-Za-z0-9]{3,40}" title="le mot de passe doit contenir entre 8 et 30 caractères alphanumériques. Caractères spéciaux non autorisés.">
+					<div class="indentifiant">
+						<label id="id">Identifiant: </label>
+						<input id="id"name="identifiant" type="text" required="required"  title="Votre Pseudo ou votre E-mail entre 3 et 40 caractères">
+					</div>
+					<div class="mot_de_passe">
+						<label id="motdepasse">Mot de Passe: </label>
+						<input id="mdp" name="mot_de_passe" type="password" required="required" pattern="[A-Za-z0-9]{3,40}" title="le mot de passe doit contenir entre 8 et 30 caractères alphanumériques. Caractères spéciaux non autorisés.">
+					</div>
 				</div>
 				<div id="connexion_form">
 					<div class="connexion_form_left">
 						<input type="submit" name="connexion" value="Connexion">
 					</div>
 					<div class="connexion_form_right">
-						<input type="checkbox" id="souvenir" name="souvenir"><label
-							id="souvenir">Se souvenir de moi</label><a href="#">Mot de
+						<input type="checkbox" id="btn_souvenir" name="souvenir"><label
+							id="texte_souvenir">Se souvenir de moi</label><a href="#">Mot de
 							passe oublié</a>
 					</div>
 
@@ -53,11 +57,11 @@
 					
 				</div>
 			</form>
-			<form action="AjoutCompte" method="get">
+			<form class="btn_ajouter_compte" action="AjoutCompte" method="get">
 				<input type="submit" name="creer_compte" value="Créer un compte">
 			</form>
 		</div>
 	</main>
-	<footer id="f_principal"></footer>
+
 </body>
 </html>

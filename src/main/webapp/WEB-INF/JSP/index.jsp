@@ -87,7 +87,7 @@
 				</div>
 				<div id="filtres_right">
 					<div id="btn_valide_filtres">
-						<input type="submit" name="rechercher" value="Rechercher">
+						<input class="btn_rechercher" type="submit" name="rechercher" value="Rechercher">
 					</div>
 				</div>
 			</form>
@@ -100,12 +100,11 @@
 		<div id="conteneur_articles">
 			<c:if test="${listeArticles != null}">
 				<c:forEach var="article" items="${listeArticles}">
-					<form action="AfficherArticle" method="get" name="id">
+					<form class="form_list_article" action="AfficherArticle" method="get" name="id">
 
 						<div id="conteneur_article">
 							<div class="img_conteneur_article">
-								<img alt="#" src="${article.getImage()}" width="300"
-									height="200">
+								<img class="img_conteneur_article" alt="#" src="${article.getImage()}">
 							</div>
 							<div class="texte_conteneur_article">
 								<input type="text" hidden="none" name="id"
@@ -124,9 +123,9 @@
 									<c:out value="${article.getDateFinEncheres()}"></c:out>
 								</p>
 								<p class="vendeur_enchere_article" >
-									Vendeur: <input type="submit" name="select_article" value="${article.getVendeur().getPseudo()}">
+									Vendeur: <input class="btn_nom_vendeur" type="submit" name="select_article" value="${article.getVendeur().getPseudo()}">
 								</p>
-								<input type="submit" name="select_article"
+								<input class="btn_voir_enchere" type="submit" name="select_article"
 									value="Voir l'enchère">
 							</div>
 						</div>
@@ -134,19 +133,20 @@
 					</form>
 				</c:forEach>
 			</c:if>
-		</div>
+			
+			
+		
 
 		
 		<div id=listes_achats>
 			<c:if test="${listeArticlesEC != null }">
-				<h3>Enchères en cours : </h3>
+				<h3 class="titre_liste_h3" >--- Enchères en cours : --- </h3>
 				<c:forEach var="article" items="${listeArticlesEC }">
-					<form action="AfficherArticle" method="get" name="id">
+					<form class="form_list_article2" action="AfficherArticle" method="get" name="id">
 
 						<div id="conteneur_article">
 							<div class="img_conteneur_article">
-								<img alt="#" src="${article.getImage()}" width="300"
-									height="200">
+								<img class="img_conteneur_article" alt="#" src="${article.getImage()}">
 							</div>
 							<div class="texte_conteneur_article">
 								<input type="text" hidden="none" name="id"
@@ -177,14 +177,13 @@
 			</c:if>
 			
 			<c:if test="${listeArticlesEnchereUser != null }">
-				<h3>--- Mes Enchères en cours : ---</h3>
+				<h3 class="titre_liste_h3">--- Mes Enchères en cours : ---</h3>
 				<c:forEach var="article" items="${listeArticlesEnchereUser }">
-					<form action="AfficherArticle" method="get" name="id">
+					<form class="form_list_article2" action="AfficherArticle" method="get" name="id">
 
 						<div id="conteneur_article">
 							<div class="img_conteneur_article">
-								<img alt="#" src="${article.getImage()}" width="300"
-									height="200">
+								<img class="img_conteneur_article" alt="#" src="${article.getImage()}">
 							</div>
 							<div class="texte_conteneur_article">
 								<input type="text" hidden="none" name="id"
@@ -216,14 +215,13 @@
 			
 			
 			<c:if test="${listeArticlesEnchereUserRemportee != null }">
-				<h3>--- Mes Enchères remportées : ---</h3>
+				<h3 class="titre_liste_h3" >--- Mes Enchères remportées : ---</h3>
 				<c:forEach var="article" items="${listeArticlesEnchereUserRemportee }">
-					<form action="AfficherArticle" method="get" name="id">
+					<form class="form_list_article2" action="AfficherArticle" method="get" name="id">
 
 						<div id="conteneur_article">
 							<div class="img_conteneur_article">
-								<img alt="#" src="${article.getImage()}" width="300"
-									height="200">
+								<img class="img_conteneur_article" alt="#" src="${article.getImage()}">
 							</div>
 							<div class="texte_conteneur_article">
 								<input type="text" hidden="none" name="id"
@@ -253,127 +251,123 @@
 				</c:forEach>
 			</c:if>
 		</div>
-		
-		<div id="liste_ventes">
-			<c:if test="${listeVentesUserEC != null }">
-				<h3>--- Mes Ventes en cours : ---</h3>
-				<c:forEach var="article" items="${listeVentesUserEC }">
-					<form action="AfficherArticle" method="get" name="id">
-
-						<div id="conteneur_article">
-							<div class="img_conteneur_article">
-								<img alt="#" src="${article.getImage()}" width="300"
-									height="200">
-							</div>
-							<div class="texte_conteneur_article">
-								<input type="text" hidden="none" name="id"
-									value="${article.getNoArticle()}">
-								<p class="designation_article">${article.getNomArticle()}</p>
-								<p class="prix_initial">
-									Prix initial:
-									<c:out value="${article.getMiseAPrix()}"></c:out>
-								</p>
-								<p class="prix_encheres">
-									Prix enchère:
-									<c:out value="${article.getEnchere().getMontantEnchere() }"></c:out>
-								</p>
-								<p class="date_fin_enchere_article">
-									Fin de l'enchère :
-									<c:out value="${article.getDateFinEncheres()}"></c:out>
-								</p>
-								<p class="vendeur_enchere_article">
-									Vendeur: <a href="ServletAfficherCompte"><c:out
-											value="${article.getVendeur().getPseudo()}"></c:out></a>
-								</p>
-								<input type="submit" name="select_article"
-									value="Voir l'enchère">
-							</div>
-						</div>
-					</form>
-				</c:forEach>
-			</c:if>
 			
-			<c:if test="${listeVentesCR != null }">
-				<h3>--- Ventes créées : ---</h3>
-				<c:forEach var="article" items="${listeVentesCR }">
-					<form action="AfficherArticle" method="get" name="id">
-
-						<div id="conteneur_article">
-							<div class="img_conteneur_article">
-								<img alt="#" src="${article.getImage()}" width="300"
-									height="200">
+			<div id="liste_ventes">
+				<c:if test="${listeVentesUserEC != null }">
+					<h3 class="titre_liste_h3" >--- Mes Ventes en cours : ---</h3>
+					<c:forEach var="article" items="${listeVentesUserEC }">
+						<form class="form_list_article2" action="AfficherArticle" method="get" name="id">
+	
+							<div id="conteneur_article">
+								<div class="img_conteneur_article">
+									<img class="img_conteneur_article" alt="#" src="${article.getImage()}">
+								</div>
+								<div class="texte_conteneur_article">
+									<input type="text" hidden="none" name="id"
+										value="${article.getNoArticle()}">
+									<p class="designation_article">${article.getNomArticle()}</p>
+									<p class="prix_initial">
+										Prix initial:
+										<c:out value="${article.getMiseAPrix()}"></c:out>
+									</p>
+									<p class="prix_encheres">
+										Prix enchère:
+										<c:out value="${article.getEnchere().getMontantEnchere() }"></c:out>
+									</p>
+									<p class="date_fin_enchere_article">
+										Fin de l'enchère :
+										<c:out value="${article.getDateFinEncheres()}"></c:out>
+									</p>
+									<p class="vendeur_enchere_article">
+										Vendeur: <a href="ServletAfficherCompte"><c:out
+												value="${article.getVendeur().getPseudo()}"></c:out></a>
+									</p>
+									<input type="submit" name="select_article"
+										value="Voir l'enchère">
+								</div>
 							</div>
-							<div class="texte_conteneur_article">
-								<input type="text" hidden="none" name="id"
-									value="${article.getNoArticle()}">
-								<p class="designation_article">${article.getNomArticle()}</p>
-								<p class="prix_initial">
-									Prix initial:
-									<c:out value="${article.getMiseAPrix()}"></c:out>
-								</p>
-								<p class="prix_encheres">
-									Prix enchère:
-									<c:out value="${article.getEnchere().getMontantEnchere() }"></c:out>
-								</p>
-								<p class="date_fin_enchere_article">
-									Fin de l'enchère :
-									<c:out value="${article.getDateFinEncheres()}"></c:out>
-								</p>
-								<p class="vendeur_enchere_article">
-									Vendeur: <a href="ServletAfficherCompte"><c:out
-											value="${article.getVendeur().getPseudo()}"></c:out></a>
-								</p>
-								<input type="submit" name="select_article"
-									value="Voir l'enchère">
+						</form>
+					</c:forEach>
+				</c:if>
+				
+				<c:if test="${listeVentesCR != null }">
+					<h3 class="titre_liste_h3" >--- Ventes créées : ---</h3>
+					<c:forEach var="article" items="${listeVentesCR }">
+						<form class="form_list_article2" action="AfficherArticle" method="get" name="id">
+	
+							<div id="conteneur_article">
+								<div class="img_conteneur_article">
+									<img class="img_conteneur_article" alt="#" src="${article.getImage()}">
+								</div>
+								<div class="texte_conteneur_article">
+									<input type="text" hidden="none" name="id"
+										value="${article.getNoArticle()}">
+									<p class="designation_article">${article.getNomArticle()}</p>
+									<p class="prix_initial">
+										Prix initial:
+										<c:out value="${article.getMiseAPrix()}"></c:out>
+									</p>
+									<p class="prix_encheres">
+										Prix enchère:
+										<c:out value="${article.getEnchere().getMontantEnchere() }"></c:out>
+									</p>
+									<p class="date_fin_enchere_article">
+										Fin de l'enchère :
+										<c:out value="${article.getDateFinEncheres()}"></c:out>
+									</p>
+									<p class="vendeur_enchere_article">
+										Vendeur: <a href="ServletAfficherCompte"><c:out
+												value="${article.getVendeur().getPseudo()}"></c:out></a>
+									</p>
+									<input type="submit" name="select_article"
+										value="Voir l'enchère">
+								</div>
 							</div>
-						</div>
-					</form>
-				</c:forEach>
-			</c:if>
+						</form>
+					</c:forEach>
+				</c:if>
+				
+				<c:if test="${listeVentesVDRT != null }">
+					<h3 class="titre_liste_h3" >--- Ventes terminées : ---</h3>
+					<c:forEach var="article" items="${listeVentesVDRT }">
+						<form class="form_list_article2" action="AfficherArticle" method="get" name="id">
+	
+							<div id="conteneur_article">
+								<div class="img_conteneur_article">
+									<img class="img_conteneur_article" alt="#" src="${article.getImage()}">
+								</div>
+								<div class="texte_conteneur_article">
+									<input type="text" hidden="none" name="id"
+										value="${article.getNoArticle()}">
+									<p class="designation_article">${article.getNomArticle()}</p>
+									<p class="prix_initial">
+										Prix initial:
+										<c:out value="${article.getMiseAPrix()}"></c:out>
+									</p>
+									<p class="prix_encheres">
+										Prix enchère:
+										<c:out value="${article.getEnchere().getMontantEnchere() }"></c:out>
+									</p>
+									<p class="date_fin_enchere_article">
+										Fin de l'enchère :
+										<c:out value="${article.getDateFinEncheres()}"></c:out>
+									</p>
+									<p class="vendeur_enchere_article">
+										Vendeur: <a href="ServletAfficherCompte"><c:out
+												value="${article.getVendeur().getPseudo()}"></c:out></a>
+									</p>
+									<input type="submit" name="select_article"
+										value="Voir l'enchère">
+								</div>
+							</div>
+						</form>
+					</c:forEach>
+				</c:if>
 			
-			<c:if test="${listeVentesVDRT != null }">
-				<h3>--- Ventes terminées : ---</h3>
-				<c:forEach var="article" items="${listeVentesVDRT }">
-					<form action="AfficherArticle" method="get" name="id">
-
-						<div id="conteneur_article">
-							<div class="img_conteneur_article">
-								<img alt="#" src="${article.getImage()}" width="300"
-									height="200">
-							</div>
-							<div class="texte_conteneur_article">
-								<input type="text" hidden="none" name="id"
-									value="${article.getNoArticle()}">
-								<p class="designation_article">${article.getNomArticle()}</p>
-								<p class="prix_initial">
-									Prix initial:
-									<c:out value="${article.getMiseAPrix()}"></c:out>
-								</p>
-								<p class="prix_encheres">
-									Prix enchère:
-									<c:out value="${article.getEnchere().getMontantEnchere() }"></c:out>
-								</p>
-								<p class="date_fin_enchere_article">
-									Fin de l'enchère :
-									<c:out value="${article.getDateFinEncheres()}"></c:out>
-								</p>
-								<p class="vendeur_enchere_article">
-									Vendeur: <a href="ServletAfficherCompte"><c:out
-											value="${article.getVendeur().getPseudo()}"></c:out></a>
-								</p>
-								<input type="submit" name="select_article"
-									value="Voir l'enchère">
-							</div>
-						</div>
-					</form>
-				</c:forEach>
-			</c:if>
+			</div>
 		
 		</div>
-		
-		
-
 	</main>
-	<footer id="f_principal"></footer>
+		<%@include file="fragment/footer.jsp"%>
 </body>
 </html>
