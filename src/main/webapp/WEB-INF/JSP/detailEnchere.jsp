@@ -97,6 +97,6 @@
 		</c:otherwise>
 	</c:choose>
 </form>
-
+<%@include file="fragment/footer.jsp"%>
 </body>
 </html>

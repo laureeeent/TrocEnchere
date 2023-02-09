@@ -22,12 +22,12 @@
 	%>
 	<header id="h_principal">
 
-		<div id="titre_page">
+		<div id="titre_page"> 	
 			<h1>Suppression de votre compte</h1>
 		</div>
 	</header>
 	<main id="m_principal">
-		<h2>Votre compte a bien été supprimer</h2>
+		<h2>Votre compte a bien été supprimé</h2>
 		<%@include file="fragment/bouttonRetourAccueil.jsp"%>
 	</main>
 	<footer id="f_principal"></footer>
