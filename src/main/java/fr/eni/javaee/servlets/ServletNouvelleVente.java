@@ -84,7 +84,8 @@ public class ServletNouvelleVente extends HttpServlet {
 			
 			LocalDateTime dateDebutEnchere = LocalDateTime.parse(request.getParameter("input_date_debut_enchere"));
 			LocalDateTime dateFinEnchere = LocalDateTime.parse(request.getParameter("input_date_fin_enchere"));
-			
+
+			String photo = request.getParameter("input_photo");
 			String retraitRue = request.getParameter("input_rue");
 			String codePostal = request.getParameter("input_code_postal");
 			String ville = request.getParameter("input_ville");
@@ -97,7 +98,7 @@ public class ServletNouvelleVente extends HttpServlet {
 			}
 			
 			try {
-				int resultatAjoutArticle = articleManager.ajouterArticle(nom_article, description, dateDebutEnchere, dateFinEnchere, miseAPrix, vendeur, categorie, retraitRue, codePostal, ville);
+				int resultatAjoutArticle = articleManager.ajouterArticle(nom_article, description, dateDebutEnchere, dateFinEnchere, miseAPrix, vendeur, categorie, retraitRue, codePostal, ville, photo);
 				
 				if (resultatAjoutArticle != 0 ) {
 					request.setAttribute("messageVente", "L'article a bien été enregistré !");

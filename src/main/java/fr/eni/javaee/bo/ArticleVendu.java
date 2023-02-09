@@ -43,9 +43,12 @@ public class ArticleVendu {
 		this.categorieArticle = categorieArticle;
 		this.lieuRetrait = lieuRetrait;
 	}
+	
+
+	
 	public ArticleVendu(int noArticle, String nomArticle, String description, LocalDateTime dateDebutEncheres,
 			LocalDateTime dateFinEncheres, int miseAPrix, int prixVente, String etatVente, Utilisateur vendeur,
-			Categorie categorieArticle, String image) {
+			Categorie categorieArticle, Retrait retrait, String image) {
 		super();
 		this.noArticle = noArticle;
 		this.nomArticle = nomArticle;
@@ -61,7 +64,7 @@ public class ArticleVendu {
 	}
 
 	public ArticleVendu(String nomArticle, String description, LocalDateTime dateDebutEncheres, LocalDateTime dateFinEncheres,
-						int miseAPrix, int prixVente, Utilisateur vendeur, Categorie categorieArticle, Retrait lieuRetrait) {
+						int miseAPrix, int prixVente, Utilisateur vendeur, Categorie categorieArticle, Retrait lieuRetrait, String image) {
 		super();
 		this.nomArticle = nomArticle;
 		this.description = description;
@@ -73,7 +76,23 @@ public class ArticleVendu {
 		this.vendeur = vendeur;
 		this.categorieArticle = categorieArticle;
 		this.lieuRetrait = lieuRetrait;
+		this.image = image;
 	}
+	
+	public ArticleVendu(String nomArticle, String description, LocalDateTime dateDebutEncheres, LocalDateTime dateFinEncheres,
+			int miseAPrix, int prixVente, Utilisateur vendeur, Categorie categorieArticle, Retrait lieuRetrait) {
+super();
+this.nomArticle = nomArticle;
+this.description = description;
+this.dateDebutEncheres = dateDebutEncheres;
+this.dateFinEncheres = dateFinEncheres;
+this.miseAPrix = miseAPrix;
+this.prixVente = prixVente;
+this.etatVente = "CR";
+this.vendeur = vendeur;
+this.categorieArticle = categorieArticle;
+this.lieuRetrait = lieuRetrait;
+}
 	
 	public ArticleVendu(String nom_article, int prix_initial, LocalDateTime date_fin, Utilisateur user, Enchere prix_enchere, String etat_vente,
 			String image, int no_article) {

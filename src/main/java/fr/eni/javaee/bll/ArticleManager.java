@@ -62,13 +62,13 @@ public class ArticleManager {
 		}
 		
 		public int ajouterArticle( String nomArticle, String description, LocalDateTime dateDebutEnchere, LocalDateTime dateFinEnchere,
-									int miseAPrix, Utilisateur user, String categorieLibelle, String retraitRue, String codePostal, String ville) throws BusinessException {
+									int miseAPrix, Utilisateur user, String categorieLibelle, String retraitRue, String codePostal, String ville, String photo) throws BusinessException {
 			CategorieManager categorieManager = new CategorieManager();
 			
 			Retrait retrait = new Retrait(retraitRue, codePostal, ville);
 			Categorie categorie = categorieManager.selectionnerParLibelle(categorieLibelle);
 			
-			ArticleVendu artAVendre = new ArticleVendu(nomArticle, description, dateDebutEnchere, dateFinEnchere, miseAPrix, 0, user, categorie, retrait);
+			ArticleVendu artAVendre = new ArticleVendu(nomArticle, description, dateDebutEnchere, dateFinEnchere, miseAPrix, 0, user, categorie, retrait, photo);
 			articleVenduDAO.insert(artAVendre);
 			
 			return artAVendre.getNoArticle();
