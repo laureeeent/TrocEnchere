@@ -59,7 +59,7 @@
 
 								<div class="sous_achats">
 
-									<input type="checkbox" id="enchere1" name="EC" value="1">
+									<input type="checkbox" id="enchere1" name="EC" value="1" checked>
 									<label for="EC">enchères ouvertes</label>
 									
 									<input type="checkbox" id="enchere2" name="mes_encheres" value="1" >
