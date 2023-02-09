@@ -66,8 +66,8 @@
 				</c:choose>
 			</c:when>
 			<c:otherwise>
-				<h4>Enchère terminée :</h4>
 				<%@include file="fragment/infoDeBaseEnchere.jsp"%>
+				<h4>Enchère terminée :</h4>
 				</c:otherwise>
 			</c:choose>
 			<c:choose>

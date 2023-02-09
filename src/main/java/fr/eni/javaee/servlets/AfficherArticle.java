@@ -1,6 +1,7 @@
 package fr.eni.javaee.servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -48,7 +49,18 @@ public class AfficherArticle extends HttpServlet {
 		} else {
 			ArticleManager articleManager = new ArticleManager();
 			List<ArticleVendu> liste_EnchereEC = articleManager.selectionnerByEtat("EC", 0);
-			request.setAttribute("listeArticles", liste_EnchereEC);
+			List<ArticleVendu> liste_EnchereCR = articleManager.selectionnerByEtat("CR", 0);
+			List<ArticleVendu> liste_EnchereVD = articleManager.selectionnerByEtat("VD", 0);
+			List<ArticleVendu> liste_EnchereRT = articleManager.selectionnerByEtat("RT", 0);
+			
+			List<ArticleVendu> listeTousLesArticles = new ArrayList<ArticleVendu>();
+			listeTousLesArticles.addAll(liste_EnchereEC);
+			listeTousLesArticles.addAll(liste_EnchereCR);
+			listeTousLesArticles.addAll(liste_EnchereVD);
+			listeTousLesArticles.addAll(liste_EnchereRT);
+			
+			
+			request.setAttribute("listeArticles", listeTousLesArticles);
 			RequestDispatcher rs = request.getRequestDispatcher("./WEB-INF/JSP/detailEnchere.jsp");
 			session.setAttribute("utilisateur", user);
 
