@@ -54,53 +54,56 @@
 								<legend>Selectioner Achats ou Mes ventes:</legend>
 
 								<input type="radio" id="achats" name="choix" value="achats"
-									 onselect="griser()"> <label for="achats">Achats</label>
+									 onclick="griserVentes()" checked> <label for="achats">Achats</label>
 								<c:if test="achat"></c:if>
 
 								<div class="sous_achats">
-									<input type="checkbox" id="enchere" name="EC" value="1" checked>
+
+									<input type="checkbox" id="enchere1" name="EC" value="1">
 									<label for="EC">enchères ouvertes</label>
 									
-									<input type="checkbox" id="enchere" name="mes_encheres" value="1">
+									<input type="checkbox" id="enchere2" name="mes_encheres" value="1" >
 									<label for="mes_encheres">mes enchères</label> 
 									
-									<input type="checkbox" id="enchere" name="mes_encheres_remportees" value="1">
+									<input type="checkbox" id="enchere3" name="mes_encheres_remportees" value="1"  >
 									<label for="mes_encheres_remportees">mes enchères remportées</label>
 
 								</div>
 
 
-								<input type="radio" id="mes_ventes" name="choix" value="mes_ventes" onselect="griser()">
+								<input type="radio" id="mes_ventes" name="choix" value="mes_ventes" onclick="griserAchat()">
 								<label for="mes_ventes">Mes ventes</label>
 								
 								<div class="sous_ventes" id="vente">
-									<input type="checkbox" id="ventes" name="ventes_EC" checked>
+									<input type="checkbox" id="ventes1" name="ventes_EC" checked>
 									<label for="ventes_EC">mes ventes en cours</label> 
 									
-									<input type="checkbox" id="ventes" name="ventes_CR">
+									<input type="checkbox" id="ventes2" name="ventes_CR">
 									<label for="ventes_CR">ventes non débutées</label>
 									
-									<input type="checkbox" id="ventes" name="VD">
+									<input type="checkbox" id="ventes3" name="VD">
 									<label for="VD">ventes terminées</label>
 								</div>
 
 								<script>
-								  function griser(){
-								    let bouttonAchat = document.getElementById("enchere");
-								    let disabledAchat = bouttonAchat.getAttribute("disabled")
-								    
-								    
-								    let bouttonVentes = document.getElementById("ventes");
-								    let disabledVentes = bouttonAchat.getAttribute("disabled")
-								
-								    if (disabledVentes) {
-								    	bouttonAchat.disabled = false;
-								    	bouttonVentes.disabled = true;
-								    } else {
-								    	bouttonAchat.disabled = true;
-								    	bouttonVentes.disabled = false;
-								    }
-	
+								  function griserAchat(){
+										document.getElementById("enchere1").disabled = true;
+										document.getElementById("enchere2").disabled = true;
+										document.getElementById("enchere3").disabled = true;
+										document.getElementById("ventes1").disabled = false;
+										document.getElementById("ventes2").disabled = false;
+										document.getElementById("ventes3").disabled = false;
+								  }
+								  function griserVentes(){
+										document.getElementById("enchere1").disabled = false;
+										document.getElementById("enchere2").disabled = false;
+										document.getElementById("enchere3").disabled = false;
+										document.getElementById("ventes1").disabled = true;
+										document.getElementById("ventes2").disabled = true;
+										document.getElementById("ventes3").disabled = true;
+									  }
+								  function check(elementId, bool){
+									  document.getElement(elementId).checked = bool;
 								  }
 								</script>
 							
