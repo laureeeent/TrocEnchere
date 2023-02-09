@@ -37,6 +37,8 @@ public class AfficherArticle extends HttpServlet {
 		int numArt = Integer.parseInt(id_article);
 		HttpSession session = request.getSession();
 		Utilisateur user = (Utilisateur) session.getAttribute("utilisateur");
+		
+
 
 		if (!submit.equals("Voir l'enchère")) {
 			session.setAttribute("utilisateur", user);
@@ -45,7 +47,7 @@ public class AfficherArticle extends HttpServlet {
 			rs.forward(request, response);
 		} else {
 			ArticleManager articleManager = new ArticleManager();
-			List<ArticleVendu> liste_EnchereEC = articleManager.selectionnerByEtat("EC");
+			List<ArticleVendu> liste_EnchereEC = articleManager.selectionnerByEtat("EC", 0);
 			request.setAttribute("listeArticles", liste_EnchereEC);
 			RequestDispatcher rs = request.getRequestDispatcher("./WEB-INF/JSP/detailEnchere.jsp");
 			session.setAttribute("utilisateur", user);

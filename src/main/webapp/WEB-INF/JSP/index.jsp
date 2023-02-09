@@ -21,6 +21,8 @@
 	<%
 	//Utilisateur user = (Utilisateur) session.getAttribute("utilisateur");
 	%>
+	
+
 	<header id="h_principal">
 		<%@include file="fragment/div_id_entete.jsp"%>
 		<div id="titre_page">
@@ -52,7 +54,7 @@
 								<legend>Selectioner Achats ou Mes ventes:</legend>
 
 								<input type="radio" id="achats" name="choix" value="achats"
-									checked> <label for="achats">Achats</label>
+									 onselect="griser()"> <label for="achats">Achats</label>
 								<c:if test="achat"></c:if>
 
 								<div class="sous_achats">
@@ -68,7 +70,7 @@
 								</div>
 
 
-								<input type="radio" id="mes_ventes" name="choix" value="mes_ventes">
+								<input type="radio" id="mes_ventes" name="choix" value="mes_ventes" onselect="griser()">
 								<label for="mes_ventes">Mes ventes</label>
 								
 								<div class="sous_ventes" id="vente">
@@ -81,6 +83,28 @@
 									<input type="checkbox" id="ventes" name="VD">
 									<label for="VD">ventes terminées</label>
 								</div>
+
+								<script>
+								  function griser(){
+								    let bouttonAchat = document.getElementById("enchere");
+								    let disabledAchat = bouttonAchat.getAttribute("disabled")
+								    
+								    
+								    let bouttonVentes = document.getElementById("ventes");
+								    let disabledVentes = bouttonAchat.getAttribute("disabled")
+								
+								    if (disabledVentes) {
+								    	bouttonAchat.disabled = false;
+								    	bouttonVentes.disabled = true;
+								    } else {
+								    	bouttonAchat.disabled = true;
+								    	bouttonVentes.disabled = false;
+								    }
+	
+								  }
+								</script>
+							
+
 
 							</fieldset>
 						</div>
@@ -376,5 +400,9 @@
 
 	</main>
 	<footer id="f_principal"></footer>
+	
+	
+
+	
 </body>
 </html>
