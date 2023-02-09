@@ -67,9 +67,8 @@
 			</c:when>
 			<c:otherwise>
 				<h4>Enchère terminée :</h4>
-				<label id="mise_a_prix"> Mise à prix : ${articleById.getMiseAPrix()}</label><br>
-				<label id="meilleureOffre"> Dernière enchère de $ : ${articleById.getEnchere() != null ? articleById.getEnchere().getMontantEnchere() : 0} faite par ${articleById.getEnchere() != null ? articleById.getEnchere().getAcheteur().getPseudo() :  "Aucun acheteur" }</label>
-			</c:otherwise>
+				<%@include file="fragment/infoDeBaseEnchere.jsp"%>
+				</c:otherwise>
 			</c:choose>
 			<c:choose>
 				<c:when test="${articleById.getEnchere().getAcheteur().getNoUtilisateur()==utilisateur.getNoUtilisateur() and articleById.getEtatVente().equals('VD') }">
