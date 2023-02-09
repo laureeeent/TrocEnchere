@@ -44,7 +44,7 @@
 				
 				<h4>Ma proposition :</h4>
 				<c:if
-					test="${ (utilisateur.getCredit() < articleById.getMiseAPrix() or utilisateur.getCredit() <= articleById.getEnchere().getMontantEnchere() ) and utilisateur.getNoUtilisateur() != articleById.getEnchere().getAcheteur().getNoUtilisateur()}">
+					test="${ utilisateur.getCredit() < articleById.getMiseAPrix() or utilisateur.getCredit() <= articleById.getEnchere().getMontantEnchere()  and utilisateur.getNoUtilisateur() != articleById.getEnchere().getAcheteur().getNoUtilisateur()}">
 					<p style="color: red;">Crédit insuffisant ! Pour augmenter votre crédit n'hésitez pas à <strong> <a href="ServletNouvelleVente">vendre des articles !</a></strong></p>
 					
 				</c:if>
