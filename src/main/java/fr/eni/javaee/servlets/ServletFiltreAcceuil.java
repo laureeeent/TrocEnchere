@@ -69,6 +69,19 @@ public class ServletFiltreAcceuil extends HttpServlet {
 					if (filtreUserEnchereRemportee != null) {
 						request.setAttribute("listeArticlesEnchereUserRemportee", articleManager.selectionnerEnchereUser(user, "remportee", noCategorie));
 					}
+					else if (filtreEC == null && filtreUserEnchereEC == null && filtreUserEnchereRemportee == null) {
+						List<ArticleVendu> listeArticlesCR = articleManager.selectionnerByEtat("CR", noCategorie);
+						List<ArticleVendu> listeArticlesEC = articleManager.selectionnerByEtat("EC", noCategorie);
+						List<ArticleVendu> listeArticlesVD = articleManager.selectionnerByEtat("VD", noCategorie);
+						List<ArticleVendu> listeArticlesRT = articleManager.selectionnerByEtat("RT", noCategorie);
+						List<ArticleVendu> listeArticlesVendu = new ArrayList<ArticleVendu>();
+						listeArticlesVendu.addAll(listeArticlesCR);
+						listeArticlesVendu.addAll(listeArticlesEC);
+						listeArticlesVendu.addAll(listeArticlesVD);
+						listeArticlesVendu.addAll(listeArticlesRT);
+						
+						request.setAttribute("listeTousArticles", listeArticlesVendu);
+					}
 				} catch (BusinessException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -101,6 +114,18 @@ public class ServletFiltreAcceuil extends HttpServlet {
 						listeArticlesVendu.addAll(listeArticlesRT);
 						
 						request.setAttribute("listeVentesVDRT", listeArticlesVendu);
+					}
+					
+					if (filtreVentesECUser == null && filtresVentesCR == null && filtresVentesVDRT == null ) {
+						List<ArticleVendu> listeArticlesEC = articleManager.selectionnerByEtat("EC", noCategorie);
+						List<ArticleVendu> listeArticlesVD = articleManager.selectionnerByEtat("VD", noCategorie);
+						List<ArticleVendu> listeArticlesRT = articleManager.selectionnerByEtat("RT", noCategorie);
+						List<ArticleVendu> listeArticlesVendu = new ArrayList<ArticleVendu>();
+						listeArticlesVendu.addAll(listeArticlesEC);
+						listeArticlesVendu.addAll(listeArticlesVD);
+						listeArticlesVendu.addAll(listeArticlesRT);
+						
+						request.setAttribute("listeTousVentes", listeArticlesVendu);
 					}
 					request.setAttribute("listeCategories", categorieManager.selectionnerToutesLesCategories());
 					rd.forward(request, response);

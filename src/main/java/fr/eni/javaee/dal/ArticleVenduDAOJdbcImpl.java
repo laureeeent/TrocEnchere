@@ -27,7 +27,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 	
 	private static final String INSERT = "INSERT INTO ARTICLES_VENDUS"
 						+ "(nom_article, description, date_debut_enchere, date_fin_enchere, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente, image)"
-						+ " VALUES(?,?,?,?,?,?,?,?,DEFAULT,null) ";
+						+ " VALUES(?,?,?,?,?,?,?,?,DEFAULT,?) ";
 	
 	private static final String SELECT_BY_ID = "SELECT * FROM ARTICLES_VENDUS WHERE no_article=?;";
 	private static final String SELECT_ARTICLE_ENCHERE_BY_ETAT = "SELECT nom_article, prix_initial, date_fin_enchere, pseudo,montant_enchere, etat_vente,image, no_categorie,"
@@ -89,8 +89,10 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			pst.setInt(7, data.getVendeur().getNoUtilisateur());
 			System.out.println(data.getCategorieArticle());
 			pst.setInt(8, data.getCategorieArticle().getNoCategorie());
+			pst.setString(9, data.getImage());
 			
 			pst.executeUpdate();
+			
 			ResultSet rs = pst.getGeneratedKeys();
 			if (rs.next()) {
 				data.setNoArticle(rs.getInt(1));

@@ -167,6 +167,46 @@
 
 		
 		<div id=listes_achats>
+			<c:if test="${listeTousArticles != null }">
+				<h3 class="titre_liste_h3" >--- Toutes les enchères : --- </h3>
+				<c:forEach var="article" items="${listeTousArticles }">
+					<form class="form_list_article2" action="AfficherArticle" method="get" name="id">
+
+						<div id="conteneur_article">
+							<div class="img_conteneur_article">
+								<img class="img_conteneur_article" alt="#" src="${article.getImage()}">
+							</div>
+							<div class="texte_conteneur_article">
+								<input type="text" hidden="none" name="id"
+									value="${article.getNoArticle()}">
+								<p class="designation_article">${article.getNomArticle()}</p>
+								<p class="prix_initial">
+									Prix initial:
+									<c:out value="${article.getMiseAPrix()}"></c:out>
+								</p>
+								<p class="prix_encheres">
+									Prix enchère:
+									<c:out value="${article.getEnchere().getMontantEnchere() }"></c:out>
+								</p>
+								<p class="date_fin_enchere_article">
+									Fin de l'enchère :
+									<c:out value="${article.getDateFinEncheres()}"></c:out>
+								</p>
+								<p class="vendeur_enchere_article">
+									Vendeur: <input type="submit" name="select_article"
+												value="${article.getVendeur().getPseudo()}">
+								</p>
+								<input type="submit" name="select_article"
+									value="Voir l'enchère">
+							</div>
+						</div>
+					</form>
+				</c:forEach>
+			</c:if>
+		
+		
+		
+		
 			<c:if test="${listeArticlesEC != null }">
 				<h3 class="titre_liste_h3" >--- Enchères en cours : --- </h3>
 				<c:forEach var="article" items="${listeArticlesEC }">
@@ -279,9 +319,53 @@
 				</c:forEach>
 			</c:if>
 		</div>
+		
+		
+		
+		
 
 			
 			<div id="liste_ventes">
+			
+				<c:if test="${listeTousVentes != null }">
+					<h3 class="titre_liste_h3" >--- Toutes les enchères : --- </h3>
+					<c:forEach var="article" items="${listeTousVentes }">
+						<form class="form_list_article2" action="AfficherArticle" method="get" name="id">
+	
+							<div id="conteneur_article">
+								<div class="img_conteneur_article">
+									<img class="img_conteneur_article" alt="#" src="${article.getImage()}">
+								</div>
+								<div class="texte_conteneur_article">
+									<input type="text" hidden="none" name="id"
+										value="${article.getNoArticle()}">
+									<p class="designation_article">${article.getNomArticle()}</p>
+									<p class="prix_initial">
+										Prix initial:
+										<c:out value="${article.getMiseAPrix()}"></c:out>
+									</p>
+									<p class="prix_encheres">
+										Prix enchère:
+										<c:out value="${article.getEnchere().getMontantEnchere() }"></c:out>
+									</p>
+									<p class="date_fin_enchere_article">
+										Fin de l'enchère :
+										<c:out value="${article.getDateFinEncheres()}"></c:out>
+									</p>
+									<p class="vendeur_enchere_article">
+										Vendeur: <input type="submit" name="select_article"
+													value="${article.getVendeur().getPseudo()}">
+									</p>
+									<input type="submit" name="select_article"
+										value="Voir l'enchère">
+								</div>
+							</div>
+						</form>
+					</c:forEach>
+				</c:if>
+			
+			
+			
 				<c:if test="${listeVentesUserEC != null }">
 					<h3 class="titre_liste_h3" >--- Mes Ventes en cours : ---</h3>
 					<c:forEach var="article" items="${listeVentesUserEC }">
