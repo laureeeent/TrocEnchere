@@ -43,7 +43,6 @@ public class ServletAfficherCompte extends HttpServlet {
 		if (pseudo != null) {
 
 			try {
-				System.out.println(pseudo);
 				userAffichage = utilsateurManager.getUtilisateur(pseudo);
 			} catch (BusinessException e) {
 				// TODO Auto-generated catch block
@@ -57,11 +56,9 @@ public class ServletAfficherCompte extends HttpServlet {
 					request.setAttribute("param_pseudo", param_pseudo);
 					rs = request.getRequestDispatcher("./WEB-INF/JSP/pageAffichagePseudo.jsp");
 					rs.forward(request, response);
-					System.out.println("c'est le meme gars normalement");
 				} else {
 					request.setAttribute("autre_profil", userAffichage);
 					session.getAttribute("utilisateur");
-					System.out.println("c'est PAS le meme gars normalement");
 					rs = request.getRequestDispatcher("./WEB-INF/JSP/pageAffichagePseudo.jsp");
 					rs.forward(request, response);
 				}
@@ -90,7 +87,6 @@ public class ServletAfficherCompte extends HttpServlet {
 			rs.forward(request, response);
 		}
 		if (pseudo == null) {
-			System.out.println("pas de pseudo donc meme gars afficher");
 			request.setAttribute("pseudo", pseudo);
 			rs = request.getRequestDispatcher("./WEB-INF/JSP/pageAffichagePseudo.jsp");
 			rs.forward(request, response);
